@@ -1,0 +1,245 @@
+/* WCAG AA Accessibility Utilities */
+/* Supreme Design System - Accessibility First */
+
+/* Text Color Utilities - WCAG AA Compliant */
+.text-accessible-primary {
+  color: var(--color-text-on-light) !important;
+}
+
+.text-accessible-secondary {
+  color: var(--color-text-muted-accessible) !important;
+}
+
+.text-accessible-inverse {
+  color: var(--color-text-on-dark) !important;
+}
+
+.text-accessible-link {
+  color: var(--color-text-link) !important;
+}
+
+.text-accessible-link:hover,
+.text-accessible-link:focus {
+  color: var(--color-text-link-hover) !important;
+}
+
+/* Background-Specific Text Colors */
+.text-on-primary {
+  color: var(--color-text-on-primary) !important;
+}
+
+.text-on-secondary {
+  color: var(--color-text-on-secondary) !important;
+}
+
+.text-on-accent {
+  color: var(--color-text-on-accent) !important;
+}
+
+.text-on-gold {
+  color: var(--color-text-on-gold) !important;
+}
+
+.text-on-sage {
+  color: var(--color-text-on-sage) !important;
+}
+
+/* Focus Management */
+.focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.focus-visible:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Skip Links for Screen Readers */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--color-primary);
+  color: var(--color-text-on-primary);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  font-weight: 600;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .text-accessible-primary {
+    color: #000000 !important;
+  }
+  
+  .text-accessible-inverse {
+    color: #ffffff !important;
+  }
+  
+  .text-accessible-link {
+    color: #1A1A1A !important;
+  }
+  
+  .focus-visible:focus-visible {
+    outline: 3px solid #000000;
+    outline-offset: 2px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
+  
+  .focus-visible {
+    transition: none;
+  }
+}
+
+/* Touch Target Utilities */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.touch-target-large {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ARIA Live Regions */
+.live-region {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Color Contrast Utilities */
+.contrast-aa {
+  /* Ensures minimum 4.5:1 contrast ratio */
+  color: var(--color-text-on-light);
+  background-color: var(--color-neutral-100);
+}
+
+.contrast-aaa {
+  /* Ensures minimum 7:1 contrast ratio */
+  color: #000000;
+  background-color: #ffffff;
+}
+
+/* Interactive Element States */
+.interactive-element {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.interactive-element:hover {
+  background-color: var(--color-hover-light);
+}
+
+.interactive-element:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.interactive-element:active {
+  background-color: var(--color-active);
+}
+
+/* Disabled State */
+.disabled,
+.interactive-element:disabled {
+  opacity: var(--opacity-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Error States */
+.error-text {
+  color: var(--color-error);
+  font-weight: 500;
+}
+
+.error-border {
+  border-color: var(--color-error);
+  border-width: 2px;
+}
+
+/* Success States */
+.success-text {
+  color: var(--color-success);
+  font-weight: 500;
+}
+
+.success-border {
+  border-color: var(--color-success);
+  border-width: 2px;
+}
+
+/* Warning States */
+.warning-text {
+  color: var(--color-warning);
+  font-weight: 500;
+}
+
+.warning-border {
+  border-color: var(--color-warning);
+  border-width: 2px;
+}
+
+/* Keyboard Navigation Indicators */
+.keyboard-navigation .interactive-element:focus {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Print Styles for Accessibility */
+@media print {
+  .text-accessible-link {
+    color: #000000 !important;
+    text-decoration: underline !important;
+  }
+  
+  .skip-link {
+    display: none;
+  }
+}

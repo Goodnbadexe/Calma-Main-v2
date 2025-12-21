@@ -1,0 +1,56 @@
+/* Shared section and container utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Aspect ratio utilities */
+.ratio-16-9 { aspect-ratio: 16 / 9; }
+.ratio-4-3  { aspect-ratio: 4 / 3; }
+.ratio-1-1  { aspect-ratio: 1 / 1; }
+.ratio-3-4  { aspect-ratio: 3 / 4; }
+
+/* Media cover utility for <img>/<video> inside ratio boxes */
+.media-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Metallic silver border card */
+.metallic-card {
+  position: relative;
+  border-radius: 24px;
+  border: 2px solid transparent;
+  background:
+    radial-gradient(100% 100% at 50% 50%, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)) padding-box,
+    conic-gradient(from 0deg, #ffffff, #cfd6de, #9ea4ac, #ffffff) border-box;
+  background-clip: padding-box, border-box;
+  box-shadow:
+    0 0 18px rgba(255, 255, 255, 0.35),
+    0 30px 60px rgba(0, 0, 0, 0.5);
+  transition: transform var(--dur-medium) var(--ease-out), box-shadow var(--dur-medium) var(--ease-out);
+}
+.metallic-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 24px rgba(255, 255, 255, 0.45),
+    0 40px 80px rgba(0, 0, 0, 0.55);
+}
+.metallic-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #cfd3d7;
+  letter-spacing: 0.6px;
+}
+

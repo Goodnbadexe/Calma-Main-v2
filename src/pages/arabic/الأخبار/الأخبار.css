@@ -1,0 +1,17 @@
+@import '../../english/News/News.css';
+
+.news-page[dir="rtl"] .section-header .header-content {
+  flex-direction: row-reverse;
+}
+
+.news-page[dir="rtl"] .hero-text h1,
+.news-page[dir="rtl"] .hero-text p,
+.news-page[dir="rtl"] .section-header h2,
+.news-page[dir="rtl"] .section-header p {
+  text-align: right;
+}
+
+.news-page[dir="rtl"] .newsletter-form {
+  flex-direction: row-reverse;
+}
+

@@ -1,0 +1,414 @@
+/* Register Page Styles */
+@import url('../../../styles/color-palette.css');
+
+.register-page {
+  min-height: 100vh;
+  background: var(--gradient-light-luxury);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Hero Section */
+.register-hero {
+  position: relative;
+  background: var(--gradient-dark-luxury);
+  color: var(--color-text-inverse);
+  padding: 120px 0 80px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.register-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 20%, var(--color-overlay-light) 0%, transparent 50%),
+             radial-gradient(circle at 70% 80%, var(--color-overlay-subtle) 0%, transparent 50%);
+  animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(1deg); }
+}
+
+.register-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.register-hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.2;
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-accent-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.register-hero p {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Form Section */
+.register-form-section {
+  padding: var(--spacing-xxl) 0;
+  position: relative;
+}
+
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.register-form {
+  background: var(--color-neutral-100);
+  padding: var(--spacing-xxl);
+  border-radius: 24px;
+  box-shadow: var(--shadow-luxury);
+  border: 1px solid var(--color-border-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.register-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-gold);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xxl);
+}
+
+.form-header h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.form-header p {
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+  letter-spacing: 0.025em;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: var(--spacing-md);
+  border: 2px solid var(--color-border-light);
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all var(--transition-smooth);
+  background: var(--color-neutral-100);
+  color: var(--color-text-primary);
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+  transform: translateY(-1px);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* Checkbox Group */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.checkbox-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--color-gold);
+  cursor: pointer;
+}
+
+.checkbox-item label {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Submit Button */
+.submit-button {
+  background: var(--gradient-gold);
+  color: var(--color-text-inverse);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: var(--spacing-md) var(--spacing-xxl);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  margin: var(--spacing-xl) auto 0;
+  display: block;
+  min-width: 200px;
+  box-shadow: 0 8px 24px var(--color-shadow-medium);
+  transform: translateY(-3px);
+}
+
+.register-btn:active {
+  box-shadow: 0 12px 32px var(--color-shadow-strong);
+  background: linear-gradient(135deg, var(--color-gold-dark) 0%, var(--color-gold) 100%);
+}
+
+.submit-button:active {
+  transform: translateY(-1px);
+}
+
+/* Benefits Section */
+.benefits-section {
+  padding: var(--spacing-xxl) 0;
+  background: var(--color-neutral-100);
+}
+
+.benefits-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.benefits-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xxl);
+}
+
+.benefits-header h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+.benefit-card {
+  background: var(--color-neutral-100);
+  padding: var(--spacing-xl);
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--color-border-light);
+  transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.benefit-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--color-accent-subtle), transparent);
+  transition: left 0.6s ease;
+}
+
+.benefit-card:hover::before {
+  left: 100%;
+}
+
+.benefit-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-luxury);
+  border-color: var(--color-gold);
+}
+
+.benefit-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto var(--spacing-lg);
+  color: var(--color-gold);
+}
+
+.benefit-card h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.benefit-card p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .register-hero {
+    padding: 100px 0 60px;
+  }
+  
+  .register-form {
+    padding: var(--spacing-xl);
+    margin: 0 var(--spacing-md);
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  .benefit-card {
+    padding: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .register-hero {
+    padding: 80px 0 40px;
+  }
+  
+  .register-hero-content,
+  .form-container,
+  .benefits-container {
+    padding: 0 var(--spacing-md);
+  }
+  
+  .register-form {
+    padding: var(--spacing-lg);
+    margin: 0 var(--spacing-sm);
+    border-radius: 16px;
+  }
+  
+  .form-grid {
+    gap: var(--spacing-md);
+  }
+  
+  .submit-button {
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: 1rem;
+  }
+  
+  .benefit-card {
+    padding: var(--spacing-md);
+  }
+  
+  .benefit-icon {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* Loading State */
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submit-button.loading {
+  position: relative;
+  color: transparent;
+}
+
+.submit-button.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--color-neutral-100);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Focus Accessibility */
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible,
+.submit-button:focus-visible,
+.checkbox-item input:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}

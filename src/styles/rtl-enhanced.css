@@ -1,0 +1,375 @@
+/* Enhanced RTL Support for Arabic Pages */
+/* Comprehensive Right-to-Left layout system for Calma Website */
+
+/* ===== RTL BASE STYLES ===== */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] * {
+  direction: rtl;
+}
+
+/* ===== TYPOGRAPHY ENHANCEMENTS ===== */
+[dir="rtl"] {
+  font-family: 'Tajawal', 'Cairo', 'Amiri', 'Noto Sans Arabic', 'Arial', sans-serif;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+}
+
+[dir="rtl"] h1, 
+[dir="rtl"] h2, 
+[dir="rtl"] h3, 
+[dir="rtl"] h4, 
+[dir="rtl"] h5, 
+[dir="rtl"] h6 {
+  font-family: 'Tajawal', 'Cairo', 'Amiri', 'Noto Sans Arabic', sans-serif;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: right;
+}
+
+[dir="rtl"] p, 
+[dir="rtl"] li, 
+[dir="rtl"] span {
+  font-family: 'Tajawal', 'Cairo', 'Noto Sans Arabic', sans-serif;
+  line-height: 1.8;
+  text-align: right;
+}
+
+/* ===== LAYOUT ADJUSTMENTS ===== */
+[dir="rtl"] .container,
+[dir="rtl"] .section-inner {
+  text-align: right;
+}
+
+[dir="rtl"] .hero-content,
+[dir="rtl"] .section-content {
+  text-align: center;
+}
+
+/* ===== NAVIGATION RTL ===== */
+[dir="rtl"] .nav-links {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nav-item {
+  margin-left: 0;
+  margin-right: 2rem;
+}
+
+[dir="rtl"] .nav-item:last-child {
+  margin-right: 0;
+}
+
+[dir="rtl"] .dropdown-menu {
+  right: 0;
+  left: auto;
+  text-align: right;
+}
+
+[dir="rtl"] .mobile-menu {
+  right: 0;
+  left: auto;
+}
+
+/* ===== BUTTON RTL ADJUSTMENTS ===== */
+[dir="rtl"] .button,
+[dir="rtl"] .btn {
+  text-align: center;
+  direction: rtl;
+}
+
+[dir="rtl"] .button-with-icon {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .button-with-icon .icon {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+/* ===== FORM RTL STYLES ===== */
+[dir="rtl"] .form-group {
+  text-align: right;
+}
+
+[dir="rtl"] .form-label {
+  text-align: right;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+[dir="rtl"] .form-input,
+[dir="rtl"] .form-textarea,
+[dir="rtl"] .form-select {
+  text-align: right;
+  direction: rtl;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+[dir="rtl"] .form-input::placeholder,
+[dir="rtl"] .form-textarea::placeholder {
+  text-align: right;
+  direction: rtl;
+}
+
+/* ===== GRID AND FLEXBOX RTL ===== */
+[dir="rtl"] .grid-rtl {
+  direction: rtl;
+}
+
+[dir="rtl"] .flex-rtl {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .justify-start {
+  justify-content: flex-end;
+}
+
+[dir="rtl"] .justify-end {
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* ===== MARGIN AND PADDING RTL ===== */
+[dir="rtl"] .mr-auto {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+[dir="rtl"] .ml-auto {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir="rtl"] .pr-4 {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+[dir="rtl"] .pl-4 {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+/* ===== CARD COMPONENTS RTL ===== */
+[dir="rtl"] .card {
+  text-align: right;
+}
+
+[dir="rtl"] .card-header {
+  text-align: right;
+}
+
+[dir="rtl"] .card-body {
+  text-align: right;
+}
+
+[dir="rtl"] .card-footer {
+  text-align: right;
+}
+
+/* ===== HERO SECTION RTL ===== */
+[dir="rtl"] .hero-section {
+  text-align: center;
+}
+
+[dir="rtl"] .hero-title {
+  text-align: center;
+  line-height: 1.3;
+}
+
+[dir="rtl"] .hero-subtitle {
+  text-align: center;
+  line-height: 1.8;
+}
+
+[dir="rtl"] .hero-description {
+  text-align: center;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ===== CONTENT SECTIONS RTL ===== */
+[dir="rtl"] .content-section {
+  text-align: right;
+}
+
+[dir="rtl"] .content-title {
+  text-align: right;
+  margin-bottom: 1.5rem;
+}
+
+[dir="rtl"] .content-body {
+  text-align: right;
+  line-height: 1.8;
+}
+
+/* ===== PROJECT CARDS RTL ===== */
+[dir="rtl"] .project-card {
+  text-align: right;
+}
+
+[dir="rtl"] .project-title {
+  text-align: right;
+}
+
+[dir="rtl"] .project-description {
+  text-align: right;
+  line-height: 1.8;
+}
+
+[dir="rtl"] .project-meta {
+  text-align: right;
+}
+
+/* ===== CONTACT FORM RTL ===== */
+[dir="rtl"] .contact-form {
+  text-align: right;
+}
+
+[dir="rtl"] .contact-info {
+  text-align: right;
+}
+
+[dir="rtl"] .contact-card {
+  text-align: center;
+}
+
+/* ===== FOOTER RTL ===== */
+[dir="rtl"] .footer {
+  text-align: right;
+}
+
+[dir="rtl"] .footer-section {
+  text-align: right;
+}
+
+[dir="rtl"] .footer-links {
+  text-align: right;
+}
+
+[dir="rtl"] .footer-link {
+  text-align: right;
+}
+
+/* ===== ANIMATIONS RTL ===== */
+[dir="rtl"] .slide-in-right {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+[dir="rtl"] .slide-in-left {
+  animation: slideInRight 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ===== RESPONSIVE RTL ADJUSTMENTS ===== */
+@media (max-width: 768px) {
+  [dir="rtl"] .mobile-rtl {
+    text-align: center;
+  }
+  
+  [dir="rtl"] .mobile-nav {
+    text-align: right;
+  }
+  
+  [dir="rtl"] .mobile-menu-item {
+    text-align: right;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  [dir="rtl"] .hero-title {
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1.3;
+  }
+  
+  [dir="rtl"] .hero-subtitle {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    line-height: 1.8;
+  }
+}
+
+/* ===== ACCESSIBILITY RTL ===== */
+[dir="rtl"] .sr-only {
+  direction: rtl;
+}
+
+[dir="rtl"] .focus-visible {
+  outline-offset: 2px;
+}
+
+[dir="rtl"] .skip-link {
+  right: 1rem;
+  left: auto;
+}
+
+/* ===== UTILITY CLASSES RTL ===== */
+.rtl-text-right {
+  text-align: right !important;
+}
+
+.rtl-text-center {
+  text-align: center !important;
+}
+
+.rtl-text-left {
+  text-align: left !important;
+}
+
+.rtl-flex-reverse {
+  flex-direction: row-reverse !important;
+}
+
+.rtl-justify-end {
+  justify-content: flex-end !important;
+}
+
+.rtl-justify-start {
+  justify-content: flex-start !important;
+}
+
+/* ===== PRINT RTL STYLES ===== */
+@media print {
+  [dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  [dir="rtl"] .page-break {
+    page-break-before: always;
+  }
+}

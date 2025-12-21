@@ -1,0 +1,208 @@
+/**
+ * Dark Mode Theme System
+ * Supreme Design System - Universal Edition
+ * 
+ * Comprehensive dark mode implementation using CSS custom properties
+ * with automatic user preference detection and smooth transitions.
+ */
+
+/* Dark mode color palette */
+:root[data-theme="dark"] {
+  /* Primary colors - adjusted for dark backgrounds */
+  --color-primary: #071E1F;
+  --color-primary-hover: #0C2D30;
+  --color-primary-active: #052022;
+  --color-primary-light: rgba(7, 30, 31, 0.12);
+  --color-primary-dark: #071E1F;
+
+  /* Secondary colors */
+  --color-secondary: #A78BFA; /* Purple adjusted for dark mode */
+  --color-secondary-hover: #B794F6;
+  --color-secondary-active: #9F7AEA;
+  --color-secondary-light: rgba(167, 139, 250, 0.1);
+
+  /* Accent colors */
+  --color-accent: #F59E0B; /* Warm amber for dark mode */
+  --color-accent-hover: #FBBF24;
+  --color-accent-active: #D97706;
+  --color-accent-light: rgba(245, 158, 11, 0.1);
+
+  /* Background colors */
+  --color-background: #0F0F0F; /* Deep black */
+  --color-background-secondary: #1A1A1A; /* Slightly lighter */
+  --color-background-tertiary: #262626; /* Cards and panels */
+  --color-background-elevated: #2D2D2D; /* Elevated surfaces */
+  --color-background-overlay: rgba(15, 15, 15, 0.95);
+
+  /* Surface colors */
+  --color-surface: #1A1A1A;
+  --color-surface-hover: #262626;
+  --color-surface-active: #2D2D2D;
+  --color-surface-border: #404040;
+  --color-surface-elevated: #333333;
+
+  /* Text colors - optimized for dark backgrounds */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: rgba(255, 255, 255, 0.87);
+  --color-text-muted: rgba(255, 255, 255, 0.6);
+  --color-text-disabled: rgba(255, 255, 255, 0.38);
+  --color-text-inverse: #0F0F0F;
+  --color-text-accent: #F59E0B;
+
+  /* Border colors */
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border-light: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.24);
+  --color-border-accent: #F59E0B;
+
+  /* Shadow colors */
+  --color-shadow-light: rgba(0, 0, 0, 0.3);
+  --color-shadow-medium: rgba(0, 0, 0, 0.5);
+  --color-shadow-strong: rgba(0, 0, 0, 0.7);
+  --color-shadow-colored: rgba(79, 142, 247, 0.2);
+
+  /* Status colors - adjusted for dark mode */
+  --color-success: #10B981;
+  --color-success-light: rgba(16, 185, 129, 0.1);
+  --color-warning: #F59E0B;
+  --color-warning-light: rgba(245, 158, 11, 0.1);
+  --color-danger: #EF4444;
+  --color-danger-light: rgba(239, 68, 68, 0.1);
+  --color-info: #3B82F6;
+  --color-info-light: rgba(59, 130, 246, 0.1);
+
+  /* Interactive states */
+  --color-interactive-hover: rgba(255, 255, 255, 0.08);
+  --color-interactive-active: rgba(255, 255, 255, 0.12);
+  --color-interactive-focus: rgba(79, 142, 247, 0.4);
+  --color-interactive-disabled: rgba(255, 255, 255, 0.04);
+
+  /* Luxury brand colors - dark mode variants */
+  --color-gold-primary: #FFD700;
+  --color-gold-secondary: #FFC107;
+  --color-gold-accent: #FFEB3B;
+  --color-sage-primary: #9CAF88;
+  --color-sage-secondary: #8FA67C;
+  --color-sage-accent: #A4B894;
+
+  /* Gradients - dark mode */
+  --gradient-primary: linear-gradient(135deg, #071E1F 0%, #0C2D30 100%);
+  --gradient-secondary: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
+  --gradient-accent: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  --gradient-surface: linear-gradient(135deg, #1A1A1A 0%, #262626 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, rgba(15, 15, 15, 0.8) 100%);
+
+  /* Glass morphism effects */
+  --glass-background: rgba(26, 26, 26, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-backdrop-filter: blur(20px) saturate(180%);
+
+  /* Elevation shadows - dark mode */
+  --elevation-1: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --elevation-2: 0 4px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --elevation-3: 0 10px 15px rgba(0, 0, 0, 0.4), 0 4px 6px rgba(0, 0, 0, 0.3);
+  --elevation-4: 0 20px 25px rgba(0, 0, 0, 0.4), 0 10px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode specific component overrides */
+:root[data-theme="dark"] {
+  /* Navigation */
+  --navbar-background: var(--color-background-secondary);
+  --navbar-text: var(--color-text-primary);
+  --navbar-border: var(--color-border);
+
+  /* Cards */
+  --card-background: var(--color-surface);
+  --card-border: var(--color-border);
+  --card-shadow: var(--elevation-2);
+
+  /* Buttons */
+  --button-primary-bg: var(--color-primary);
+  --button-primary-text: var(--color-text-inverse);
+  --button-secondary-bg: var(--color-surface);
+  --button-secondary-text: var(--color-text-primary);
+  --button-ghost-bg: transparent;
+  --button-ghost-text: var(--color-text-secondary);
+
+  /* Forms */
+  --input-background: var(--color-surface);
+  --input-border: var(--color-border);
+  --input-text: var(--color-text-primary);
+  --input-placeholder: var(--color-text-muted);
+
+  /* Hero section */
+  --hero-background: var(--color-background);
+  --hero-text: var(--color-text-primary);
+  --hero-overlay: var(--gradient-overlay);
+}
+
+
+/* Smooth transitions for theme switching */
+*,
+*::before,
+*::after {
+  transition: 
+    background-color 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Dark mode specific image adjustments */
+:root[data-theme="dark"] img {
+  filter: brightness(0.9) contrast(1.1);
+}
+
+:root[data-theme="dark"] img[data-preserve-colors] {
+  filter: none;
+}
+
+/* Dark mode scrollbar styling */
+:root[data-theme="dark"] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+:root[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 4px;
+}
+
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Dark mode selection styling */
+:root[data-theme="dark"] ::selection {
+  background: var(--color-primary-light);
+  color: var(--color-text-primary);
+}
+
+/* Dark mode focus indicators */
+:root[data-theme="dark"] :focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Print styles for dark mode */
+@media print {
+  :root[data-theme="dark"] * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+}

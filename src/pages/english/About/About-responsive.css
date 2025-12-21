@@ -1,0 +1,553 @@
+/* About Page Responsive Styles */
+.about-page-container {
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100%;
+}
+
+.hero-gallery-item {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.hero-gallery-image:hover {
+  transform: scale(1.05);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(var(--color-accent-rgb), 0.3);
+  background-color: rgba(var(--color-accent-rgb), 0.12);
+  color: var(--color-accent);
+  backdrop-filter: blur(4px);
+}
+
+.hero-title {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+}
+
+.hero-title-gradient {
+  background: none;
+}
+
+.hero-subtitle {
+  margin-bottom: 2.4rem;
+  line-height: 1.6;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  max-width: 800px;
+  color: var(--color-text-secondary);
+}
+
+.hero-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.hero-button-primary {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+  background-color: #ffc107;
+  color: #071e1f;
+  border: none;
+  cursor: pointer;
+}
+
+.hero-button-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.hero-button-secondary {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  color: #f5f5f5;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.hero-stat-item {
+  text-align: center;
+}
+
+.hero-stat-number {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--color-accent);
+}
+
+.hero-stat-label {
+  font-size: 0.875rem;
+  color: #e0e0e0;
+  line-height: 1.4;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+.floating-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-element-reverse {
+  animation: float-reverse 8s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px) rotate(45deg); }
+  50% { transform: translateY(20px) rotate(45deg); }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Vision Section */
+.vision-section {
+  position: relative;
+  padding: 8rem 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.vision-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+.vision-content {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* CEO Section */
+.ceo-section {
+  position: relative;
+  padding: 8rem 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.ceo-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+.ceo-content {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.ceo-grid {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+.ceo-portrait img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+
+.ceo-text {
+  color: var(--color-text-primary);
+}
+
+.ceo-message {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-secondary);
+}
+
+.ceo-signature {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.ceo-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffc107;
+  margin-bottom: 0.5rem;
+}
+
+.ceo-title {
+  color: #b0b0b0;
+}
+
+.ceo-quote {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--color-accent);
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* Prevent Home page grid-image styles from bleeding into About CEO section */
+.ceo-grid .grid-image.primary,
+.ceo-grid .grid-image.secondary,
+.ceo-grid .grid-image.tertiary {
+  position: static;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 1rem;
+  box-shadow: none;
+  transform: none;
+  z-index: auto;
+}
+/* Leadership Section */
+.leadership-section {
+  padding: 8rem 0;
+  background-color: #f8f9fa;
+  color: var(--color-text-primary);
+}
+
+.leadership-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.leadership-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+.leadership-card--primary {
+  grid-column: span 2;
+  padding: 2.5rem;
+}
+
+.leadership-card:hover {
+  transform: translateY(-5px);
+}
+
+.leadership-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.leadership-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #071e1f;
+}
+
+.leadership-description {
+  line-height: 1.5;
+  color: #666;
+}
+
+/* Brand Values Section */
+.brand-values-section {
+  padding: 8rem 0;
+  background-color: var(--color-bg-primary);
+}
+
+.brand-values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.brand-value-card {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  transition: transform 0.3s ease;
+}
+
+.brand-value-card:hover {
+  transform: scale(1.02);
+}
+
+.brand-value-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand-value-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.0), rgba(255, 255, 255, 0.0));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+}
+
+.brand-value-icon {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.brand-value-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--color-text-primary);
+}
+
+.brand-value-description {
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* Project Gallery Section */
+.project-gallery-section {
+  padding: 8rem 0;
+  background-color: #f8f9fa;
+  color: var(--color-text-primary);
+}
+
+.project-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.project-gallery-item {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 300px;
+  transition: transform 0.3s ease;
+}
+
+.project-gallery-item:hover {
+  transform: scale(1.02);
+}
+
+.project-gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(7, 30, 31, 0.8), transparent);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+}
+
+.project-gallery-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.project-gallery-category {
+  color: #ffc107;
+  font-size: 0.875rem;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.section-description {
+  font-size: 1.125rem;
+  text-align: left;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--color-text-secondary);
+}
+
+/* Responsive Design */
+@media (min-width: 640px) {
+  .hero-buttons {
+    flex-direction: row;
+  }
+  
+  .ceo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .leadership-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .brand-values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .leadership-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .brand-values-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .ceo-grid {
+    grid-template-columns: 1fr 1.2fr;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .hero-section,
+  .floating-element,
+  .floating-element-reverse {
+    display: none;
+  }
+  
+  .about-page-container {
+    background: white;
+    color: black;
+  }
+}

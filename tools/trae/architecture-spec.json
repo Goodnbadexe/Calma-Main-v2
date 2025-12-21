@@ -1,0 +1,220 @@
+{
+  "specVersion": "1.0",
+  "generatedBy": "GPT-5-medium",
+  "timestamp": "2025-12-11T00:00:00Z",
+  "project": {
+    "name": "Calma-Reacration / Calma Receartion",
+    "root": ".",
+    "repoUrl": "https://github.com/Goodnbadexe/Calma-Reacration",
+    "language": "TypeScript",
+    "framework": "React (Vite)",
+    "style": "Tailwind v4 (primary) + focused CSS",
+    "buildTool": "Vite"
+  },
+  "entryPoints": {
+    "appEntry": "src/main.tsx",
+    "pagesRoot": "src/pages",
+    "componentsRoot": "src/components",
+    "assetsRoot": "src/assets",
+    "publicRoot": "public"
+  },
+  "layers": {
+    "uiLayer": {
+      "path": "src/components/ui",
+      "purpose": "presentational primitives (Buttons, Inputs, Cards, Icons, Loading)",
+      "rules": [
+        "PascalCase filenames",
+        "Only pure presentational logic",
+        "Export named components",
+        "Each component file exports one primary component"
+      ],
+      "barrel": "src/components/ui/index.ts"
+    },
+    "layoutSystem": {
+      "path": "src/layouts",
+      "purpose": "global layout primitives (Header, Footer, Grid, Container, Layout wrappers)",
+      "rules": [
+        "Keep layout free of data fetching",
+        "Layout imports only UI primitives and system hooks"
+      ],
+      "barrel": "src/layouts/index.ts"
+    },
+    "sections": {
+      "path": "src/components/sections",
+      "purpose": "page-specific sections (Hero, FeatureGrid, Testimonials)",
+      "status": "absent",
+      "rules": [
+        "Small, testable, memoized where appropriate",
+        "Prefer composition of UI primitives"
+      ]
+    },
+    "pages": {
+      "path": "src/pages",
+      "purpose": "route entrypoints (index.tsx or index.page.tsx)",
+      "structure": "per-language directories (english/, arabic/) with per-route files",
+      "rules": [
+        "Page files should be thin: call hooks, assemble sections",
+        "Data fetch moved to hooks or lib/services"
+      ]
+    },
+    "hooks": {
+      "path": "src/hooks",
+      "purpose": "reusable data and interaction hooks (useDarkMode, useSmoothScroll, useSmoothSliderControls)",
+      "rules": [
+        "All hooks prefixed with 'use' and typed return shapes",
+        "Hooks must not directly manipulate DOM unless a ref is provided"
+      ]
+    },
+    "lib": {
+      "path": "src/lib",
+      "purpose": "utilities",
+      "namespace": {
+        "utils": "src/lib/utils.ts"
+      },
+      "rules": [
+        "Keep utilities centralized",
+        "Side-effecting code currently lives in pages/components; services/api namespaces are not present"
+      ]
+    },
+    "styles": {
+      "path": "src/styles",
+      "purpose": "global styles, design tokens, Tailwind theme extension",
+      "files": ["tailwind.config.js (project root)"]
+    },
+    "assets": {
+      "path": "src/assets and public/",
+      "purpose": "images, videos, fonts, icons",
+      "rules": [
+        "Store originals in src/assets/originals/ (to be introduced)",
+        "Store optimized copies in src/assets/optimized/ (to be introduced)",
+        "Prefer .webp/.avif for raster images; .svg for icons"
+      ]
+    },
+    "i18n": {
+      "path": "src/contexts/LanguageContext.tsx",
+      "purpose": "language catalog and formatting via inline dictionary",
+      "rules": [
+        "Single source of truth for copy lives in LanguageContext today",
+        "Pages reference i18n keys via useLanguage().t(key)"
+      ]
+    },
+    "automation": {
+      "path": "tools/",
+      "purpose": "scripts, local TRE scaffolds, CI helpers",
+      "rules": [
+        "Automation files may be private; include a public README stub only",
+        "Do not commit secrets or internal TRE docs to repo root"
+      ]
+    }
+  },
+  "pageManifestSchema": {
+    "manifestVersion": "1.0",
+    "fields": {
+      "pageId": "string (slug)",
+      "path": "string (file path to page entry)",
+      "loc": "number (lines of code)",
+      "sizeBytes": "number",
+      "imports": ["array of internal import paths"],
+      "assets": [
+        {
+          "path": "string",
+          "sizeBytes": "number",
+          "role": "hero | inline | background | icon | video",
+          "optimizeSuggestion": "webp|avif|resize|lazy"
+        }
+      ],
+      "animations": ["list (framer-motion, lottie, CSS)"],
+      "dataFetching": ["inline | hook | lib/service"],
+      "criticalRender": "boolean (true if renders in first viewport)",
+      "suggestedQuickWins": ["array of strings"],
+      "riskNotes": "string"
+    }
+  },
+  "treActions": {
+    "discover": {
+      "description": "List files under src/pages and produce a pageManifest.json per page using pageManifestSchema.",
+      "commands": [
+        "node tools/trae/discoverPages.js --root src/pages --out manifests/pages"
+      ]
+    },
+    "diagram": {
+      "description": "For each page, produce an ASCII + Markdown component tree and internal import graph.",
+      "output": "manifests/pages/<page>-tree.md and reports/pages/<page>-deps.txt"
+    },
+    "audit": {
+      "description": "Run static checks limited to page folder: tsc --noEmit, eslint --fix, detect heavy components and inline fetches.",
+      "commands": [
+        "node tools/trae/runStaticChecks.js --path src/pages/<page>"
+      ],
+      "checks": [
+        "default export detection",
+        "components > 200 LOC",
+        "image > 100KB",
+        "no width/height on hero images",
+        "framer-motion heavy usage detection"
+      ]
+    },
+    "autofixSafe": {
+      "description": "Apply non-destructive fixes: barrel exports, add lazy imports (with Suspense), add loading='lazy', create hook stubs to extract inline fetches.",
+      "strategy": "Create branch per-page; run codemods; include unit tests and CI job."
+    },
+    "report": {
+      "description": "Produce reports summary.md with prioritized list, estimated impact and PR links."
+    }
+  },
+  "priorityRules": {
+    "L1": "LCP fixes (hero image/video optimization, preload, width/height) — highest impact",
+    "L2": "Lazy-load non-critical components and heavy lists",
+    "L3": "Image compression and responsive srcset",
+    "L4": "Code hygiene (barrels, named exports, small refactors)",
+    "L5": "Tests and CI (Vitest + RTL) and documentation"
+  },
+  "privatePaths": [
+    ".trae/",
+    "tools/internal/",
+    "secrets/",
+    ".secrets/",
+    ".env*",
+    "deploy/*.key",
+    "deploy/*.pem"
+  ],
+  "outputPaths": {
+    "manifests": "manifests/pages/",
+    "reports": "reports/pages/",
+    "patches": "patches/improve/pages/",
+    "summary": "reports/summary.md"
+  },
+  "safetyConstraints": {
+    "noSecretOps": "Never write or commit real secrets or production API keys.",
+    "nonBehavioralChangePolicy": "Automated changes must not alter visible copy or UX intent. If UX ambiguity exists, create Issue.",
+    "reviewRequired": "All PRs must be reviewed by repository owner before merge."
+  },
+  "exampleRunPlan": [
+    {
+      "step": "discover",
+      "command": "node tools/trae/discoverPages.js --root src/pages --out manifests/pages",
+      "notes": "Produces a manifest for each page folder."
+    },
+    {
+      "step": "diagram+audit",
+      "command": "node tools/trae/analyzePage.js --page src/pages/english/Home --out reports/pages/home",
+      "notes": "Generate tree, deps, asset CSV and static-check results."
+    },
+    {
+      "step": "autofix",
+      "command": "node tools/trae/autofix.js --page home --branch improve/pages/home-perf",
+      "notes": "Create branch with safe codemods, tests, and PR metadata."
+    }
+  ],
+  "usageNotes": {
+    "forTRE": "Use this as the architecture contract. TRE should map files -> roles and decide which codemods are safe.",
+    "forHuman": "Review generated manifests before merging. This spec is the single source of truth for file roles and priorities.",
+    "howToInterpretPriorities": "Apply L1 fixes first on pages with heaviest LCP metrics (Home, About, any hero-heavy pages).",
+    "i18nNote": "Current i18n implemented in LanguageContext; a catalog in src/i18n/ may be introduced later."
+  },
+  "contact": {
+    "owner": "Goodnbad (repo owner)",
+    "reviewers": ["frontend-lead", "product-owner"],
+    "defaultBranch": "main"
+  }
+}

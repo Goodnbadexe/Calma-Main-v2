@@ -1,0 +1,572 @@
+/* News Page Styles - CALMA Luxury Real Estate */
+
+.news-page {
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+/* Hero Section */
+.news-hero {
+  position: relative;
+  height: 60vh;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 50%, var(--color-secondary) 100%);
+  overflow: hidden;
+}
+
+.news-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.hero-text h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: var(--color-neutral-100);
+  text-shadow: 0 4px 20px var(--color-overlay-dark);
+}
+
+.hero-text p {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  line-height: 1.6;
+  color: var(--color-accent);
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, var(--color-overlay-light) 0%, var(--color-overlay-dark) 100%);
+  z-index: 1;
+}
+
+/* Main Container */
+.news-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+/* Section Headers */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.linkedin-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-primary);
+  background: var(--color-accent-light);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.section-header p {
+  color: var(--color-text-secondary);
+  margin: 0.5rem 0 0 0;
+  font-size: 1.1rem;
+}
+
+.follow-btn {
+  background: var(--color-primary);
+  color: var(--color-neutral-100);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.follow-btn:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--color-shadow-medium);
+}
+
+/* LinkedIn Posts Section */
+.linkedin-posts {
+  margin-top: 2rem;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.linkedin-post {
+  background: var(--color-neutral-100);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px var(--color-shadow-light);
+  border: 1px solid var(--color-border-light);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.linkedin-post::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
+}
+
+.linkedin-post:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px var(--color-shadow-medium);
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.author-avatar {
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.author-info h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.post-date {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.post-content {
+  margin-bottom: 1.5rem;
+}
+
+.post-content p {
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+}
+
+.post-image {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.post-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.linkedin-post:hover .post-image img {
+  transform: scale(1.05);
+}
+
+.post-engagement {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.engagement-stats {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.engagement-stats span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.engagement-stats svg {
+  color: var(--color-secondary);
+}
+
+/* Loading Skeletons */
+.loading-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.post-skeleton {
+  background: var(--color-neutral-100);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px var(--color-shadow-light);
+  border: 1px solid var(--color-border-light);
+}
+
+.skeleton-header,
+.skeleton-content,
+.skeleton-footer {
+  background: linear-gradient(90deg, var(--color-neutral-200) 25%, var(--color-neutral-300) 50%, var(--color-neutral-200) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.5rem;
+}
+
+.skeleton-header {
+  height: 3rem;
+  margin-bottom: 1rem;
+}
+
+.skeleton-content {
+  height: 6rem;
+  margin-bottom: 1rem;
+}
+
+.skeleton-footer {
+  height: 2rem;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* News Articles Section */
+.news-articles {
+  margin-top: 2rem;
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.news-article {
+  background: var(--color-neutral-100);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px var(--color-shadow-light);
+  border: 1px solid var(--color-border-light);
+  transition: all 0.3s ease;
+}
+
+.news-article:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px var(--color-shadow-medium);
+}
+
+.article-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.news-article:hover .article-image img {
+  transform: scale(1.1);
+}
+
+.article-category {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: var(--color-secondary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.article-content {
+  padding: 1.5rem;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.article-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.article-content p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.read-more {
+  color: var(--color-secondary);
+  padding: 0;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.read-more:hover {
+  color: var(--color-secondary-dark);
+  transform: translateX(5px);
+}
+
+/* Newsletter Section */
+.newsletter-section {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);
+  border-radius: 2rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: white;
+  margin-top: 2rem;
+}
+
+.newsletter-content h2 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.newsletter-content p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.email-input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  background: var(--color-overlay-light);
+  color: var(--color-neutral-100);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border-light);
+  transition: all 0.3s ease;
+}
+
+.email-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.email-input:focus {
+  outline: none;
+  background: var(--color-overlay-medium);
+  border-color: var(--color-border-medium);
+}
+
+.subscribe-btn {
+  padding: 1rem 2rem;
+  background: var(--color-accent);
+  color: var(--color-text-primary);
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.subscribe-btn:hover {
+  background: var(--color-accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--color-shadow-medium);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .news-hero {
+    height: 50vh;
+    min-height: 400px;
+  }
+
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+
+  .news-container {
+    padding: 2rem 1rem;
+    gap: 3rem;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .posts-grid,
+  .articles-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .newsletter-content h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .linkedin-post,
+  .news-article {
+    margin: 0 -0.5rem;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+  }
+
+  .newsletter-content h2 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .linkedin-post,
+  .news-article {
+    background: var(--color-neutral-800);
+    border-color: var(--color-border-secondary);
+  }
+
+  .post-skeleton {
+    background: var(--color-neutral-800);
+  }
+
+  .skeleton-header,
+  .skeleton-content,
+  .skeleton-footer {
+    background: linear-gradient(90deg, var(--color-neutral-700) 25%, var(--color-neutral-600) 50%, var(--color-neutral-700) 75%);
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .linkedin-post,
+  .news-article,
+  .follow-btn,
+  .subscribe-btn,
+  .read-more {
+    transition: none;
+  }
+
+  .linkedin-post:hover,
+  .news-article:hover {
+    transform: none;
+  }
+
+  .skeleton-header,
+  .skeleton-content,
+  .skeleton-footer {
+    animation: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.follow-btn:focus-visible,
+.subscribe-btn:focus-visible,
+.read-more:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+.email-input:focus-visible {
+  outline: 2px solid var(--color-border-medium);
+  outline-offset: 2px;
+}

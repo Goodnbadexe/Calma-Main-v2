@@ -1,0 +1,84 @@
+/* Fluid Grid Utilities and Responsive Media Queries */
+
+:root {
+  /* Container sizing */
+  --container-max: 1280px;
+  --container-padding: clamp(16px, 4vw, 32px);
+
+  /* Grid spacing and column behavior */
+  --grid-gap: clamp(12px, 2vw, 24px);
+  --grid-min: 320px; /* minimum column width for auto-fit */
+}
+
+/* Fluid container centers content with responsive padding */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.container-wide {
+  width: 100%;
+  max-width: calc(var(--container-max) + 200px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.container-full {
+  width: 100%;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+/* Auto-fitting fluid grid that adapts to available width */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), 1fr));
+  gap: var(--grid-gap);
+  align-items: start;
+}
+
+/* Gap variants for tighter or looser spacing */
+.grid-tight { gap: clamp(8px, 1.5vw, 16px); }
+.grid-loose { gap: clamp(16px, 3vw, 32px); }
+
+/* Explicit column utilities (fallback when auto-fit is not desired) */
+.cols-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--grid-gap); }
+.cols-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--grid-gap); }
+.cols-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--grid-gap); }
+
+/* Responsive media queries (mobile-first) */
+@media (max-width: 640px) {
+  :root { --grid-min: 220px; }
+  .container { padding-left: clamp(12px, 4vw, 20px); padding-right: clamp(12px, 4vw, 20px); }
+  .cols-2, .cols-3, .cols-4 { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 768px) {
+  :root { --container-max: 1280px; }
+}
+
+@media (min-width: 1024px) {
+  :root { --container-max: 1280px; }
+}
+
+@media (min-width: 1280px) {
+  :root { --container-max: 1280px; }
+}
+
+@media (min-width: 1600px) {
+  :root { --container-max: 1280px; }
+}
+
+@media (min-width: 1920px) {
+  :root { --container-max: 1280px; }
+}
+
+/* RTL support: no change needed for grid itself, but ensure logical properties are respected */
+html[dir="rtl"] .container { direction: rtl; }

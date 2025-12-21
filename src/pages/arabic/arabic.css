@@ -1,0 +1,78 @@
+/* Arabic RTL Stylesheet for Calma Website */
+
+/* RTL Layout */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .section-inner {
+  text-align: right;
+}
+
+/* Arabic Typography */
+.hero { 
+  color: #fff; 
+  text-align: center;
+  font-family: 'Spica Arabic', 'Bluteau Arabic Sans', Arial, sans-serif;
+}
+
+.hero-title { 
+  font-size: 48px; 
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.hero-button { 
+  margin-top: 16px;
+}
+
+.section { 
+  padding: 64px 0;
+}
+
+.section-inner { 
+  max-width: 1080px; 
+  margin: 0 auto; 
+  padding: 0 24px;
+}
+
+.panorama { 
+  position: relative; 
+  min-height: 320px;
+}
+
+.panorama-overlay { 
+  position: absolute; 
+  inset: 0; 
+  display: grid; 
+  place-items: center; 
+  background: rgba(0,0,0,0.35);
+}
+
+/* Arabic Text Enhancements */
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4 {
+  font-family: 'Spica Arabic', 'Bluteau Arabic Sans', Arial, sans-serif;
+  font-weight: 600;
+}
+
+[dir="rtl"] p, [dir="rtl"] li {
+  font-family: 'Bluteau Arabic Sans', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* RTL Button Adjustments */
+[dir="rtl"] .button {
+  text-align: center;
+}
+
+/* RTL Navigation Adjustments */
+[dir="rtl"] .nav-links {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .dropdown-menu {
+  right: 0;
+  left: auto;
+}
