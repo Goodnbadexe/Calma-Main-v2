@@ -42,8 +42,8 @@ export const projectsData: ProjectEntry[] = [
     assets: {
       imagesGlob: '/src/assets/Images/Projects/حي الجنادرية – أدوار – JN130/JN130 الجنادرية - Images/*.{png,jpg,jpeg,webp}',
       pdfs: [
-        { labelEN: 'Plans', labelAR: 'المخططات', path: '/src/assets/Images/Projects/حي الجنادرية – أدوار – JN130/JN130 الجنادرية - Models/المخططات.pdf' },
-        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي الجنادرية – أدوار – JN130/JN130 الجنادرية - Prices.pdf' }
+        { labelEN: 'Plans', labelAR: 'المخططات', path: '/src/assets/Images/Projects/حي الجنادرية – أدوار – JN130/doc/المخططات.pdf' },
+        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي الجنادرية – أدوار – JN130/doc/JN130 الجنادرية - Prices.pdf' }
       ]
     }
   },
@@ -59,7 +59,7 @@ export const projectsData: ProjectEntry[] = [
     assets: {
       imagesGlob: '/src/assets/Images/Projects/الياسمين/YS190 الياسمين/YS190 اداور الياسمين - Images/*.{png,jpg,jpeg,webp}',
       pdfs: [
-        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/الياسمين/YS190 الياسمين/الياسمين فلل - YS190 - Prices.pdf' }
+        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/الياسمين/YS190 الياسمين/doc/الياسمين فلل - YS190 - Prices.pdf' }
       ]
     }
   },
@@ -75,8 +75,8 @@ export const projectsData: ProjectEntry[] = [
     assets: {
       imagesGlob: '/src/assets/Images/Projects/الياسمين/الياسـمين YS200/الياسـمين YS200 - Images/*.{png,jpg,jpeg,webp}',
       pdfs: [
-        { labelEN: 'Models', labelAR: 'المخططات', path: '/src/assets/Images/Projects/الياسمين/الياسـمين YS200/الياسـمين YS200 - Models/الياسمين أدوار - YS200.pdf' },
-        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/الياسمين/الياسـمين YS200/الياسمين أدوار - YS200 - Prices.pdf' }
+        { labelEN: 'Models', labelAR: 'المخططات', path: '/src/assets/Images/Projects/الياسمين/الياسـمين YS200/doc/الياسمين أدوار - YS200.pdf' },
+        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/الياسمين/الياسـمين YS200/doc/الياسمين أدوار - YS200 - Prices.pdf' }
       ]
     }
   },
@@ -92,8 +92,8 @@ export const projectsData: ProjectEntry[] = [
     assets: {
       imagesGlob: '/src/assets/Images/Projects/حطين/HT210 حطين/HT210 حطين - Images/*.{png,jpg,jpeg,webp}',
       pdfs: [
-        { labelEN: 'Profile', labelAR: 'الملف التعريفي', path: '/src/assets/Images/Projects/حطين/HT210 حطين/HT210 حطين - Profile.pdf' },
-        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حطين/HT210 حطين/HT210- حطين-2 - Prices.pdf' }
+        { labelEN: 'Profile', labelAR: 'الملف التعريفي', path: '/src/assets/Images/Projects/حطين/HT210 حطين/doc/HT210 حطين - Profile.pdf' },
+        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حطين/HT210 حطين/doc/HT210- حطين-2 - Prices.pdf' }
       ]
     }
   },
@@ -109,7 +109,7 @@ export const projectsData: ProjectEntry[] = [
     assets: {
       imagesGlob: '/src/assets/Images/Projects/حي الغدير – تاون هاوس و أدوار - GH220/GH220 الغدير - Images/*.{png,jpg,jpeg,webp}',
       pdfs: [
-        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي الغدير – تاون هاوس و أدوار - GH220/الغدير - GH220 - Prices.pdf' }
+        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي الغدير – تاون هاوس و أدوار - GH220/doc/الغدير - GH220 - Prices.pdf' }
       ]
     }
   },
@@ -125,8 +125,8 @@ export const projectsData: ProjectEntry[] = [
     assets: {
       imagesGlob: '/src/assets/Images/Projects/حي الصفا – أدوار - SA230/SA230 الصفا - Images/*.{png,jpg,jpeg,webp}',
       pdfs: [
-        { labelEN: 'Models', labelAR: 'المخططات', path: '/src/assets/Images/Projects/حي الصفا – أدوار - SA230/SA230 الصفا - Model.pdf' },
-        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي الصفا – أدوار - SA230/SA230 الصفا - Prices.pdf' }
+        { labelEN: 'Models', labelAR: 'المخططات', path: '/src/assets/Images/Projects/حي الصفا – أدوار - SA230/doc/SA230 الصفا - Model.pdf' },
+        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي الصفا – أدوار - SA230/doc/SA230 الصفا - Prices.pdf' }
       ]
     }
   },
@@ -142,8 +142,8 @@ export const projectsData: ProjectEntry[] = [
     assets: {
       imagesGlob: '/src/assets/Images/Projects/حي الرمال - أدوار – RM240/RM240 الرمال - Images/*.{png,jpg,jpeg,webp}',
       pdfs: [
-        { labelEN: 'Models', labelAR: 'المخططات', path: '/src/assets/Images/Projects/حي الرمال - أدوار – RM240/RM240 الرمال - Model.pdf' },
-        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي الرمال - أدوار – RM240/RM240 الرمال - Prices.pdf' }
+        { labelEN: 'Models', labelAR: 'المخططات', path: '/src/assets/Images/Projects/حي الرمال - أدوار – RM240/doc/RM240 الرمال - Model.pdf' },
+        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي الرمال - أدوار – RM240/doc/RM240 الرمال - Prices.pdf' }
       ]
     }
   },
@@ -159,8 +159,8 @@ export const projectsData: ProjectEntry[] = [
     assets: {
       imagesGlob: '/src/assets/Images/Projects/حي النخيل – تاون هاوس - NK250/النــخـيل NK250 - Images/*.{png,jpg,jpeg,webp}',
       pdfs: [
-        { labelEN: 'Profile', labelAR: 'الملف التعريفي', path: '/src/assets/Images/Projects/حي النخيل – تاون هاوس - NK250/النـخيل NK250 - Profile.pdf' },
-        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي النخيل – تاون هاوس - NK250/النخيل - NK250 - Prices.pdf' }
+        { labelEN: 'Profile', labelAR: 'الملف التعريفي', path: '/src/assets/Images/Projects/حي النخيل – تاون هاوس - NK250/doc/النـخيل NK250 - Profile.pdf' },
+        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي النخيل – تاون هاوس - NK250/doc/النخيل - NK250 - Prices.pdf' }
       ]
     }
   },
@@ -176,7 +176,7 @@ export const projectsData: ProjectEntry[] = [
     assets: {
       imagesGlob: '/src/assets/Images/Projects/حطين/HT260 حطين/HT260 ادوار حطين - Images/*.{png,jpg,jpeg,webp}',
       pdfs: [
-        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حطين/HT260 حطين/HT260- حطين - Prices.pdf' }
+        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حطين/HT260 حطين/doc/HT260- حطين - Prices.pdf' }
       ]
     }
   },
@@ -206,7 +206,7 @@ export const projectsData: ProjectEntry[] = [
     assets: {
       imagesGlob: '/src/assets/Images/Projects/حي الصحافة - شقق  - Calma Tower/Calma Tower Images/*.{png,jpg,jpeg,webp}',
       pdfs: [
-        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي الصحافة - شقق  - Calma Tower/Calma Tower - برج كالما الصحافة - Prices.pdf' }
+        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي الصحافة - شقق  - Calma Tower/doc/Calma Tower - برج كالما الصحافة - Prices.pdf' }
       ]
     }
   }
