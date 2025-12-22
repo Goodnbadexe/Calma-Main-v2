@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { SplashProvider } from '@/components/system/SplashProvider'
 import { LanguageProvider } from '@/contexts/LanguageContext'
-import Register from '@/pages/english/Register/RegisterPage'
+import Register from '@/pages/english/Register/Register'
 import { HelmetProvider } from 'react-helmet-async'
 
 vi.mock('@/services/api', () => ({

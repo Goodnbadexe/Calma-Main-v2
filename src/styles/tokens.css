@@ -1,3 +1,15 @@
 @import './color-palette.css';
 @import './variables.css';
 
+.animated-gradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1200px circle at 20% 0%, rgba(255,255,255,0.18), transparent 40%),
+              radial-gradient(800px circle at 80% 100%, rgba(255,255,255,0.12), transparent 40%),
+              linear-gradient(180deg, rgba(36,82,241,0.6), rgba(11,29,153,0.6));
+  animation: gradient-move 12s ease-in-out infinite alternate;
+}
+@keyframes gradient-move {
+  0% { transform: translate3d(0,0,0); filter: saturate(1) brightness(1); }
+  100% { transform: translate3d(0,-10px,0); filter: saturate(1.1) brightness(1.1); }
+}

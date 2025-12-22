@@ -240,8 +240,9 @@
 
 .ceo-grid {
   display: grid;
-  gap: 3rem;
+  gap: 1.5rem;
   align-items: center;
+  grid-template-columns: 1fr;
 }
 
 .ceo-portrait img {
@@ -534,7 +535,7 @@
   }
   
   .ceo-grid {
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
 

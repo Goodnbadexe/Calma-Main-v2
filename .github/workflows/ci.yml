@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+      - name: Install
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+      - name: Start preview
+        run: |
+          npm run preview &>/dev/null &
+          echo "Preview started"
+      - name: Wait for preview
+        run: |
+          for i in {1..20}; do
+            if curl -sSf http://localhost:4173 >/dev/null; then
+              echo "Preview is up"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Preview not up" && exit 1
+      - name: Lighthouse budget check
+        run: npx lighthouse http://localhost:4173 --budgets-path=./lighthouse-budgets.json --chrome-flags="--headless" --quiet

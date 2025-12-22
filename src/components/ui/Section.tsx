@@ -1,12 +1,24 @@
-import { ReactNode } from 'react'
+import type { HTMLAttributes } from 'react'
+import clsx from 'clsx'
 
-type Props = { id?: string; ariaLabel?: string; className?: string; children: ReactNode }
+type Props = HTMLAttributes<HTMLElement> & {
+  max?: 'sm' | 'md' | 'lg' | 'xl'
+}
 
-export default function Section({ id, ariaLabel, className, children }: Props) {
+const maxToClass = {
+  sm: 'max-w-screen-sm',
+  md: 'max-w-screen-md',
+  lg: 'max-w-screen-lg',
+  xl: 'max-w-screen-xl',
+}
+
+export default function Section({ className, children, max = 'xl', ...props }: Props) {
   return (
-    <section id={id} aria-label={ariaLabel} className={['py-12 md:py-20', className].filter(Boolean).join(' ')}>
-      {children}
+    <section
+      className={clsx('px-4 md:px-6', className)}
+      {...props}
+    >
+      <div className={clsx('mx-auto', maxToClass[max])}>{children}</div>
     </section>
   )
 }
-

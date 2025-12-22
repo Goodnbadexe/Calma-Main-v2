@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
+import Heading from '@/components/ui/Heading'
+import Section from '@/components/ui/Section'
 import homeImpactImage from '@/assets/Images/Home/Calma_KSR_ex03_Final02_2025-05-28.JPG'
 import aboutHeaderImage from '@/assets/Images/About/About-Header.jpg'
 
@@ -7,6 +9,7 @@ import aboutHeaderImage from '@/assets/Images/About/About-Header.jpg'
 import { motion, circOut } from 'framer-motion'
 import anime from 'animejs'
 import { useSplash } from '@/components/system/SplashProvider'
+import { useHeroAnimation } from '@/hooks/useHeroAnimation'
 
 import calmaTV from '@/assets/Videos/Calma_TV.mp4'
 import { homeEn } from '@/pages/content/home.en'
@@ -38,6 +41,16 @@ export default function EnglishHome() {
     el.addEventListener('loadedmetadata', onMeta, { once: true })
     return () => { el.removeEventListener('loadedmetadata', onMeta) }
   }, [])
+  useEffect(() => {
+    const anyNav = navigator as any
+    const conn = anyNav.connection || anyNav.mozConnection || anyNav.webkitConnection
+    const saveData = conn && conn.saveData
+    const slow = conn && typeof conn.effectiveType === 'string' && /(^2g$|slow-2g)/.test(conn.effectiveType)
+    if (saveData || slow) {
+      setVideoSrc(undefined)
+      setHeroReady(true)
+    }
+  }, [])
 
   useEffect(() => {
     const reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -47,19 +60,8 @@ export default function EnglishHome() {
     }
     if (!heroReady) return
     setContentVisible(true)
-    anime.timeline({ easing: 'easeOutQuad', duration: 500 })
-      .add({
-        targets: '.luxury-hero-content',
-        opacity: [0, 1],
-        translateY: [16, 0],
-      })
-      .add({
-        targets: '.reveal-block',
-        opacity: [0, 1],
-        translateY: [8, 0],
-        delay: anime.stagger(120),
-      })
   }, [heroReady])
+  useHeroAnimation(heroReady)
   useEffect(() => {
     const el = heroVideoRef.current
     if (!el) return
@@ -171,9 +173,11 @@ export default function EnglishHome() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.9, delay: 0.1 }}
         >
-          <div className="hero-badge"><span className="badge-text">CALMA REAL ESTATE</span></div>
-          <h1 className="hero-title luxury-title animate-fade-in-up">{homeEn.heroTitle}</h1>
-          <p className="hero-subtitle luxury-subtitle animate-fade-in-up">
+          <div className="max-w-6xl mx-auto mb-4 text-center">
+            <span className="hero-badge">CALMA REAL ESTATE</span>
+            <h1 className="hero-title luxury-title">{homeEn.heroTitle}</h1>
+          </div>
+          <p className="hero-subtitle luxury-subtitle text-center">
             {homeEn.heroSubtitle}
           </p>
           <div className="hero-actions">
@@ -208,9 +212,9 @@ export default function EnglishHome() {
         viewport={{ once: true, amount: 0.3 }}
         variants={staggerContainer}
       >
-        <div className="dual-split-grid">
+        <div className="dual-split-grid" style={{ maxWidth: 1200, margin: '0 auto', alignItems: 'center', gap: 24 }}>
           <motion.div className="dual-split-text" variants={fadeInLeft}>
-            <h2 className="dual-split-title">Redefining Luxury Living</h2>
+            <Heading level={2} className="dual-split-title">Redefining Luxury Living</Heading>
             <p className="dual-split-description">
               We ground bold vision in crafted realism — designing spaces that feel poetic yet purposeful.
               Every decision balances material truth with human experience.
@@ -232,7 +236,7 @@ export default function EnglishHome() {
           >
             <picture>
               <source srcSet={homeImpactImage} type="image/jpeg" />
-              <img src={homeImpactImage} alt="Calma impact" className="dual-image" loading="lazy" decoding="async" width={1600} height={1200} />
+              <img src={homeImpactImage} alt="Calma impact" className="dual-image" loading="lazy" decoding="async" width={1600} height={1200} style={{ transform: 'scaleX(-1)' }} />
             </picture>
           </motion.div>
         </div>
@@ -248,7 +252,7 @@ export default function EnglishHome() {
         <Excellence />
         <Pillars />
         <MissionVision />
-        <KPIStats />
+        {/* Removed stats section per request */}
         <FeaturedProjectsCarousel />
         {/* Temporarily hide cluttered band to streamline home page */}
         <TrustStrip />

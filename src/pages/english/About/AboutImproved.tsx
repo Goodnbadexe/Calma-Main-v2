@@ -51,7 +51,7 @@ export default function AboutImproved() {
   const galleryInView = useInView(galleryRef, { once: true, margin: "-100px" })
 
   // State for dynamic content
-  const [, setCurrentImageIndex] = useState(0)
+  const [currentImageSet, setCurrentImageSet] = useState(0)
 
   // Brand values data from documentation
   const brandValues = [
@@ -122,13 +122,13 @@ export default function AboutImproved() {
     }
   ]
 
-  // Auto-rotate hero images
+  // Auto-rotate 3-image story grid
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroGallery.length)
+      setCurrentImageSet((prev) => (prev + 1) % 3)
     }, 5000)
     return () => clearInterval(interval)
-  }, [heroGallery.length])
+  }, [])
 
   return (
     <div className="about-page-container">
@@ -298,16 +298,21 @@ export default function AboutImproved() {
         <div className="container">
           <div className="dual-split-grid">
             <div className="dual-split-image">
-              <picture>
-                <source srcSet={asset9Image} type="image/jpeg" />
-                <img 
-                  src={asset9Image} 
-                  alt="Calma team and city context" 
-                  className="dual-image" 
-                  loading="lazy" 
-                  decoding="async" 
-                />
-              </picture>
+              <div style={{ position: 'relative', width: '100%' }}>
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '4 / 3' }}>
+                  <picture style={{ position: 'absolute', inset: 0 }}>
+                    <source srcSet={[asset9Image, asset12Image, asset14Image][currentImageSet]} type="image/jpeg" />
+                    <img 
+                      src={[asset9Image, asset12Image, asset14Image][currentImageSet]} 
+                      alt="Calma team and city context" 
+                      className="dual-image" 
+                      loading="lazy" 
+                      decoding="async" 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </picture>
+                </div>
+              </div>
             </div>
             <div className="dual-split-text">
               <span className="section-badge">OUR STORY</span>

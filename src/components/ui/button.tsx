@@ -1,51 +1,46 @@
-import * as React from 'react'
+import { forwardRef } from 'react'
+import type { ButtonHTMLAttributes } from 'react'
+import clsx from 'clsx'
 
-type ButtonProps = React.ComponentProps<'button'> & {
-  variant?: 'default' | 'ghost' | 'secondary' | 'outline'
-  size?: 'default' | 'icon' | 'sm' | 'lg'
-  asChild?: boolean
+type Size = 'sm' | 'md' | 'lg'
+type Variant = 'primary' | 'secondary' | 'ghost'
+
+type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
+  size?: Size
+  variant?: Variant
+  loading?: boolean
 }
 
-export function Button({
-  className,
-  variant = 'default',
-  size = 'default',
-  asChild = false,
-  ...props
-}: ButtonProps) {
-  // Base classes controlled by Button props; exclude incoming className here
-  const baseClasses = [
-    'inline-flex items-center justify-center',
-    'transition-colors',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-    size === 'icon' ? 'h-9 w-9' : size === 'sm' ? 'h-8 px-3 py-1 text-sm' : size === 'lg' ? 'h-12 px-6 py-3 text-lg' : 'h-9 px-4 py-2',
-    variant === 'ghost' ? 'bg-transparent' : '',
-    variant === 'secondary' ? 'bg-neutral-800 text-white' : '',
-    variant === 'outline' ? 'border border-gray-300 bg-transparent hover:bg-gray-50' : '',
-  ]
-    .filter(Boolean)
-    .join(' ')
+const base =
+  'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none'
+const sizes: Record<Size, string> = {
+  sm: 'h-9 px-3 text-sm',
+  md: 'h-10 px-4 text-sm',
+  lg: 'h-11 px-6 text-base',
+}
+const variants: Record<Variant, string> = {
+  primary:
+    'bg-black text-white hover:bg-neutral-800 focus-visible:ring-black ring-offset-white dark:ring-offset-black',
+  secondary:
+    'bg-white text-black border border-neutral-200 hover:bg-neutral-100 focus-visible:ring-neutral-400 ring-offset-white dark:bg-neutral-900 dark:text-white dark:border-neutral-700 dark:hover:bg-neutral-800',
+  ghost:
+    'bg-transparent text-black hover:bg-neutral-100 focus-visible:ring-neutral-300 ring-offset-white dark:text-white dark:hover:bg-neutral-800',
+}
 
-  if (asChild) {
-    // Render child element but pass computed className and props along
-    const { children, className: userClassName, ...rest } = props as any
-    if (React.isValidElement(children)) {
-      return React.cloneElement(children, {
-        className: [baseClasses, userClassName, className].filter(Boolean).join(' '),
-        ...rest,
-      })
-    }
-  }
-
-  // Combine base classes with user-provided className
-  const finalClassName = [baseClasses, className].filter(Boolean).join(' ')
-
+export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
+  { size = 'md', variant = 'primary', loading, className, children, ...props },
+  ref
+) {
   return (
     <button
-      className={finalClassName}
+      ref={ref}
+      className={clsx(base, sizes[size], variants[variant], className)}
+      aria-busy={loading || undefined}
       {...props}
-    />
+    >
+      {children}
+    </button>
   )
-}
+})
 
 export default Button

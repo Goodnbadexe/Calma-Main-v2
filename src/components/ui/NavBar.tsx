@@ -2,24 +2,28 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import logoC from '@/assets/Logos/BRANDMARK_01-p-2000.png'
-import { Button } from '@/components/ui/button'
+import { Button } from './button.tsx'
+import { useRegisterOverlay } from '@/components/register/RegisterOverlayProvider'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, Globe, X, ChevronDown, Phone, MessageCircle } from 'lucide-react'
 import { useSplash } from '@/components/system/SplashProvider'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { createMagneticEffect } from '@/utils/helpers'
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
 
 export default function NavBar() {
   const navigate = useNavigate()
   const { showSplash } = useSplash()
   const { language, toggleLanguage, t } = useLanguage()
   const isArabic = language === 'ar'
+  const overlay = useRegisterOverlay()
   const [isTransparent, setIsTransparent] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
   // Keep navbar always visible to avoid layout glitches
   const [isHidden] = useState(false)
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
-  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 })
+  // Use native details/summary based dropdown for robust focus/keyboard behavior
 
   // Animation refs
   const navRef = useRef<HTMLElement>(null)
@@ -131,26 +135,7 @@ export default function NavBar() {
   // Function to toggle dropdown and calculate position with animation
   const toggleDropdown = (event: React.MouseEvent) => {
     event.preventDefault()
-    if (!dropdownOpen) {
-      const triggerElement = dropdownTriggerRef.current || (event.currentTarget as HTMLElement)
-      const rect = triggerElement.getBoundingClientRect()
-      const navRect = navRef.current?.getBoundingClientRect()
-      
-      // Position dropdown centered under the trigger with a compact width
-      const baseWidth = 300
-      const centeredLeftRaw = rect.left + rect.width / 2 - baseWidth / 2
-      const centeredLeft = Math.max(16, Math.min(centeredLeftRaw, (window.innerWidth - baseWidth - 16)))
-      setDropdownPosition({
-        top: (navRect?.bottom || rect.bottom) - 2,
-        left: Math.max(centeredLeft, 16),
-        width: baseWidth
-      })
-      setDropdownOpen(true)
-      
-      // Dropdown appears immediately without JS animations
-    } else {
-      setDropdownOpen(false)
-    }
+    setDropdownOpen(v => !v)
   }
 
   // Enhanced navigation function that closes dropdown
@@ -224,19 +209,67 @@ export default function NavBar() {
             {tr('nav.about', 'About', 'عن كالما')}
           </button>
           
-          <button 
-            ref={dropdownTriggerRef}
-            className="dropdown-trigger nav-link" 
-            onClick={toggleDropdown}
-            aria-expanded={dropdownOpen}
-            aria-haspopup="true"
-          >
-            <span>{tr('nav.projects', 'Projects', 'المشاريع')}</span>
-            <ChevronDown 
-              className={`dropdown-icon ${dropdownOpen ? 'rotated' : ''}`}
-              size={16}
-            />
-          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <button 
+                ref={dropdownTriggerRef}
+                className="dropdown-trigger nav-link" 
+                aria-expanded={dropdownOpen}
+                aria-haspopup="true"
+                onClick={toggleDropdown}
+              >
+                <span>{tr('nav.projects', 'Projects', 'المشاريع')}</span>
+                <ChevronDown 
+                  className={`dropdown-icon ${dropdownOpen ? 'rotated' : ''}`}
+                  size={16}
+                />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <nav role="menu" aria-label={tr('nav.projects', 'Projects', 'المشاريع')}>
+                <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                  <li>
+                    <DropdownMenuItem>
+                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects' : '/projects')}>
+                        {tr('nav.allProjects', 'All Projects', 'كل المشاريع')}
+                      </button>
+                    </DropdownMenuItem>
+                  </li>
+                  <li style={{ borderTop: '1px solid var(--color-border-light)' }}>
+                    <div style={{ fontSize: 12, opacity: 0.7, padding: '6px 12px' }}>{isArabic ? 'النوع' : 'Unit Types'}</div>
+                  </li>
+                  <li>
+                    <DropdownMenuItem>
+                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/villa' : '/projects/villa')}>
+                        {isArabic ? 'فلل' : 'Villa'}
+                      </button>
+                    </DropdownMenuItem>
+                  </li>
+                  <li>
+                    <DropdownMenuItem>
+                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/floor' : '/projects/floor')}>
+                        {isArabic ? 'أدوار' : 'Floor'}
+                      </button>
+                    </DropdownMenuItem>
+                  </li>
+                  <li>
+                    <DropdownMenuItem>
+                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/townhouse' : '/projects/townhouse')}>
+                        {isArabic ? 'تاون هاوس' : 'Town House'}
+                      </button>
+                    </DropdownMenuItem>
+                  </li>
+                  <li>
+                    <DropdownMenuItem>
+                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/office' : '/projects/office')}>
+                        {isArabic ? 'مكتبي' : 'Office'}
+                      </button>
+                    </DropdownMenuItem>
+                  </li>
+                </ul>
+              </nav>
+            </DropdownMenuContent>
+          </DropdownMenu>
           
           <button 
             className="nav-link" 
@@ -266,7 +299,7 @@ export default function NavBar() {
         <div ref={actionsRef} className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: 12, justifySelf: 'end' }}>
           <Button
             variant="ghost"
-            size="icon"
+            size="sm"
             aria-label={tr('actions.call', 'Call', 'اتصل')}
             title={tr('actions.call', 'Call us', 'اتصل بنا')}
             onClick={() => {
@@ -281,7 +314,7 @@ export default function NavBar() {
 
           <Button
             variant="ghost"
-            size="icon"
+            size="sm"
             aria-label={tr('actions.whatsapp', 'WhatsApp', 'واتساب')}
             title={tr('actions.whatsapp', 'WhatsApp', 'واتساب')}
             onClick={() => {
@@ -294,9 +327,15 @@ export default function NavBar() {
             <MessageCircle className="icon" />
           </Button>
 
-          <Button className="rounded-full register-button" onClick={() => { showSplash(); navigate(isArabic ? '/ar/register' : '/register') }}>
-            {tr('actions.register', 'Register Your Interest', 'سجل اهتمامك')}
-          </Button>
+          <AnimatePresence initial={false}>
+            {!overlay.isExpanded && (
+              <motion.div layoutId="cta-card" className="transform-gpu will-change-transform" style={{ display: 'inline-block' }}>
+                <Button className="rounded-full register-button" onClick={() => { overlay.open() }}>
+                  {tr('actions.register', 'Register Your Interest', 'سجل اهتمامك')}
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <Button
             variant="ghost"
@@ -315,7 +354,7 @@ export default function NavBar() {
 
           <Button
             variant="ghost"
-            size="icon"
+            size="sm"
             className="burger-button md:hidden"
             aria-label={t('actions.openMenu')}
             aria-expanded={drawerOpen}
@@ -375,7 +414,7 @@ export default function NavBar() {
             </div>
             <Button 
               variant="ghost" 
-              size="icon" 
+              size="sm" 
               className="close-button"
               aria-label={t('actions.closeMenu')} 
               onClick={closeDrawer}
@@ -484,7 +523,7 @@ export default function NavBar() {
             <div className="mobile-action-buttons" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <Button 
                 variant="ghost" 
-                size="icon" 
+                size="sm" 
                 aria-label={tr('actions.call', 'Call', 'اتصل')}
                 title={tr('actions.call', 'Call us', 'اتصل بنا')}
                 onClick={() => (window.location.href = 'tel:+966920006553')}
@@ -493,7 +532,7 @@ export default function NavBar() {
               </Button>
               <Button 
                 variant="ghost" 
-                size="icon" 
+                size="sm" 
                 aria-label="WhatsApp"
                 title="WhatsApp"
                 onClick={() => window.open('https://wa.me/966920006553', '_blank')}
@@ -519,8 +558,7 @@ export default function NavBar() {
               className="register-button" 
               onClick={() => { 
                 setDrawerOpen(false); 
-                showSplash(); 
-                navigate('/register');
+                overlay.open();
               }}
             >
               {isArabic ? 'طلب استفسار' : 'Enquire'}
@@ -531,62 +569,7 @@ export default function NavBar() {
     )}
      
      {/* Enhanced Dropdown Menu */}
-    {dropdownOpen && createPortal(
-      <div 
-        ref={dropdownRef}
-        className="dropdown-portal"
-        style={{
-          position: 'fixed',
-          top: dropdownPosition.top,
-          left: dropdownPosition.left,
-          zIndex: 9999,
-          minWidth: `${dropdownPosition.width}px`,
-          width: `${dropdownPosition.width}px`,
-          background: '#FFFFFF',
-          border: '1px solid rgba(26, 26, 26, 0.12)',
-          borderRadius: '10px',
-          padding: '6px 0',
-          boxShadow: '0 12px 24px rgba(7, 30, 31, 0.12)',
-          overflow: 'hidden',
-          opacity: 1,
-          transform: 'none'
-        }}
-      >
-        <nav role="menu" aria-label={tr('nav.projects', 'Projects', 'المشاريع')}>
-          <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-            <li>
-              <button type="button" className="dropdown-item" style={{ display: 'block', width: '100%', textAlign: 'left', padding: '10px 12px', fontSize: 14 }} onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects' : '/projects')}>
-                {tr('nav.allProjects', 'All Projects', 'كل المشاريع')}
-              </button>
-            </li>
-            <li style={{ borderTop: '1px solid var(--color-border-light)' }}>
-              <div style={{ fontSize: 12, opacity: 0.7, padding: '6px 12px' }}>{isArabic ? 'النوع' : 'Unit Types'}</div>
-            </li>
-            <li>
-              <button type="button" className="dropdown-item" style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 12px', fontSize: 14 }} onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/calma-tower' : '/projects/villa')}>
-                {isArabic ? 'فلل' : 'Villa'}
-              </button>
-            </li>
-            <li>
-              <button type="button" className="dropdown-item" style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 12px', fontSize: 14 }} onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/floor' : '/projects/floor')}>
-                {isArabic ? 'أدوار' : 'Floor'}
-              </button>
-            </li>
-            <li>
-              <button type="button" className="dropdown-item" style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 12px', fontSize: 14 }} onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/townhouse' : '/projects/townhouse')}>
-                {isArabic ? 'تاون هاوس' : 'Town House'}
-              </button>
-            </li>
-            <li>
-              <button type="button" className="dropdown-item" style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 12px', fontSize: 14 }} onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/office' : '/projects/office')}>
-                {isArabic ? 'مكتبي' : 'Office'}
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </div>,
-      document.body
-    )}
+    {/* details-based dropdown handles focus/keyboard natively */}
     </>
   )
 }

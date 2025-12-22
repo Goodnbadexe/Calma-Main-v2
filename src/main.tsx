@@ -4,6 +4,7 @@ import './index.css'
 import './styles/navbar.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
+import { routes } from '@/config/routes.config'
 
 // English Pages
 import EnglishHome from './pages/english/Home/Home'
@@ -11,7 +12,7 @@ const AboutImproved = lazy(() => import('./pages/english/About/AboutImproved'))
 const News = lazy(() => import('./pages/english/News/News'))
 const ProjectsPage = lazy(() => import('./pages/english/Projects/ProjectsPage'))
 const ProjectPage = lazy(() => import('./pages/ProjectPage'))
-const Register = lazy(() => import('./pages/english/Register/RegisterPage'))
+const Register = lazy(() => import('./pages/english/Register/Register'))
 const Contact = lazy(() => import('./pages/english/Contact/Contact'))
 
 // Arabic Pages
@@ -54,39 +55,38 @@ createRoot(document.getElementById('root')!).render(
             }>
               <Routes>
                 <Route element={<AppLayout />}>
-                  {/* English Routes */}
-                  <Route path="/" element={<EnglishHome />} />
-                  <Route path="/about" element={<AboutImproved />} />
-                  <Route path="/news" element={<News />} />
-                  <Route path="/projects" element={<ProjectsPage />} />
-                  <Route path="/projects/:slug" element={<ProjectPage />} />
-                  <Route path="/projects/villa" element={<ProjectsVilla />} />
-                  <Route path="/projects/floor" element={<ProjectsFloor />} />
-                  <Route path="/projects/townhouse" element={<ProjectsTownHouse />} />
-                  <Route path="/projects/office" element={<ProjectsOffice />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/register" element={<Register />} />
+                  {/* English Routes (from config) */}
+                  <Route path={routes.home.en} element={<EnglishHome />} />
+                  <Route path={routes.about.en} element={<AboutImproved />} />
+                  <Route path={routes.news.en} element={<News />} />
+                  <Route path={routes.projects.en} element={<ProjectsPage />} />
+                  <Route path={routes.projectDynamic.en} element={<ProjectPage />} />
+                  <Route path={routes.projectCategories.villa.en} element={<ProjectsVilla />} />
+                  <Route path={routes.projectCategories.floor.en} element={<ProjectsFloor />} />
+                  <Route path={routes.projectCategories.townhouse.en} element={<ProjectsTownHouse />} />
+                  <Route path={routes.projectCategories.office.en} element={<ProjectsOffice />} />
+                  <Route path={routes.contact.en} element={<Contact />} />
 
-                  {/* Arabic Routes */}
-                  <Route path="/ar" element={<ArabicHome />} />
-                  <Route path="/ar/عن كالـما" element={<ArabicAbout />} />
-                  <Route path="/ar/المشاريع" element={<ArabicProjects />} />
-                  <Route path="/ar/تواصل معنا" element={<ArabicContact />} />
+                  {/* Arabic Routes (from config) */}
+                  <Route path={routes.home.ar} element={<ArabicHome />} />
+                  <Route path={routes.about.arNative} element={<ArabicAbout />} />
+                  <Route path={routes.projects.arNative} element={<ArabicProjects />} />
+                  <Route path={routes.contact.arNative} element={<ArabicContact />} />
                   {/* Arabic slug aliases for improved usability */}
-                  <Route path="/ar/about" element={<ArabicAbout />} />
-                  <Route path="/ar/projects" element={<ArabicProjects />} />
-                  <Route path="/ar/contact" element={<ArabicContact />} />
-                  <Route path="/ar/news" element={<ArabicNews />} />
-                  <Route path="/ar/التسجيل" element={<ArabicRegister />} />
-                  <Route path="/ar/register" element={<ArabicRegister />} />
+                  <Route path={routes.about.ar} element={<ArabicAbout />} />
+                  <Route path={routes.projects.ar} element={<ArabicProjects />} />
+                  <Route path={routes.contact.ar} element={<ArabicContact />} />
+                  <Route path={routes.news.ar} element={<ArabicNews />} />
+                  <Route path={routes.register.arNative} element={<ArabicRegister />} />
+                  <Route path={routes.register.ar} element={<ArabicRegister />} />
                   {/* Arabic projects subroutes mirroring EN */}
-                  <Route path="/ar/projects/commercials" element={<ArabicCommercials />} />
-                  <Route path="/ar/projects/residential" element={<ArabicResidential />} />
-                  <Route path="/ar/projects/calma-tower" element={<ArabicCalmaTower />} />
-                  <Route path="/ar/projects/villa" element={<ProjectsVilla />} />
-                  <Route path="/ar/projects/floor" element={<ProjectsFloor />} />
-                  <Route path="/ar/projects/townhouse" element={<ProjectsTownHouse />} />
-                  <Route path="/ar/projects/office" element={<ProjectsOffice />} />
+                  <Route path={routes.projectCategories.commercials.ar} element={<ArabicCommercials />} />
+                  <Route path={routes.projectCategories.residential.ar} element={<ArabicResidential />} />
+                  <Route path={routes.projectCategories.calmaTower.ar} element={<ArabicCalmaTower />} />
+                  <Route path={routes.projectCategories.villa.ar} element={<ProjectsVilla />} />
+                  <Route path={routes.projectCategories.floor.ar} element={<ProjectsFloor />} />
+                  <Route path={routes.projectCategories.townhouse.ar} element={<ProjectsTownHouse />} />
+                  <Route path={routes.projectCategories.office.ar} element={<ProjectsOffice />} />
 
                   {/* Test Routes */}
                 </Route>

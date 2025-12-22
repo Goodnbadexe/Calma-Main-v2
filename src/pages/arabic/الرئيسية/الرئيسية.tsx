@@ -18,9 +18,11 @@ import AnimatedNumber from '../../../components/ui/AnimatedNumber'
 import { useEffect, useRef, useState } from 'react'
 import { motion, circOut, easeInOut } from 'framer-motion'
 import { useSplash } from '../../../components/system/SplashProvider'
+import { useHeroAnimation } from '@/hooks/useHeroAnimation'
 import fullLockupLogo from '../../../assets/Logos/BRANDMARK_01-p-2000.png'
 import { homeAr } from '@/pages/content/home.ar'
 import FeaturedProjectsCarousel from '@/components/home/FeaturedProjectsCarousel'
+import Heading from '@/components/ui/Heading'
 
 export default function ArabicHome() {
   const heroVideoRef = useRef<HTMLVideoElement | null>(null)
@@ -49,6 +51,16 @@ export default function ArabicHome() {
     el.addEventListener('loadedmetadata', onMeta, { once: true })
     return () => { el.removeEventListener('loadedmetadata', onMeta) }
   }, [])
+  useEffect(() => {
+    const anyNav = navigator as any
+    const conn = anyNav.connection || anyNav.mozConnection || anyNav.webkitConnection
+    const saveData = conn && conn.saveData
+    const slow = conn && typeof conn.effectiveType === 'string' && /(^2g$|slow-2g)/.test(conn.effectiveType)
+    if (saveData || slow) {
+      setVideoSrc(undefined)
+      setHeroReady(true)
+    }
+  }, [])
 
   useEffect(() => {
     const el = heroVideoRef.current
@@ -65,6 +77,7 @@ export default function ArabicHome() {
     io.observe(el)
     return () => io.disconnect()
   }, [heroReady])
+  useHeroAnimation(heroReady)
   useEffect(() => {
     const el = heroVideoRef.current
     if (!el) return
@@ -141,7 +154,7 @@ export default function ArabicHome() {
             viewport={{ once: true }}
             dir="rtl"
           >
-            <h2 className="welcome-title">إعادة تعريف مفهوم الفخامة</h2>
+            <Heading level={2} className="welcome-title">إعادة تعريف مفهوم الفخامة</Heading>
             <p className="welcome-description">
               في كالما، نؤمن ببناء مساحات تُلهم وترتقي بأسلوب الحياة. التزامنا بالتميّز يدفعنا لتقديم حلول عقارية استثنائية تتجاوز التوقعات وتخلق قيمة مستدامة لعملائنا.
             </p>
@@ -193,7 +206,7 @@ export default function ArabicHome() {
               <motion.div className="content-grid" variants={staggerContainer}>
                 <motion.div className="content-text" variants={fadeInLeft}>
                   <span className="section-badge">عن كالما</span>
-                  <h2 className="section-title luxury-section-title">نهندس مستقبل السكن الحضري</h2>
+                  <Heading level={2} className="section-title luxury-section-title">نهندس مستقبل السكن الحضري</Heading>
                   <p className="section-description">
                     في كالما، لا نطوّر عقارات فحسب؛ بل نُهندس مستقبل المعيشة الحضرية. مع 28 مشروعًا بارزًا وعدة مشاريع قيد التنفيذ، نُدمج أحدث ممارسات الاستدامة لنصنع مجتمعات تُلهم وتدوم.
                   </p>
@@ -222,7 +235,7 @@ export default function ArabicHome() {
               <motion.div className="content-showcase" variants={staggerContainer}>
                 <motion.div className="showcase-content" variants={fadeInLeft}>
                   <span className="section-badge gold">التميّز</span>
-                  <h2 className="content-title luxury-content-title">مصمم بإتقان.<br />فريد لك.</h2>
+                  <Heading level={2} className="content-title luxury-content-title">مصمم بإتقان.<br />فريد لك.</Heading>
                   <p className="content-body luxury-content-body">
                     تمثل CALMA ذروة التميز العقاري حيث تلتقي الرؤية بمعايير لا تقبل المساومة. لا نرفع الأفق العمراني فحسب، بل نرتقي بأسلوب الحياة ونبني معالم تلهم لأجيال.
                   </p>
@@ -260,7 +273,7 @@ export default function ArabicHome() {
               <motion.div className="community-content" variants={staggerContainer}>
                 <motion.div className="community-text" variants={fadeInUp}>
                   <span className="section-badge silver">القيادة</span>
-                  <h2 className="content-title luxury-content-title">قيادة رؤيوية وتقدمية</h2>
+                  <Heading level={2} className="content-title luxury-content-title">قيادة رؤيوية وتقدمية</Heading>
                   <p className="content-body luxury-content-body">
                     في CALMA، القيادة تتجاوز إنجاز المشاريع إلى ابتكار حلول معمارية وتقنيات رقمية تُعزز تجربة التطوير بأكملها.
                   </p>
@@ -292,7 +305,7 @@ export default function ArabicHome() {
                 <motion.div className="ceo-message" variants={fadeInUp}>
                   <div className="message-content">
                     <span className="section-badge platinum" style={{textAlign:'center'}}>رسالة الرئيس التنفيذي</span>
-                    <h2 className="content-title luxury-content-title">حيث تجد 2,000 حلم عنوانه</h2>
+                    <Heading level={2} className="content-title luxury-content-title">حيث تجد 2,000 حلم عنوانه</Heading>
                     <p className="message-greeting">أعزّاء شركائنا وسكاننا المستقبليين،</p>
                     <p>حين أسّست CALMA، رأيت فرصة لإعادة تعريف معنى المساحات التي تصنع فرقًا حقيقيًا.</p>
                     <p>مساحات تتشكّل فيها الرؤية وتزدهر الإمكانات، لتصنع قيمة دائمة للمجتمع وأصحاب المصلحة.</p>
