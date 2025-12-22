@@ -249,6 +249,7 @@ export default function EnglishHome() {
         <Pillars />
         <MissionVision />
         <KPIStats />
+        <FeaturedProjectsCarousel />
         {/* Temporarily hide cluttered band to streamline home page */}
         <TrustStrip />
         <TestimonialsBand />

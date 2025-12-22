@@ -26,7 +26,7 @@ export const projectsData: ProjectEntry[] = [
     slugEN: 'one-by-calma-tower',
     slugAR: 'ون-باي-كالما-تاور',
     assets: {
-      imagesGlob: '/src/assets/Images/Projects/ملك سلمان - مكتبي - One by Calma Tower/Calma Tower Images/*.{png,jpg,jpeg,webp}',
+      imagesGlob: '/src/assets/Images/Projects/ملك سلمان - مكتبي - One by Calma Tower/One By Calma Tower Images/*.{png,jpg,jpeg,webp}',
       pdfs: []
     }
   },
@@ -192,6 +192,22 @@ export const projectsData: ProjectEntry[] = [
     assets: {
       imagesGlob: '/src/assets/Images/Projects/استراحة\u00A0الماجد/*.{png,jpg,jpeg,webp}',
       pdfs: []
+    }
+  },
+  {
+    id: 'calma-tower-apartments',
+    nameEN: 'Calma Tower • Al Sahafa • Apartments',
+    nameAR: 'برج كالما • الصحافة',
+    unitType: 'floor',
+    locationEN: 'Al Sahafa',
+    locationAR: 'حي الصحافة',
+    slugEN: 'calma-tower-apartments',
+    slugAR: 'برج-كالما-الصحافة',
+    assets: {
+      imagesGlob: '/src/assets/Images/Projects/حي الصحافة - شقق  - Calma Tower/Calma Tower Images/*.{png,jpg,jpeg,webp}',
+      pdfs: [
+        { labelEN: 'Prices', labelAR: 'الأسعار', path: '/src/assets/Images/Projects/حي الصحافة - شقق  - Calma Tower/Calma Tower - برج كالما الصحافة - Prices.pdf' }
+      ]
     }
   }
 ]
