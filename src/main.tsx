@@ -11,7 +11,7 @@ const AboutImproved = lazy(() => import('./pages/english/About/AboutImproved'))
 const News = lazy(() => import('./pages/english/News/News'))
 const ProjectsPage = lazy(() => import('./pages/english/Projects/ProjectsPage'))
 const ProjectPage = lazy(() => import('./pages/ProjectPage'))
-const Register = lazy(() => import('./pages/english/Register/Register'))
+const Register = lazy(() => import('./pages/english/Register/RegisterPage'))
 const Contact = lazy(() => import('./pages/english/Contact/Contact'))
 
 // Arabic Pages

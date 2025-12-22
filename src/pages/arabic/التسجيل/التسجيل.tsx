@@ -4,6 +4,7 @@ import { FormField, SelectField, TextareaField, Checkbox } from '../../../compon
 import Button from '../../../components/ui/button'
 import SEOHead from '../../../components/seo/SEOHead'
 import { useTelemetry } from '@/utils/telemetry'
+import { submitLead } from '@/services/api'
 
 type FormData = {
   firstName: string
@@ -61,11 +62,13 @@ export default function ArabicRegister() {
     setIsLoading(true)
     const start = performance.now()
     try {
-      await new Promise(r => setTimeout(r, 2000))
+      await submitLead({ ...formData, locale: 'ar' })
       setSuccess(true)
       trackPerformance('register_interest', performance.now() - start, 'ms')
     } catch (err: any) {
-      trackError('form_submission_error', String(err?.message || 'فشل الإرسال'))
+      const msg = String(err?.message || 'فشل الإرسال')
+      trackError('form_submission_error', msg)
+      setErrors(prev => ({ ...prev, submit: msg === 'LEADS_API_URL_MISSING' ? 'تعذّر الإرسال: لم يتم ضبط عنوان واجهة البرمجة. يرجى إعداد VITE_LEADS_API_URL.' : 'حدث خطأ أثناء الإرسال. حاول مرة أخرى.' }))
     } finally {
       setIsLoading(false)
     }

@@ -3,22 +3,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import type { EmblaOptionsType } from 'embla-carousel'
 import ProjectCard, { type Project } from '@/components/home/ProjectCard'
 import { projectsData } from '@/data/projects.data'
-
-const pickPreviewImage = (glob: string): string => {
-  try {
-    const mods = import.meta.glob('/src/assets/Images/Projects/**/*.{png,jpg,jpeg,webp}', { eager: true }) as Record<string, any>
-    // Remove the wildcard part to match against actual file paths
-    // e.g. "Folder/Subfolder/*.{png...}" -> "Folder/Subfolder/"
-    const folderPart = glob.split('/src/assets/Images/Projects/')[1]?.split('*')[0]
-    if (!folderPart) return ''
-
-    const match = Object.entries(mods).find(([k]) => k.includes(folderPart))
-    const url = match ? (typeof match[1] === 'string' ? match[1] : match[1]?.default) : undefined
-    return url || ''
-  } catch {
-    return ''
-  }
-}
+import { pickPreviewImage } from '@/utils/assetResolver'
 
 const unitLabel: Record<string, string> = {
   villa: 'Residential',

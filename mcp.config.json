@@ -1,0 +1,22 @@
+{
+  "servers": [
+    {
+      "id": "browsermcp",
+      "type": "http",
+      "server": "https://github.com/browsermcp/mcp",
+      "enabled": true
+    },
+    {
+      "id": "magic-mcp",
+      "type": "http",
+      "server": "https://github.com/21st-dev/magic-mcp",
+      "enabled": true
+    },
+    {
+      "id": "context7",
+      "type": "http",
+      "server": "https://github.com/upstash/context7",
+      "enabled": true
+    }
+  ]
+}

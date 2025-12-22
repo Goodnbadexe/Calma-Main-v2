@@ -21,14 +21,11 @@ export default function AppLayout() {
 
   useEffect(() => {
     setOverlayVisible(true)
-    document.body.style.overflow = 'hidden'
     const timer = setTimeout(() => {
       setOverlayVisible(false)
-      document.body.style.overflow = ''
     }, reduceMotion ? 0 : 520)
     return () => {
       clearTimeout(timer)
-      document.body.style.overflow = ''
     }
   }, [location.pathname, reduceMotion])
 

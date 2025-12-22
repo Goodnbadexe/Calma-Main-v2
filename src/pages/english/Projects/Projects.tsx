@@ -4,6 +4,11 @@ import { useEffect, useRef, useState } from "react"
 import { Card } from "@/components/ui/card"
 import "./Project.css"
 import { resolveAssetUrl } from "@/utils/assetResolver"
+import { projectsData } from "@/data/projects.data"
+import { pickPreviewImage } from "@/utils/assetResolver"
+import { PortfolioGallery } from "@/components/ui/portfolio-gallery"
+import { LayoutGrid, Map as MapIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 interface Project {
   id: number
@@ -12,67 +17,21 @@ interface Project {
   location: string
   price: string
   image: string
+  realId?: string
 }
 
-const projects: Project[] = [
-  // Residential Projects
-  { id: 1, name: "Calma Residences", description: "Luxury family homes with premium finishes and community amenities", location: "Riyadh North", price: "$2.8M", image: resolveAssetUrl("/src/assets/Backgrounds/About-Header-p-1600.jpg") },
-  { id: 2, name: "Heritage Villas", description: "Traditional Saudi architecture meets modern luxury living", location: "Jeddah Historic District", price: "$3.2M", image: resolveAssetUrl("/src/assets/Images/About/About-Header.jpg") },
-  { id: 3, name: "Garden Estates", description: "Spacious family compounds with private gardens and pools", location: "Riyadh Central", price: "$4.1M", image: resolveAssetUrl("/src/assets/Backgrounds/CTA-BG-p-1600.jpg") },
-  { id: 4, name: "Modern Townhomes", description: "Contemporary design with smart home technology integration", location: "New Riyadh", price: "$1.9M", image: resolveAssetUrl("/src/assets/Backgrounds/Abou-1-p-1600.jpg") },
-  { id: 5, name: "Executive Residences", description: "Premium homes designed for discerning professionals", location: "Diplomatic Quarter", price: "$5.2M", image: resolveAssetUrl("/src/assets/Images/About/Brand-Values-1.JPG") },
-  
-  // Commercial Projects
-  { id: 6, name: "Business Hub Central", description: "Grade A office spaces with cutting-edge infrastructure", location: "King Fahd Road", price: "$12.5M", image: resolveAssetUrl("/src/assets/Backgrounds/About-Header-p-1600.jpg") },
-  { id: 7, name: "Innovation Center", description: "Tech-focused commercial complex with flexible workspaces", location: "KAUST Area", price: "$8.7M", image: resolveAssetUrl("/src/assets/Images/About/Stats-77097-sqm.JPG") },
-  { id: 8, name: "Retail Plaza", description: "Premium shopping and dining destination", location: "Tahlia Street", price: "$15.3M", image: resolveAssetUrl("/src/assets/Backgrounds/CTA-BG-p-1600.jpg") },
-  { id: 9, name: "Corporate Towers", description: "Twin towers offering prestigious business addresses", location: "Financial District", price: "$25.8M", image: resolveAssetUrl("/src/assets/Images/About/Stats130000-sqm.JPG") },
-  { id: 10, name: "Mixed-Use Complex", description: "Integrated commercial and residential development", location: "Downtown Jeddah", price: "$18.9M", image: resolveAssetUrl("/src/assets/Backgrounds/Abou-1-p-1600.jpg") },
-  
-  // Luxury Projects
-  { id: 11, name: "Calma Tower", description: "Iconic residential tower defining the skyline", location: "King Abdullah Financial District", price: "$45.2M", image: resolveAssetUrl("/src/assets/Backgrounds/About-Header-p-1600.jpg") },
-  { id: 12, name: "Penthouse Collection", description: "Ultra-luxury penthouses with panoramic city views", location: "Riyadh Sky", price: "$8.5M", image: resolveAssetUrl("/src/assets/Images/About/About-Header.jpg") },
-  { id: 13, name: "Waterfront Residences", description: "Exclusive beachfront properties with private access", location: "Red Sea Coast", price: "$6.8M", image: resolveAssetUrl("/src/assets/Backgrounds/CTA-BG-p-1600.jpg") },
-  { id: 14, name: "Desert Retreat", description: "Luxury resort-style living in natural surroundings", location: "Edge of Riyadh", price: "$3.9M", image: resolveAssetUrl("/src/assets/Backgrounds/Abou-1-p-1600.jpg") },
-  { id: 15, name: "Sky Villas", description: "Elevated luxury living with private elevators", location: "Olaya District", price: "$7.2M", image: resolveAssetUrl("/src/assets/Images/About/Brand-Values-1.JPG") },
-  
-  // Community Projects
-  { id: 16, name: "Family Community", description: "Integrated neighborhood with schools and parks", location: "Al Nakheel", price: "$2.1M", image: resolveAssetUrl("/src/assets/Images/About/Stats-77097-sqm.JPG") },
-  { id: 17, name: "Senior Living", description: "Comfortable and accessible homes for mature residents", location: "Al Malqa", price: "$1.8M", image: resolveAssetUrl("/src/assets/Images/About/Stats130000-sqm.JPG") },
-  { id: 18, name: "Student Housing", description: "Modern accommodations near major universities", location: "University District", price: "$950K", image: resolveAssetUrl("/src/assets/Backgrounds/About-Header-p-1600.jpg") },
-  { id: 19, name: "Wellness Village", description: "Health-focused community with fitness facilities", location: "Green Riyadh", price: "$2.7M", image: resolveAssetUrl("/src/assets/Images/About/About-Header.jpg") },
-  { id: 20, name: "Cultural Quarter", description: "Arts and culture-focused residential development", location: "Historic Jeddah", price: "$3.4M", image: resolveAssetUrl("/src/assets/Backgrounds/CTA-BG-p-1600.jpg") },
-  
-  // Sustainable Projects
-  { id: 21, name: "Green Homes", description: "Eco-friendly residences with solar power integration", location: "NEOM Vicinity", price: "$4.6M", image: resolveAssetUrl("/src/assets/Backgrounds/Abou-1-p-1600.jpg") },
-  { id: 22, name: "Smart City Phase 1", description: "Technology-integrated sustainable community", location: "Future City", price: "$3.8M", image: resolveAssetUrl("/src/assets/Images/About/Brand-Values-1.JPG") },
-  { id: 23, name: "Carbon Neutral Complex", description: "Net-zero energy commercial development", location: "Green Business District", price: "$22.1M", image: resolveAssetUrl("/src/assets/Images/About/Stats-77097-sqm.JPG") },
-  { id: 24, name: "Renewable Energy Hub", description: "Self-sustaining mixed-use development", location: "Solar Valley", price: "$16.7M", image: resolveAssetUrl("/src/assets/Images/About/Stats130000-sqm.JPG") },
-  { id: 25, name: "Water Conservation Village", description: "Innovative water management residential project", location: "Desert Edge", price: "$2.9M", image: resolveAssetUrl("/src/assets/Backgrounds/About-Header-p-1600.jpg") },
-  
-  // Additional Premium Projects
-  ...Array.from({ length: 25 }, (_, i) => ({
-    id: i + 26,
-    name: `Premium Development ${i + 1}`,
-    description: `Exclusive ${['residential', 'commercial', 'mixed-use'][i % 3]} project with luxury amenities`,
-    location: `${['Riyadh', 'Jeddah', 'Dammam'][i % 3]} ${['North', 'South', 'East', 'West', 'Central'][i % 5]}`,
-    price: `$${(Math.random() * 8 + 2).toFixed(1)}M`,
-    image: resolveAssetUrl([
-      "/src/assets/Backgrounds/About-Header-p-1600.jpg",
-      "/src/assets/Images/About/About-Header.jpg",
-      "/src/assets/Backgrounds/CTA-BG-p-1600.jpg",
-      "/src/assets/Backgrounds/Abou-1-p-1600.jpg",
-      "/src/assets/Images/About/Brand-Values-1.JPG"
-    ][i % 5]),
-  }))
-]
+// Map real data to the structure
+const projects: Project[] = projectsData.map((p, index) => ({
+  id: index + 1, // Map to 1-based IDs for the SVG/Order logic
+  name: p.nameEN.split('•')[0].trim(),
+  description: p.unitType.charAt(0).toUpperCase() + p.unitType.slice(1),
+  location: p.locationEN,
+  price: "Contact for Price",
+  image: pickPreviewImage(p.assets.imagesGlob),
+  realId: p.id
+}))
 
-const projectOrder = [
-  // Part 1
-  42, 35, 48, 45, 37, 47, 32, 38, 28, 49, 50, 26, 46, 27, 43, 41, 30, 39, 40, 31, 44, 36, 33, 29, 34,
-  // Part 2
-  19, 9, 18, 17, 20, 16, 22, 25, 24, 21, 23, 14, 11, 13, 5, 7, 3, 2, 1, 4, 15, 10, 8, 12, 6,
-]
+const projectOrder = projects.map(p => p.id)
 
 export default function RealEstateShowcase() {
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -84,6 +43,7 @@ export default function RealEstateShowcase() {
   const [isSliderActive, setIsSliderActive] = useState(false)
   const [sliderValue, setSliderValue] = useState(0)
   const [isSidebarActive, setIsSidebarActive] = useState(false)
+  const [viewMode, setViewMode] = useState<'immersive' | 'grid'>('immersive')
 
   function scrollToProject(projectId: number) {
     const idx = projectOrder.indexOf(projectId)
@@ -96,7 +56,7 @@ export default function RealEstateShowcase() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!containerRef.current) return
+      if (!containerRef.current || viewMode === 'grid') return
       // When the slider is being used, don't override its value with scroll.
       if (isSliderActive) return
 
@@ -107,7 +67,7 @@ export default function RealEstateShowcase() {
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [isSliderActive])
+  }, [isSliderActive, viewMode])
 
   // Unified progression value: driven by slider when active, otherwise by scroll.
   const progression = isSliderActive
@@ -128,13 +88,13 @@ export default function RealEstateShowcase() {
 
   useEffect(() => {
     // Scroll active item into view when progression changes, but don't fight the user's sidebar scroll.
-    if (listRef.current && !isSidebarActive) {
+    if (listRef.current && !isSidebarActive && viewMode === 'immersive') {
       const activeElement = listRef.current.querySelector(`[data-project-id="${currentProjectId}"]`)
       if (activeElement) {
         (activeElement as HTMLElement).scrollIntoView({ behavior: "smooth", block: "center" })
       }
     }
-  }, [currentProjectId, isSidebarActive])
+  }, [currentProjectId, isSidebarActive, viewMode])
 
   const getPathClass = (pathIndex: number) => {
     const project = projects[pathIndex]
@@ -197,9 +157,36 @@ export default function RealEstateShowcase() {
   }
 
   const selectedProjectData = selectedProject ? projects.find((p) => p.id === selectedProject) : null
-  const displayProject = selectedProjectData || (hoveredProject ? projects.find((p) => p.id === hoveredProject) : null)
-  // Use displayProject to avoid unused variable warning
-  console.log(displayProject)
+
+  if (viewMode === 'grid') {
+    return (
+      <div className="min-h-screen bg-background relative pt-24 pb-12">
+        <div className="fixed top-24 right-8 z-50">
+          <Button 
+            onClick={() => setViewMode('immersive')}
+            className="bg-primary text-primary-foreground shadow-lg gap-2"
+          >
+            <MapIcon className="w-4 h-4" />
+            Interactive Map
+          </Button>
+        </div>
+        <PortfolioGallery
+          title="Our Projects"
+          archiveButton={{ text: "Contact Us", href: "/contact" }}
+          images={projects.map(p => ({
+            src: p.image,
+            alt: p.name,
+            title: p.name
+          }))}
+          onImageClick={(index) => {
+            // Optional: navigate or open details
+            const p = projects[index]
+            if (p) setSelectedProject(p.id)
+          }}
+        />
+      </div>
+    )
+  }
 
   return (
     <div ref={containerRef} className="relative min-h-[800vh]" style={{ backgroundColor: "var(--color-bg-secondary)" }}>
@@ -212,8 +199,20 @@ export default function RealEstateShowcase() {
           }}
         />
 
+        {/* View Toggle Button */}
+        <div className="fixed top-24 right-8 z-50 hidden md:block">
+          <Button 
+            onClick={() => setViewMode('grid')}
+            variant="outline"
+            className="bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-background gap-2"
+          >
+            <LayoutGrid className="w-4 h-4" />
+            Grid View
+          </Button>
+        </div>
+
         {/* Right-centered controls: desktop/tablet only */}
-        <div className="hidden md:block absolute right-8 top-1/2 -translate-y-1/2 z-50 w-[300px]" style={{ pointerEvents: 'auto' }}>
+        <div className="hidden md:block absolute right-8 top-1/2 -translate-y-1/2 z-40 w-[300px]" style={{ pointerEvents: 'auto' }}>
           <div className="flex flex-col items-end gap-2 mb-3">
             <span className="text-xs font-mono text-muted-foreground">Project {currentProjectId} of {projects.length}</span>
             <input
@@ -911,7 +910,7 @@ export default function RealEstateShowcase() {
                     const proj = getProjectForPath(48)
                     if (proj) handleProjectClick(proj.id)
                   }}
-                  d="M174,185.69l-99.14-89.27c-6.76,7.51-13.17,15.42-19.18,23.71l105.08,76.34c4.22-3.87,8.65-7.46,13.25-10.79Z"
+                  d="M174,185.69l-99.14-89.27c-6.76,7.51-13.17-15.42-19.18,23.71l105.08,76.34c4.22-3.87,8.65-7.46,13.25-10.79Z"
                 />
                 <path
                   className={`${getPathClass(49)} cursor-pointer`}
@@ -1108,6 +1107,3 @@ export default function RealEstateShowcase() {
     </div>
   )
 }
-
-
-

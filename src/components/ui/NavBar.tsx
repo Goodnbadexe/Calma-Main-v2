@@ -316,7 +316,7 @@ export default function NavBar() {
           <Button
             variant="ghost"
             size="icon"
-            className="burger-button"
+            className="burger-button md:hidden"
             aria-label={t('actions.openMenu')}
             aria-expanded={drawerOpen}
             onClick={() => setDrawerOpen(true)}
