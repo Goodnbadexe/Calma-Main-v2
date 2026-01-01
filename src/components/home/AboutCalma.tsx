@@ -51,7 +51,7 @@ export default function AboutCalma() {
               Architecting the Future of Urban Living
             </h2>
             <p className="section-description">
-              A distilled snapshot of our ethos — grounded sustainability, uncompromising quality, and thoughtful urban innovation.
+              A distilled snapshot of our ethos: grounded sustainability, uncompromising quality, and thoughtful urban innovation.
             </p>
             <div className="snapshot-cards">
               <div className="snapshot-card">
@@ -82,4 +82,3 @@ export default function AboutCalma() {
     </motion.section>
   )
 }
-

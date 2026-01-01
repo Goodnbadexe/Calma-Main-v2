@@ -43,16 +43,16 @@ export default function Footer() {
         <div className="footer-col">
           <div className="footer-heading">{t('footer.connect')}</div>
           <div className="footer-social">
-            <a href="https://facebook.com" aria-label="Facebook" className="footer-icon" target="_blank" rel="noreferrer">
+            <a href="https://facebook.com/calmasa" aria-label="Facebook" className="footer-icon" target="_blank" rel="noreferrer">
               <Facebook size={20} strokeWidth={1.5} />
             </a>
-            <a href="https://instagram.com" aria-label="Instagram" className="footer-icon" target="_blank" rel="noreferrer">
+            <a href="https://instagram.com/calmasa" aria-label="Instagram" className="footer-icon" target="_blank" rel="noreferrer">
               <Instagram size={20} strokeWidth={1.5} />
             </a>
-            <a href="https://linkedin.com" aria-label="LinkedIn" className="footer-icon" target="_blank" rel="noreferrer">
+            <a href="https://www.linkedin.com/company/calmasa" aria-label="LinkedIn" className="footer-icon" target="_blank" rel="noreferrer">
               <Linkedin size={20} strokeWidth={1.5} />
             </a>
-            <a href="https://x.com" aria-label="X" className="footer-icon" target="_blank" rel="noreferrer">
+            <a href="https://x.com/calmasa" aria-label="X" className="footer-icon" target="_blank" rel="noreferrer">
               <Twitter size={20} strokeWidth={1.5} />
             </a>
           </div>

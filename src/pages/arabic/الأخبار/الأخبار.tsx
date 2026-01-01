@@ -1,30 +1,32 @@
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Helmet } from 'react-helmet-async'
-import { Button } from '@/components/ui/button'
-import { ExternalLink, Calendar, Heart, MessageCircle, Share2, Linkedin } from 'lucide-react'
-import './الأخبار.css'
-import { الاخبارAR } from '@/pages/content/../../data/news.ar'
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
+import { Button } from '@/components/ui/button';
+import { ExternalLink, Calendar, Heart, MessageCircle, Share2, Linkedin } from 'lucide-react';
+import './الأخبار.css';
+import type { شركةخبر } from '@/pages/content/../../data/news.ar'
+import { الاخبارAR as newsAr } from '@/pages/content/../../data/news.ar'
 import { apiClient } from '@/utils/apiClient'
 import { useTelemetry } from '@/utils/telemetry'
 
-type LinkedInPost = {
-  id: string
-  content: string
-  author: string
-  date: string
-  likes: number
-  comments: number
-  shares: number
-  image?: string
-  link?: string
+interface LinkedInPost {
+  id: string;
+  content: string;
+  author: string;
+  date: string;
+  likes: number;
+  comments: number;
+  shares: number;
+  image?: string;
+  link?: string;
 }
 
+// Mock LinkedIn posts data - Replace with actual LinkedIn API integration
 const mockLinkedInPosts: LinkedInPost[] = [
   {
     id: '1',
-    content: 'يسعدنا الإعلان عن اكتمال أحدث مشاريعنا السكنية في الرياض. إنجاز جديد يرسخ رؤيتنا في بناء مساحات تُجسّد الطموح والتميز.',
-    author: 'CALMA العقارية',
+    content: 'Excited to announce the completion of our latest residential project in Riyadh! 🏗️ Another milestone in creating spaces where vision takes shape. #CALMA #RealEstate #Riyadh',
+    author: 'CALMA Real Estate',
     date: '2024-01-15',
     likes: 127,
     comments: 23,
@@ -34,8 +36,8 @@ const mockLinkedInPosts: LinkedInPost[] = [
   },
   {
     id: '2',
-    content: 'نواصل التزامنا بالاستدامة عبر دمج تقنيات خضراء متقدمة في جميع مشاريعنا الجديدة. نصمم اليوم لمدن الغد.',
-    author: 'CALMA العقارية',
+    content: 'Our commitment to sustainability continues with the integration of cutting-edge green technologies in all new developments. Building tomorrow\'s communities today! 🌱 #Sustainability #Vision2030',
+    author: 'CALMA Real Estate',
     date: '2024-01-12',
     likes: 89,
     comments: 12,
@@ -44,8 +46,8 @@ const mockLinkedInPosts: LinkedInPost[] = [
   },
   {
     id: '3',
-    content: 'فخورون بأننا رافقنا أكثر من 2000 أسرة في رحلتهم نحو السكن الأمثل. نحن نبني مجتمعات تنبض بالحياة وتحتضن الإمكانيات.',
-    author: 'CALMA العقارية',
+    content: 'Proud to have connected over 2,000 residents to their dreams. Each project represents more than development – it\'s about creating communities where potential flourishes. ✨',
+    author: 'CALMA Real Estate',
     date: '2024-01-10',
     likes: 156,
     comments: 31,
@@ -53,13 +55,13 @@ const mockLinkedInPosts: LinkedInPost[] = [
     image: '/api/placeholder/600/300',
     link: 'https://linkedin.com/company/calmasa'
   }
-]
+];
 
-const newsArticles = الاخبارAR
+const newsArticles: شركةخبر[] = newsAr
 
-export default function ArabicNews() {
-  const [linkedInPosts, setLinkedInPosts] = useState<LinkedInPost[]>([])
-  const [loading, setLoading] = useState(true)
+export default function News() {
+  const [linkedInPosts, setLinkedInPosts] = useState<LinkedInPost[]>([]);
+  const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [subscribeMsg, setSubscribeMsg] = useState<string | null>(null)
@@ -67,13 +69,13 @@ export default function ArabicNews() {
 
   useEffect(() => {
     const fetchLinkedInPosts = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
         const data = await apiClient.get<any[]>('/api/linkedin/posts')
         const mapped: LinkedInPost[] = data.map((p) => ({
           id: p.id,
           content: p.text ?? '',
-          author: 'CALMA العقارية',
+          author: 'CALMA Real Estate',
           date: new Date(p.createdAt).toISOString(),
           likes: p.metrics?.likes ?? 0,
           comments: p.metrics?.comments ?? 0,
@@ -82,7 +84,7 @@ export default function ArabicNews() {
           link: p.link,
         }))
         setLinkedInPosts(mapped)
-      } catch {
+      } catch (err) {
         setLinkedInPosts(mockLinkedInPosts)
       } finally {
         setLoading(false)
@@ -91,21 +93,23 @@ export default function ArabicNews() {
     fetchLinkedInPosts()
   }, [])
 
-  const formatDateAr = (dateString: string) => {
+  const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('ar-SA', {
-      year: 'numeric', month: 'long', day: 'numeric'
-    })
-  }
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
   return (
-    <main className="news-page" dir="rtl" lang="ar">
+    <main className="news-page" dir="rtl">
       <Helmet>
         <title>كالما — آخر الأخبار والتحديثات</title>
-        <meta name="description" content="تابع أحدث أخبار CALMA وتحديثات لينكدإن والبيانات الصحفية." />
+        <meta name="description" content="ابقَ على اطلاع برحلة كالما. أحدث الأخبار والمنشورات والبيانات الصحفية." />
         <meta property="og:title" content="كالما — آخر الأخبار والتحديثات" />
-        <meta property="og:description" content="تجربة تحريرية راقية مع محتوى مباشر من لينكدإن وأخبار الشركة." />
+        <meta property="og:description" content="أخبار تحريرية مميزة مع موجز مباشر من لينكدإن وتحديثات الشركة." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://calma.sa/ar/news" />
+        <meta property="og:url" content="https://calma.sa/news" />
       </Helmet>
       {/* Hero Section */}
       <section className="news-hero">
@@ -117,10 +121,10 @@ export default function ArabicNews() {
             className="hero-text"
           >
             <h1>آخر الأخبار والتحديثات</h1>
-            <p>تابع مسيرة CALMA في تشكيل مستقبل التطوير العقاري عبر المملكة العربية السعودية.</p>
+            <p>ابقَ على اتصال برحلة كالما ونحن نواصل تشكيل مستقبل التطوير العقاري في المملكة العربية السعودية.</p>
           </motion.div>
         </div>
-        <div className="hero-gradient" />
+        <div className="hero-gradient"></div>
       </section>
 
       <div className="news-container">
@@ -135,7 +139,7 @@ export default function ArabicNews() {
               </div>
             </div>
             <Button 
-              variant="outline" 
+              variant="secondary" 
               className="follow-btn"
               onClick={() => window.open('https://www.linkedin.com/company/calmasa/posts/?feedView=all&viewAsMember=true', '_blank')}
             >
@@ -149,9 +153,9 @@ export default function ArabicNews() {
               <div className="loading-posts">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="post-skeleton">
-                    <div className="skeleton-header" />
-                    <div className="skeleton-content" />
-                    <div className="skeleton-footer" />
+                    <div className="skeleton-header"></div>
+                    <div className="skeleton-content"></div>
+                    <div className="skeleton-footer"></div>
                   </div>
                 ))}
               </div>
@@ -172,7 +176,7 @@ export default function ArabicNews() {
                         </div>
                         <div className="author-info">
                           <h4>{post.author}</h4>
-                          <span className="post-date">{formatDateAr(post.date)}</span>
+                          <span className="post-date">{formatDate(post.date)}</span>
                         </div>
                       </div>
                     </div>
@@ -181,22 +185,22 @@ export default function ArabicNews() {
                       <p>{post.content}</p>
                       {post.image && (
                         <div className="post-image">
-                          <img src={post.image} alt="صورة المنشور" />
+                          <img src={post.image} alt="Post content" />
                         </div>
                       )}
                     </div>
 
                     <div className="post-engagement">
-                      <div className="engagement-stats" aria-label="إحصاءات التفاعل">
-                        <span title="إعجابات"><Heart className="w-4 h-4" /> {post.likes}</span>
-                        <span title="تعليقات"><MessageCircle className="w-4 h-4" /> {post.comments}</span>
-                        <span title="مشاركات"><Share2 className="w-4 h-4" /> {post.shares}</span>
+                      <div className="engagement-stats" aria-label="Post engagement statistics">
+                        <span title="Likes"><Heart className="w-4 h-4" /> {post.likes}</span>
+                        <span title="Comments"><MessageCircle className="w-4 h-4" /> {post.comments}</span>
+                        <span title="Shares"><Share2 className="w-4 h-4" /> {post.shares}</span>
                       </div>
                       {post.link && (
                         <Button 
                           variant="ghost" 
                           size="sm"
-                          onClick={() => window.open(post.link!, '_blank')}
+                          onClick={() => window.open(post.link, '_blank')}
                         >
                           عرض على لينكدإن
                         </Button>
@@ -232,7 +236,7 @@ export default function ArabicNews() {
                 <div className="article-content">
                   <div className="article-meta">
                     <Calendar className="w-4 h-4" />
-                    <span>{formatDateAr(article.date)}</span>
+                    <span>{formatDate(article.date)}</span>
                   </div>
                   <h3>{article.title}</h3>
                   <p>{article.excerpt}</p>
@@ -249,7 +253,7 @@ export default function ArabicNews() {
                         اقرأ المزيد
                         <ExternalLink className="w-4 h-4 ml-2" />
                       </Button>
-                      {/* TODO: إضافة روابط فعلية للمقالات */}
+                      {/* TODO: Supply real article URLs for Read More links */}
                     </>
                   )}
                 </div>
@@ -266,14 +270,13 @@ export default function ArabicNews() {
             transition={{ duration: 0.8 }}
             className="newsletter-content"
           >
-            <h2>تابع المستجدات</h2>
-            <p>اشترك في نشرتنا لتصلك أحدث الأخبار وتحديثات المشاريع</p>
+            <h2>ابقَ على اطلاع</h2>
+            <p>اشترك في نشرتنا البريدية للحصول على آخر الأخبار وتحديثات المشاريع</p>
             <div className="newsletter-form">
               <input 
                 type="email" 
-                placeholder="ادخل بريدك الإلكتروني"
+                placeholder="أدخل بريدك الإلكتروني"
                 className="email-input"
-                dir="ltr"
                 value={email}
                 aria-invalid={!!subscribeMsg && subscribeMsg.startsWith('يرجى إدخال')}
                 onChange={(e) => setEmail(e.target.value)}
@@ -286,7 +289,7 @@ export default function ArabicNews() {
                   setSubscribeMsg(null)
                   try {
                     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                      setSubscribeMsg('يرجى إدخال بريد صحيح')
+                      setSubscribeMsg('يرجى إدخال بريد إلكتروني صالح')
                       setSubmitting(false)
                       return
                     }
@@ -307,12 +310,12 @@ export default function ArabicNews() {
               </Button>
             </div>
             <div className="newsletter-privacy-note" style={{ marginTop: '0.75rem', fontSize: '0.9rem', color: '#4a4a4a' }}>
-              نُقدّر خصوصيتك؛ لن يُستخدم بريدك إلا لإرسال التحديثات.
+              نُقدّر خصوصيتك؛ سيُستخدم بريدك الإلكتروني فقط لإرسال التحديثات.
             </div>
             {subscribeMsg && <div aria-live="polite" style={{ marginTop: '0.75rem' }}>{subscribeMsg}</div>}
           </motion.div>
         </section>
       </div>
     </main>
-  )
+  );
 }

@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import Button from '@/components/ui/button';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
-import './تواصل معنا.css';
+import './Contact.css';
+import RegisterInterestButton from '@/components/register/RegisterInterestButton'
 
-export default function ArabicContact() {
+export default function Contact() {
   return (
     <main className="contact-page" dir="rtl">
       {/* Hero Section */}
@@ -86,6 +87,9 @@ export default function ArabicContact() {
             className="form-container"
           >
             <h2>أرسل لنا رسالة</h2>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+              <RegisterInterestButton label="Talk to sales" />
+            </div>
             <form className="contact-form">
               <div className="form-row">
                 <div className="form-group">
@@ -99,7 +103,7 @@ export default function ArabicContact() {
               </div>
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="phone">رقم الهاتف</label>
+                  <label htmlFor="phone">رقم الجوال</label>
                   <input type="tel" id="phone" name="phone" required />
                 </div>
                 <div className="form-group">

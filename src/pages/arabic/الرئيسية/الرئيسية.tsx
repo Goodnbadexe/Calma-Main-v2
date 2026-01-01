@@ -1,48 +1,39 @@
-import './الرئيسية.css'
-import panoramaImage from '../../../assets/Backgrounds/Abou-1-p-1600.jpg'
-import aboutHeaderImage from '../../../assets/Images/About/About-Header.jpg'
-import brandValuesImage from '../../../assets/Images/About/Brand-Values-1.JPG'
-import statsImage1 from '../../../assets/Images/About/Stats-77097-sqm.JPG'
-import statsImage2 from '../../../assets/Images/About/Stats130000-sqm.JPG'
-import asset1Image from '../../../assets/Images/About/Asset-1.JPG'
-import asset2Image from '../../../assets/Images/About/Asset-2.JPG'
-import asset3Image from '../../../assets/Images/About/Asset-3.JPG'
-import asset4Image from '../../../assets/Images/About/Asset-4.JPG'
-import asset5Image from '../../../assets/Images/About/Asset-5.jpg'
-import asset6Image from '../../../assets/Images/About/Asset-6.JPG'
-import possibilitiesIcon from '../../../assets/Icons/500000-sqm-of-possibilities-unfolding..png'
-import calmaTV from '../../../assets/Videos/Calma_TV.mp4'
-import { Button } from '../../../components/ui/button'
-import VisionCounter from '../../../components/ui/VisionCounter'
-import AnimatedNumber from '../../../components/ui/AnimatedNumber'
-import { useEffect, useRef, useState } from 'react'
-import { motion, circOut, easeInOut } from 'framer-motion'
-import { useSplash } from '../../../components/system/SplashProvider'
-import { useHeroAnimation } from '@/hooks/useHeroAnimation'
-import fullLockupLogo from '../../../assets/Logos/BRANDMARK_01-p-2000.png'
-import { homeAr } from '@/pages/content/home.ar'
-import FeaturedProjectsCarousel from '@/components/home/FeaturedProjectsCarousel'
+import { useRef, useState, useEffect } from 'react'
+import { Button } from '@/components/ui/button'
 import Heading from '@/components/ui/Heading'
+import Section from '@/components/ui/Section'
+import homeImpactImage from '@/assets/Images/Home/Calma_KSR_ex03_Final02_2025-05-28.JPG'
+import aboutHeaderImage from '@/assets/Images/About/About-Header.jpg'
 
-export default function ArabicHome() {
+//import React from 'react'
+import { motion, circOut } from 'framer-motion'
+import anime from 'animejs'
+import { useSplash } from '@/components/system/SplashProvider'
+import { useHeroAnimation } from '@/hooks/useHeroAnimation'
+
+import calmaTV from '@/assets/Videos/Calma_TV.mp4'
+import { homeAr } from '@/pages/content/home.ar'
+import './Home.css'
+
+import FeaturedProjectsCarousel from '@/components/home/FeaturedProjectsCarousel'
+import TrustStrip from '@/components/home/TrustStrip'
+import ProjectPreviewGrid from '@/components/home/ProjectPreviewGrid'
+import MissionVision from '@/components/home/MissionVision'
+import AboutCalma from '@/components/home/AboutCalma'
+import Excellence from '@/components/home/Excellence'
+import Pillars from '@/components/home/Pillars'
+import KPIStats from '@/components/home/KPIStats'
+import TestimonialsBand from '@/components/home/TestimonialsBand'
+import RegisterInterestButton from '@/components/register/RegisterInterestButton'
+
+export default function EnglishHome() {
   const heroVideoRef = useRef<HTMLVideoElement | null>(null)
   const [heroReady, setHeroReady] = useState(false)
-  const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined)
+  const [videoSrc, setVideoSrc] = useState<string | undefined>(calmaTV)
+  const [contentVisible, setContentVisible] = useState(false)
+  // keep src stable; signal splash readiness on media load
   const { signalReady } = useSplash()
-
-  const [currentImageSet, setCurrentImageSet] = useState(0)
-  const imageSets = [
-    { primary: brandValuesImage, secondary: statsImage1, tertiary: statsImage2 },
-    { primary: asset1Image, secondary: asset2Image, tertiary: asset3Image },
-    { primary: asset4Image, secondary: asset5Image, tertiary: asset6Image }
-  ]
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageSet((prev) => (prev + 1) % imageSets.length)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [imageSets.length])
+  const showMicroContent = true
 
   useEffect(() => {
     const el = heroVideoRef.current
@@ -63,6 +54,16 @@ export default function ArabicHome() {
   }, [])
 
   useEffect(() => {
+    const reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced) {
+      setContentVisible(true)
+      return
+    }
+    if (!heroReady) return
+    setContentVisible(true)
+  }, [heroReady])
+  useHeroAnimation(heroReady)
+  useEffect(() => {
     const el = heroVideoRef.current
     if (!el) return
     const io = new IntersectionObserver((entries) => {
@@ -77,7 +78,6 @@ export default function ArabicHome() {
     io.observe(el)
     return () => io.disconnect()
   }, [heroReady])
-  useHeroAnimation(heroReady)
   useEffect(() => {
     const el = heroVideoRef.current
     if (!el) return
@@ -91,31 +91,74 @@ export default function ArabicHome() {
     io.observe(el)
     return () => io.disconnect()
   }, [videoSrc])
+  useEffect(() => {
+    const id = setTimeout(() => {
+      if (!contentVisible) setContentVisible(true)
+    }, 1500)
+    return () => clearTimeout(id)
+  }, [contentVisible])
 
-  const fadeInUp = { hidden: { opacity: 0, y: 60 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: circOut } } }
-  const fadeInLeft = { hidden: { opacity: 0, x: -60 }, visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: circOut } } }
-  const fadeInRight = { hidden: { opacity: 0, x: 60 }, visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: circOut } } }
-  const staggerContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.1 } } }
-  const floatingAnimation = { y: [0, -10, 0], transition: { duration: 3, repeat: Infinity, ease: easeInOut } }
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: circOut }
+    }
+  }
+
+  const fadeInLeft = {
+    hidden: { opacity: 0, x: -60 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.8, ease: circOut }
+    }
+  }
+
+  const fadeInRight = {
+    hidden: { opacity: 0, x: 60 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.8, ease: circOut }
+    }
+  }
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  }
 
   return (
-    <div className="home-page" dir="rtl" lang="ar">
+    <div className="home-page">
+      {/* Hero Section with Video */}
       <motion.section 
         className="hero luxury-hero"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 1.6 }}
       >
+        {/* Background video */}
         <div className="hero-media">
           <video 
             ref={heroVideoRef}
             className="hero-video"
             src={videoSrc}
+            autoPlay
+            loop
             muted
             playsInline
-            preload="none"
+            preload="metadata"
             poster={aboutHeaderImage}
-            aria-label="فيديو مقدمة كالما"
+            aria-label="Calma TV hero video"
             onLoadedData={() => {
               try { heroVideoRef.current?.play() } catch {}
               signalReady()
@@ -124,206 +167,99 @@ export default function ArabicHome() {
         </div>
         <div className="hero-overlay luxury-overlay" />
 
+        {/* Hero content */}
         <motion.div 
           className="hero-content luxury-hero-content"
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          dir="rtl"
+          transition={{ duration: 0.9, delay: 0.1 }}
         >
-          <div className="hero-badge"><span className="badge-text">CALMA REAL ESTATE</span></div>
-          <h1 className="hero-title luxury-title">{homeAr.heroTitle}</h1>
-          <p className="hero-subtitle luxury-subtitle">{homeAr.heroSubtitle}</p>
-          <motion.button 
-            className="hero-button luxury-button"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            اكتشف مشاريعنا
-          </motion.button>
+          <div className="max-w-6xl mx-auto mb-4 text-center">
+            <span className="hero-badge">كالما العقارية</span>
+            <h1 className="hero-title luxury-title">{homeAr.heroTitle}</h1>
+          </div>
+          <p className="hero-subtitle luxury-subtitle text-center">
+            {homeAr.heroSubtitle}
+          </p>
+          <div className="hero-actions">
+            <motion.a 
+              href="/projects"
+              className="button-link"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span className="hero-button luxury-button">اكتشف مشاريعنا</span>
+            </motion.a>
+            <motion.a 
+              href="/brochure"
+              className="button-link"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span className="hero-button-secondary">تحميل الكتيّب</span>
+            </motion.a>
+            <RegisterInterestButton />
+          </div>
         </motion.div>
+        <div className="scroll-cue" aria-hidden="true">
+          <span className="scroll-cue-dot" />
+        </div>
       </motion.section>
 
-      <main className="main-content">
-        <div className="container">
-          <motion.section 
-            className="welcome-section"
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            dir="rtl"
-          >
-            <Heading level={2} className="welcome-title">إعادة تعريف مفهوم الفخامة</Heading>
-            <p className="welcome-description">
-              في كالما، نؤمن ببناء مساحات تُلهم وترتقي بأسلوب الحياة. التزامنا بالتميّز يدفعنا لتقديم حلول عقارية استثنائية تتجاوز التوقعات وتخلق قيمة مستدامة لعملائنا.
+      {/* Redefining Luxury Living — Dual Split (placed directly below hero) */}
+      <motion.section 
+        className="dual-split section showcase-strips"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={staggerContainer}
+      >
+        <div className="dual-split-grid" style={{ maxWidth: 1200, margin: '0 auto', alignItems: 'center', gap: 24 }}>
+          <motion.div className="dual-split-text" variants={fadeInLeft}>
+            <Heading level={2} className="dual-split-title">إعادة تعريف السكن الفاخر</Heading>
+            <p className="dual-split-description">
+              نرسّخ الرؤية الجريئة بواقعية مصممة بعناية، فنصنع مساحات شاعرية وهادفة في آنٍ واحد.
+              كل قرار يوازن بين أصالة المادة والتجربة الإنسانية.
             </p>
-          </motion.section>
-
-          <motion.section 
-            id="panorama" 
-            className="section panorama luxury-panorama"
-            style={{ backgroundImage: `url(${panoramaImage})` }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={fadeInUp}
-            dir="rtl"
-          >
-            <div className="panorama-overlay luxury-panorama-overlay">
-              <div className="panorama-content">
-                <motion.img 
-                  src={possibilitiesIcon}
-                  alt="أيقونة الإمكانات"
-                  className="vision-icon"
-                  animate={floatingAnimation}
-                />
-                <VisionCounter target={500000} heading="حيث تأخذ الرؤية شكلها" label="متر مربع من الإمكانات" suffix="+" locale="ar" />
-                <motion.div className="panorama-stats" variants={staggerContainer} dir="rtl">
-                  <motion.div className="stat-item" variants={fadeInLeft}>
-                    <AnimatedNumber value={28} className="stat-number" delay={300} />
-                    <span className="stat-label">مشاريع محورية</span>
-                  </motion.div>
-                  <motion.div className="stat-item" variants={fadeInRight}>
-                    <AnimatedNumber value="2000+" className="stat-number" delay={600} />
-                    <span className="stat-label">سكان مخدومون</span>
-                  </motion.div>
-                </motion.div>
-              </div>
+            <div className="cta-row">
+              <a className="button-link" href="/projects">
+                <Button variant="secondary" className="luxury-button">
+                  اكتشف مشاريعنا
+                </Button>
+              </a>
             </div>
-          </motion.section>
-
-          <motion.section 
-            id="about" 
-            className="section luxury-about"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={staggerContainer}
-            dir="rtl"
+          </motion.div>
+          <motion.div 
+            className="dual-split-image" 
+            variants={fadeInRight}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <div className="section-inner luxury-section-inner">
-              <motion.div className="content-grid" variants={staggerContainer}>
-                <motion.div className="content-text" variants={fadeInLeft}>
-                  <span className="section-badge">عن كالما</span>
-                  <Heading level={2} className="section-title luxury-section-title">نهندس مستقبل السكن الحضري</Heading>
-                  <p className="section-description">
-                    في كالما، لا نطوّر عقارات فحسب؛ بل نُهندس مستقبل المعيشة الحضرية. مع 28 مشروعًا بارزًا وعدة مشاريع قيد التنفيذ، نُدمج أحدث ممارسات الاستدامة لنصنع مجتمعات تُلهم وتدوم.
-                  </p>
-                  <div className="content-features">
-                    <div className="feature-item"><span className="feature-text">تطوير مستدام</span></div>
-                    <div className="feature-item"><span className="feature-text">جودة فائقة</span></div>
-                    <div className="feature-item"><span className="feature-text">ابتكار عمراني</span></div>
-                  </div>
-                </motion.div>
-                <motion.div className="content-image" variants={fadeInRight}>
-                  <img src={aboutHeaderImage} alt="تطوير كالما" className="luxury-image" loading="lazy" decoding="async" />
-                </motion.div>
-              </motion.div>
-            </div>
-          </motion.section>
-
-          <motion.section 
-            className="section content-section luxury-content-section"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={staggerContainer}
-            dir="rtl"
-          >
-            <div className="section-inner luxury-section-inner">
-              <motion.div className="content-showcase" variants={staggerContainer}>
-                <motion.div className="showcase-content" variants={fadeInLeft}>
-                  <span className="section-badge gold">التميّز</span>
-                  <Heading level={2} className="content-title luxury-content-title">مصمم بإتقان.<br />فريد لك.</Heading>
-                  <p className="content-body luxury-content-body">
-                    تمثل CALMA ذروة التميز العقاري حيث تلتقي الرؤية بمعايير لا تقبل المساومة. لا نرفع الأفق العمراني فحسب، بل نرتقي بأسلوب الحياة ونبني معالم تلهم لأجيال.
-                  </p>
-                  <div className="excellence-highlights">
-                    <div className="highlight-item"><span className="highlight-number">28+</span><span className="highlight-text">مشاريع مُسلّمة</span></div>
-                    <div className="highlight-item"><span className="highlight-number">2,000+</span><span className="highlight-text">عائلات مخدومة</span></div>
-                    <div className="highlight-item"><span className="highlight-number">3</span><span className="highlight-text">مدن رئيسية</span></div>
-                  </div>
-                  <div className="cta-row">
-                    <a className="button-link" href="/ar/projects">
-                      <Button variant="secondary" className="luxury-button">اكتشف مشاريعنا</Button>
-                    </a>
-                  </div>
-                </motion.div>
-                <motion.div className="showcase-images" variants={fadeInRight}>
-                  <div className="image-grid">
-                    <motion.img key={`primary-${currentImageSet}`} src={imageSets[currentImageSet].primary} alt="عرض التميز" className="grid-image primary" loading="lazy" decoding="async" initial={{ opacity: 0, scale: 1.1 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease: 'easeOut' }} />
-                    <motion.img key={`secondary-${currentImageSet}`} src={imageSets[currentImageSet].secondary} alt="تميز التطوير" className="grid-image secondary" loading="lazy" decoding="async" initial={{ opacity: 0, scale: 1.1 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease: 'easeOut', delay: 0.2 }} />
-                    <motion.img key={`tertiary-${currentImageSet}`} src={imageSets[currentImageSet].tertiary} alt="ابتكار المشروع" className="grid-image tertiary" loading="lazy" decoding="async" initial={{ opacity: 0, scale: 1.1 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease: 'easeOut', delay: 0.4 }} />
-                  </div>
-                </motion.div>
-              </motion.div>
-            </div>
-          </motion.section>
-
-          <motion.section 
-            className="section content-section luxury-community-section"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={staggerContainer}
-            dir="rtl"
-          >
-            <div className="section-inner luxury-section-inner">
-              <motion.div className="community-content" variants={staggerContainer}>
-                <motion.div className="community-text" variants={fadeInUp}>
-                  <span className="section-badge silver">القيادة</span>
-                  <Heading level={2} className="content-title luxury-content-title">قيادة رؤيوية وتقدمية</Heading>
-                  <p className="content-body luxury-content-body">
-                    في CALMA، القيادة تتجاوز إنجاز المشاريع إلى ابتكار حلول معمارية وتقنيات رقمية تُعزز تجربة التطوير بأكملها.
-                  </p>
-                  <div className="community-stats">
-                    <div className="community-stat"><AnimatedNumber value="77,097" className="stat-number" delay={200} /><span className="stat-label">متر مربع مساحة أرض</span></div>
-                    <div className="community-stat"><AnimatedNumber value="130,000+" className="stat-number" delay={400} /><span className="stat-label">متر مربع مساحة بناء</span></div>
-                    <div className="community-stat"><AnimatedNumber value="700+" className="stat-number" delay={600} /><span className="stat-label">وحدات سكنية</span></div>
-                  </div>
-                  <div className="cta-row">
-                    <a className="button-link" href="/ar/about#leadership">
-                      <Button variant="secondary" className="luxury-button">تعرف على قيادتنا</Button>
-                    </a>
-                  </div>
-                </motion.div>
-              </motion.div>
-            </div>
-          </motion.section>
-
-          <motion.section 
-            className="section ceo-message-section luxury-ceo-section"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={staggerContainer}
-            dir="rtl"
-          >
-            <div className="ceo-background-container">
-              <div className="ceo-main-content">
-                <motion.div className="ceo-message" variants={fadeInUp}>
-                  <div className="message-content">
-                    <span className="section-badge platinum" style={{textAlign:'center'}}>رسالة الرئيس التنفيذي</span>
-                    <Heading level={2} className="content-title luxury-content-title">حيث تجد 2,000 حلم عنوانه</Heading>
-                    <p className="message-greeting">أعزّاء شركائنا وسكاننا المستقبليين،</p>
-                    <p>حين أسّست CALMA، رأيت فرصة لإعادة تعريف معنى المساحات التي تصنع فرقًا حقيقيًا.</p>
-                    <p>مساحات تتشكّل فيها الرؤية وتزدهر الإمكانات، لتصنع قيمة دائمة للمجتمع وأصحاب المصلحة.</p>
-                    <p>اليوم، ومع 28 مشروعًا مُسلّمًا عبر الرياض وجدة، نفخر بأن إنجازنا الحقيقي يُقاس بالعائلات التي وجدت في مشاريعنا وطنًا.</p>
-                  </div>
-                  <div className="ceo-info-side">
-                    <div className="ceo-signature">
-                      <img src={fullLockupLogo} alt="شعار كالما" className="ceo-logo" loading="lazy" decoding="async" style={{ imageRendering: 'crisp-edges' }} />
-                      <p className="signature-name"><strong>مصعب الماجد</strong></p>
-                      <p className="signature-title">الرئيس التنفيذي، CALMA</p>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </motion.section>
-          <FeaturedProjectsCarousel />
+            <picture>
+              <source srcSet={homeImpactImage} type="image/jpeg" />
+              <img src={homeImpactImage} alt="Calma impact" className="dual-image" loading="lazy" decoding="async" width={1600} height={1200} style={{ transform: 'scaleX(-1)' }} />
+            </picture>
+          </motion.div>
         </div>
+        {showMicroContent && (
+          <motion.div className="micro-tagline" variants={fadeInUp}>
+            مصممة لحياة راقية.
+          </motion.div>
+        )}
+      </motion.section>
+
+      <main className={`main-content ${contentVisible ? 'reveal-visible' : 'reveal-hidden'}`}>
+        <AboutCalma />
+        <Excellence />
+        <Pillars />
+        <MissionVision />
+        {/* Removed stats section per request */}
+        <FeaturedProjectsCarousel />
+        {/* Temporarily hide cluttered band to streamline home page */}
+        <TrustStrip />
+        <TestimonialsBand />
+        <ProjectPreviewGrid />
       </main>
     </div>
   )
