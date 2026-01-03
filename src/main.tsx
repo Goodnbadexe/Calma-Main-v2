@@ -11,29 +11,39 @@ import EnglishHome from './pages/english/Home/Home'
 const AboutImproved = lazy(() => import('./pages/english/About/AboutImproved'))
 const News = lazy(() => import('./pages/english/News/News'))
 const ProjectsPage = lazy(() => import('./pages/english/Projects/ProjectsPage'))
-const ProjectPage = lazy(() => import('./pages/ProjectPage'))
+const ProjectPage = lazy(() => import('./pages/english/Projects/ProjectDetails'))
 const Register = lazy(() => import('./pages/english/Register/Register'))
 const Contact = lazy(() => import('./pages/english/Contact/Contact'))
 
 // Arabic Pages
 const ArabicHome = lazy(() => import('./pages/arabic/الرئيسية/الرئيسية'))
 const ArabicAbout = lazy(() => import('./pages/arabic/عن كالما/عن كالما'))
-const ArabicProjects = lazy(() => import('./pages/arabic/المشاريع/عرض المشاريع'))
+const ArabicProjects = lazy(() => import('./pages/arabic/المشاريع/ProjectsDisplay'))
 const ArabicContact = lazy(() => import('./pages/arabic/تواصل معنا/تواصل معنا'))
 const ArabicNews = lazy(() => import('./pages/arabic/الأخبار/الأخبار'))
 const ArabicRegister = lazy(() => import('./pages/arabic/التسجيل/التسجيل'))
 const ArabicCommercials = lazy(() => import('./pages/arabic/المشاريع/تجارية'))
 const ArabicResidential = lazy(() => import('./pages/arabic/المشاريع/سكنية'))
-const ArabicCalmaTower = lazy(() => import('./pages/arabic/المشاريع/برج كالما'))
+const ArabicCalmaTower = lazy(() => import('./pages/arabic/المشاريع/CalmaTower'))
+
+// English Categories
 const ProjectsVilla = lazy(() => import('./pages/english/Projects/categories/Villa'))
 const ProjectsFloor = lazy(() => import('./pages/english/Projects/categories/Floor'))
 const ProjectsTownHouse = lazy(() => import('./pages/english/Projects/categories/TownHouse'))
 const ProjectsOffice = lazy(() => import('./pages/english/Projects/categories/Office'))
 
+// Arabic Categories
+const ArabicProjectsVilla = lazy(() => import('./pages/arabic/المشاريع/categories/Villa'))
+const ArabicProjectsFloor = lazy(() => import('./pages/arabic/المشاريع/categories/Floor'))
+const ArabicProjectsTownHouse = lazy(() => import('./pages/arabic/المشاريع/categories/TownHouse'))
+const ArabicProjectsOffice = lazy(() => import('./pages/arabic/المشاريع/categories/Office'))
+
 // Test and System Components
 import { SplashProvider } from '@/components/system/SplashProvider'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import AppLayout from '@/layouts/AppLayout'
+
+import { LoadingScreen } from '@/components/system/LoadingScreen'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -41,18 +51,7 @@ createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <LanguageProvider defaultLanguage="en">
           <SplashProvider>
-            <Suspense fallback={
-              <div className="page-loading" aria-busy="true" aria-live="polite">
-                <div className="skeleton-page">
-                  <div className="skeleton-bar" />
-                  <div className="skeleton-grid">
-                    <div className="skeleton-card" />
-                    <div className="skeleton-card" />
-                    <div className="skeleton-card" />
-                  </div>
-                </div>
-              </div>
-            }>
+            <Suspense fallback={<LoadingScreen />}>
               <Routes>
                 <Route element={<AppLayout />}>
                   {/* English Routes (from config) */}
@@ -83,10 +82,10 @@ createRoot(document.getElementById('root')!).render(
                   <Route path={routes.projectCategories.commercials.ar} element={<ArabicCommercials />} />
                   <Route path={routes.projectCategories.residential.ar} element={<ArabicResidential />} />
                   <Route path={routes.projectCategories.calmaTower.ar} element={<ArabicCalmaTower />} />
-                  <Route path={routes.projectCategories.villa.ar} element={<ProjectsVilla />} />
-                  <Route path={routes.projectCategories.floor.ar} element={<ProjectsFloor />} />
-                  <Route path={routes.projectCategories.townhouse.ar} element={<ProjectsTownHouse />} />
-                  <Route path={routes.projectCategories.office.ar} element={<ProjectsOffice />} />
+                  <Route path={routes.projectCategories.villa.ar} element={<ArabicProjectsVilla />} />
+                  <Route path={routes.projectCategories.floor.ar} element={<ArabicProjectsFloor />} />
+                  <Route path={routes.projectCategories.townhouse.ar} element={<ArabicProjectsTownHouse />} />
+                  <Route path={routes.projectCategories.office.ar} element={<ArabicProjectsOffice />} />
 
                   {/* Test Routes */}
                 </Route>

@@ -45,6 +45,7 @@ export default defineConfig(async ({ mode }) => {
   }
 
   return {
+    assetsInclude: ['**/*.JPG'],
     plugins,
     resolve: {
       alias: Object.fromEntries(

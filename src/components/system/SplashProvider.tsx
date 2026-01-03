@@ -73,7 +73,8 @@ export function SplashProvider({ children }: { children: React.ReactNode }) {
       resolveRef.current = resolve
       // Fallback close if destination never signals readiness
       if (timerRef.current) { window.clearTimeout(timerRef.current) }
-      timerRef.current = window.setTimeout(() => startClosing(), 4000)
+      // Increased fallback to 30s to allow for long loading times (looping)
+      timerRef.current = window.setTimeout(() => startClosing(), 30000)
     })
   }, [allMedia, clipUrl])
 
@@ -147,6 +148,7 @@ export function SplashProvider({ children }: { children: React.ReactNode }) {
               className="splash-media"
               src={clipUrl}
               muted
+              loop
               playsInline
               preload="metadata"
               autoPlay

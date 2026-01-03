@@ -12,6 +12,9 @@ import { RegisterOverlayProvider } from '@/components/register/RegisterOverlayPr
 export default function AppLayout() {
   useEffect(() => { runPreflight() }, [])
   const location = useLocation()
+  const isProjectsPage = location.pathname.startsWith('/projects') || 
+                        location.pathname.startsWith('/ar/projects') || 
+                        location.pathname.startsWith('/ar/المشاريع')
   const [overlayVisible, setOverlayVisible] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
 
@@ -70,7 +73,7 @@ export default function AppLayout() {
       >
         Skip to content
       </a>
-      <NavBar />
+      {!isProjectsPage && <NavBar />}
       <div style={{ position: 'relative' }}>
         <AnimatePresence mode="wait">
           <motion.div
@@ -107,7 +110,7 @@ export default function AppLayout() {
           )}
         </AnimatePresence>
       </div>
-      <Footer />
+      {!isProjectsPage && <Footer />}
     </div>
     </RegisterOverlayProvider>
   )

@@ -1,34 +1,15 @@
 import { useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
 import { Card } from "@/components/ui/card"
 import { Search, Grid3x3, Eye } from "lucide-react"
-import ProjectsLayout from "./layout"
+import { projects, projectOrder } from "./data"
+import "./projects.css"
 
-interface Project {
-  id: number
-  name: string
-  description: string
-  location: string
-  price: string
-  image: string
+interface ProjectsPageProps {
+  category?: string
 }
 
-const projects: Project[] = Array.from({ length: 50 }, (_, i) => ({
-  id: i + 1,
-  name: `Project ${i + 1}`,
-  description: `Premium real estate development in prime location`,
-  location: `District ${Math.floor(i / 5) + 1}`,
-  price: `$${(Math.random() * 5 + 2).toFixed(1)}M`,
-  image: `/placeholder.svg?height=400&width=600&query=modern real estate building project ${i + 1}`,
-}))
-
-const projectOrder = [
-  // Part 1
-  42, 35, 48, 45, 37, 47, 32, 38, 28, 49, 50, 26, 46, 27, 43, 41, 30, 39, 40, 31, 44, 36, 33, 29, 34,
-  // Part 2
-  19, 9, 18, 17, 20, 16, 22, 25, 24, 21, 23, 14, 11, 13, 5, 7, 3, 2, 1, 4, 15, 10, 8, 12, 6,
-]
-
-export default function RealEstateShowcase() {
+export default function ProjectsPage({ category }: ProjectsPageProps) {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
@@ -47,9 +28,11 @@ export default function RealEstateShowcase() {
       setScrollProgress(Math.min(progress, 1))
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    if (viewMode === "preview") {
+      window.addEventListener("scroll", handleScroll)
+      return () => window.removeEventListener("scroll", handleScroll)
+    }
+  }, [viewMode])
 
   const translateZ = scrollProgress * 3000 // Increased from 2000 to 3000 for more dramatic effect
   const scale = 1 + scrollProgress * 0.8 // Increased scale for better depth perception
@@ -106,59 +89,64 @@ export default function RealEstateShowcase() {
   const displayProject = selectedProjectData || (hoveredProject ? projects.find((p) => p.id === hoveredProject) : null)
   const currentProjectData = projects.find((p) => p.id === currentProjectId)
 
-  const filteredProjects = projects.filter(
-    (project) =>
+  const filteredProjects = projects.filter((project) => {
+    const matchesSearch =
       project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       project.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.description.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
+      project.description.toLowerCase().includes(searchQuery.toLowerCase())
+    
+    const matchesCategory = category ? project.category?.toLowerCase() === category.toLowerCase() : true
+    
+    return matchesSearch && matchesCategory
+  })
 
   return (
-    <ProjectsLayout>
-      {viewMode === "preview" && (
-        <div ref={containerRef} className="relative min-h-[800vh]" style={{ backgroundColor: "#081e1f" }}>
-          <div className="fixed top-0 left-0 right-0 z-50 bg-[#081e1f]/80 backdrop-blur-sm border-b border-[#d4cfbc]/20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
-              {/* Search Input */}
-              <div className="flex-1 max-w-md relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#d4cfbc]/60" />
-                <input
-                  type="text"
-                  placeholder="Search projects by name, location..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-[#0a2021] text-[#d4cfbc] placeholder:text-[#d4cfbc]/50 border border-[#d4cfbc]/20 rounded-lg pl-10 pr-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#d4cfbc]/50 transition-all"
-                />
-              </div>
-
-              {/* View Mode Buttons */}
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setViewMode("preview")}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all ${
-                    viewMode === "preview"
-                      ? "bg-[#d4cfbc] text-[#081e1f]"
-                      : "bg-[#0a2021] text-[#d4cfbc] border border-[#d4cfbc]/20 hover:bg-[#d4cfbc]/10"
-                  }`}
-                >
-                  <Eye className="w-4 h-4" />
-                  <span className="hidden sm:inline">Preview</span>
-                </button>
-                <button
-                  onClick={() => setViewMode("grid")}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all ${
-                    viewMode === "grid"
-                      ? "bg-[#d4cfbc] text-[#081e1f]"
-                      : "bg-[#0a2021] text-[#d4cfbc] border border-[#d4cfbc]/20 hover:bg-[#d4cfbc]/10"
-                  }`}
-                >
-                  <Grid3x3 className="w-4 h-4" />
-                  <span className="hidden sm:inline">Grid</span>
-                </button>
-              </div>
-            </div>
+    <div className="min-h-screen flex flex-col bg-[#081e1f] text-[#d4cfbc] dark">
+      {/* Header - Always visible */}
+      <div className="fixed top-20 left-0 right-0 z-50 bg-[#081e1f]/80 backdrop-blur-sm border-b border-[#d4cfbc]/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+          {/* Search Input */}
+          <div className="flex-1 max-w-md relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#d4cfbc]/60" />
+            <input
+              type="text"
+              placeholder="Search projects by name, location..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-[#0a2021] text-[#d4cfbc] placeholder:text-[#d4cfbc]/50 border border-[#d4cfbc]/20 rounded-lg pl-10 pr-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#d4cfbc]/50 transition-all"
+            />
           </div>
 
+          {/* View Mode Buttons */}
+          <div className="flex gap-2">
+            <button
+              onClick={() => setViewMode("preview")}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all ${
+                viewMode === "preview"
+                  ? "bg-[#d4cfbc] text-[#081e1f]"
+                  : "bg-[#0a2021] text-[#d4cfbc] border border-[#d4cfbc]/20 hover:bg-[#d4cfbc]/10"
+              }`}
+            >
+              <Eye className="w-4 h-4" />
+              <span className="hidden sm:inline">Preview</span>
+            </button>
+            <button
+              onClick={() => setViewMode("grid")}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all ${
+                viewMode === "grid"
+                  ? "bg-[#d4cfbc] text-[#081e1f]"
+                  : "bg-[#0a2021] text-[#d4cfbc] border border-[#d4cfbc]/20 hover:bg-[#d4cfbc]/10"
+              }`}
+            >
+              <Grid3x3 className="w-4 h-4" />
+              <span className="hidden sm:inline">Grid</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {viewMode === "preview" && (
+        <div ref={containerRef} className="relative min-h-[800vh]" style={{ backgroundColor: "#081e1f" }}>
           <div className="fixed inset-0 flex items-center justify-center overflow-hidden pt-40">
             {/* Background gradient effect */}
             <div
@@ -834,7 +822,7 @@ export default function RealEstateShowcase() {
                         const proj = getProjectForPath(48)
                         if (proj) handleProjectClick(proj.id)
                       }}
-                      d="M174,185.69l-99.14-89.27c-6.76,7.51-13.17,15.42-19.18,23.71l105.08,76.34c4.22-3.87,8.65-7.46,13.25-10.79Z"
+                      d="M174,185.69l-99.14-89.27c-6.76,7.51-13.17-15.42-19.18,23.71l105.08,76.34c4.22-3.87,8.65-7.46,13.25-10.79Z"
                     />
                     <path
                       className={`${getPathClass(49)} cursor-pointer`}
@@ -948,49 +936,7 @@ export default function RealEstateShowcase() {
       )}
 
       {viewMode === "grid" && (
-        <div className="min-h-screen bg-[#081e1f] py-20">
-          <div className="fixed top-0 left-0 right-0 z-50 bg-[#081e1f]/80 backdrop-blur-sm border-b border-[#d4cfbc]/20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
-              {/* Search Input */}
-              <div className="flex-1 max-w-md relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#d4cfbc]/60" />
-                <input
-                  type="text"
-                  placeholder="Search projects by name, location..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-[#0a2021] text-[#d4cfbc] placeholder:text-[#d4cfbc]/50 border border-[#d4cfbc]/20 rounded-lg pl-10 pr-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#d4cfbc]/50 transition-all"
-                />
-              </div>
-
-              {/* View Mode Buttons */}
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setViewMode("preview")}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all ${
-                    viewMode === "preview"
-                      ? "bg-[#d4cfbc] text-[#081e1f]"
-                      : "bg-[#0a2021] text-[#d4cfbc] border border-[#d4cfbc]/20 hover:bg-[#d4cfbc]/10"
-                  }`}
-                >
-                  <Eye className="w-4 h-4" />
-                  <span className="hidden sm:inline">Preview</span>
-                </button>
-                <button
-                  onClick={() => setViewMode("grid")}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all ${
-                    viewMode === "grid"
-                      ? "bg-[#d4cfbc] text-[#081e1f]"
-                      : "bg-[#0a2021] text-[#d4cfbc] border border-[#d4cfbc]/20 hover:bg-[#d4cfbc]/10"
-                  }`}
-                >
-                  <Grid3x3 className="w-4 h-4" />
-                  <span className="hidden sm:inline">Grid</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
+        <div className="min-h-screen bg-[#081e1f] pt-40 pb-20">
           {/* Grid Content */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8">
             {/* Stats Overview */}
@@ -1020,7 +966,7 @@ export default function RealEstateShowcase() {
                   $
                   {(
                     filteredProjects.reduce((acc, p) => acc + Number.parseFloat(p.price.replace(/[$M]/g, "")), 0) /
-                    filteredProjects.length
+                    (filteredProjects.length || 1)
                   ).toFixed(1)}
                   M
                 </div>
@@ -1088,6 +1034,6 @@ export default function RealEstateShowcase() {
           </div>
         </div>
       )}
-    </ProjectsLayout>
+    </div>
   )
 }

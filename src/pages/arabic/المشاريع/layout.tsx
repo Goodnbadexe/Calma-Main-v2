@@ -1,5 +1,4 @@
 import { Suspense } from "react"
-import "./projects.css"
 import { Navigation } from "./Navigation"
 import { Footer } from "./Footer"
 
@@ -9,10 +8,10 @@ export default function ProjectsLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen flex flex-col bg-[#081e1f] text-[#d4cfbc] dark">
+    <div className="min-h-screen flex flex-col bg-[#081e1f] text-[#d4cfbc]" dir="rtl">
       <Navigation />
       <main className="flex-grow">
-        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        <Suspense fallback={<div>جاري التحميل...</div>}>{children}</Suspense>
       </main>
       <Footer />
     </div>
