@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+// Use native anchors to ensure SSR compatibility
 import logoC from '@/assets/Logos/BRANDMARK_01-p-2000.png'
 import { Facebook, Instagram, Linkedin, Twitter, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -32,11 +32,11 @@ export default function Footer() {
         <nav className="footer-col" aria-label="Footer navigation">
           <div className="footer-heading">{t('footer.explore')}</div>
           <ul className="footer-links">
-            <li><Link to={getPath('/')}>{t('nav.home')}</Link></li>
-            <li><Link to={getPath('/about')}>{t('nav.about')}</Link></li>
-            <li><Link to={getPath('/projects')}>{t('nav.projects')}</Link></li>
-            <li><Link to={getPath('/news')}>{t('nav.news')}</Link></li>
-            <li><Link to={getPath('/register')}>{t('nav.contact')}</Link></li>
+            <li><a href={getPath('/')}>{t('nav.home')}</a></li>
+            <li><a href={getPath('/about')}>{t('nav.about')}</a></li>
+            <li><a href={getPath('/projects')}>{t('nav.projects')}</a></li>
+            <li><a href={getPath('/news')}>{t('nav.news')}</a></li>
+            <li><a href={getPath('/register')}>{t('nav.contact')}</a></li>
           </ul>
         </nav>
 
@@ -82,9 +82,9 @@ export default function Footer() {
       <div className="footer-bottom">
         <div className="footer-note">© {new Date().getFullYear()} {t('footer.rights')}</div>
         <div className="footer-legal">
-          <Link to={getPath('/privacy')}>{t('footer.privacy')}</Link>
-          <Link to={getPath('/terms')}>{t('footer.terms')}</Link>
-          <Link to={getPath('/cookies')}>{t('footer.cookies')}</Link>
+          <a href={getPath('/privacy')}>{t('footer.privacy')}</a>
+          <a href={getPath('/terms')}>{t('footer.terms')}</a>
+          <a href={getPath('/cookies')}>{t('footer.cookies')}</a>
         </div>
       </div>
     </footer>

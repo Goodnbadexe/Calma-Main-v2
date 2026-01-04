@@ -1,8 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom'
+// Using native anchors to avoid SSR router context issues
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import logoC from '@/assets/Logos/BRANDMARK_01-p-2000.png'
-import { Button } from './button.tsx'
+import { Button } from './button'
 import { useRegisterOverlay } from '@/components/register/RegisterOverlayProvider'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, Globe, X, ChevronDown, Phone, MessageCircle } from 'lucide-react'
@@ -12,7 +12,6 @@ import { createMagneticEffect } from '@/utils/helpers'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
 
 export default function NavBar() {
-  const navigate = useNavigate()
   const { showSplash } = useSplash()
   const { language, toggleLanguage, t } = useLanguage()
   const isArabic = language === 'ar'
@@ -144,7 +143,7 @@ export default function NavBar() {
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
     window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' })
     showSplash()
-    navigate(path)
+    window.location.assign(path)
   }
 
   // Translation fallback: if key returns itself, use provided EN/AR text
@@ -171,9 +170,9 @@ export default function NavBar() {
         }}
       >
         {/* Left-aligned: Logo */}
-        <Link
-          ref={logoRef}
-          to={isArabic ? '/ar' : '/'}
+        <a
+          ref={logoRef as any}
+          href={isArabic ? '/ar' : '/'}
           className="logo"
           aria-label="Calma Home"
         >
@@ -183,7 +182,7 @@ export default function NavBar() {
             className="logo-image"
           />
           <span className="logo-text">{isArabic ? 'كالما' : 'Calma'}</span>
-        </Link>
+        </a>
 
         {/* Center: Navigation Links */}
         <nav ref={linksRef} className="nav-links" aria-label={tr('common.menu', 'Primary navigation', 'التنقل الرئيسي')} style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'nowrap' }}>
@@ -192,7 +191,7 @@ export default function NavBar() {
             onClick={() => { 
               window.scrollTo({ top: 0, behavior: 'smooth' }); 
               showSplash(); 
-              navigate(isArabic ? '/ar' : '/'); 
+              window.location.assign(isArabic ? '/ar' : '/'); 
             }}
           >
             {tr('nav.home', 'Home', 'الرئيسية')}
@@ -203,7 +202,7 @@ export default function NavBar() {
             onClick={() => { 
               window.scrollTo({ top: 0, behavior: 'smooth' }); 
               showSplash(); 
-              navigate(isArabic ? '/ar/about' : '/about'); 
+              window.location.assign(isArabic ? '/ar/about' : '/about'); 
             }}
           >
             {tr('nav.about', 'About', 'عن كالما')}
@@ -276,7 +275,7 @@ export default function NavBar() {
             onClick={() => { 
               window.scrollTo({ top: 0, behavior: 'smooth' }); 
               showSplash(); 
-              navigate(isArabic ? '/ar/news' : '/news'); 
+              window.location.assign(isArabic ? '/ar/news' : '/news'); 
             }}
           >
             {tr('nav.news', 'News', 'الأخبار')}
@@ -288,7 +287,7 @@ export default function NavBar() {
             onClick={() => { 
               window.scrollTo({ top: 0, behavior: 'smooth' }); 
               showSplash(); 
-              navigate(isArabic ? '/ar/contact' : '/contact'); 
+              window.location.assign(isArabic ? '/ar/contact' : '/contact'); 
             }}
           >
             {tr('nav.contact', 'Contact', 'تواصل')}
@@ -430,7 +429,7 @@ export default function NavBar() {
               onClick={() => { 
                 setDrawerOpen(false); 
                 showSplash(); 
-                navigate(isArabic ? '/ar' : '/'); 
+                window.location.assign(isArabic ? '/ar' : '/'); 
               }}
             >
               {t('nav.home')}
@@ -441,7 +440,7 @@ export default function NavBar() {
               onClick={() => { 
                 setDrawerOpen(false); 
                 showSplash(); 
-                navigate(isArabic ? '/ar/about' : '/about'); 
+                window.location.assign(isArabic ? '/ar/about' : '/about'); 
               }}
             >
               {t('nav.about')}
@@ -454,7 +453,7 @@ export default function NavBar() {
                 onClick={() => { 
                   setDrawerOpen(false); 
                   showSplash(); 
-                  navigate(isArabic ? '/ar/projects' : '/projects'); 
+                  window.location.assign(isArabic ? '/ar/projects' : '/projects'); 
                 }}
               >
                 {t('nav.allProjects')}
@@ -466,7 +465,7 @@ export default function NavBar() {
                      onClick={() => { 
                        setDrawerOpen(false); 
                        showSplash(); 
-                       navigate('/projects/commercials'); 
+                       window.location.assign('/projects/commercials'); 
                      }}
                    >
                      {t('nav.commercials')}
@@ -476,7 +475,7 @@ export default function NavBar() {
                      onClick={() => { 
                        setDrawerOpen(false); 
                        showSplash(); 
-                       navigate('/projects/residential'); 
+                       window.location.assign('/projects/residential'); 
                      }}
                    >
                      {t('nav.residential')}
@@ -486,7 +485,7 @@ export default function NavBar() {
                      onClick={() => { 
                        setDrawerOpen(false); 
                        showSplash(); 
-                       navigate('/projects/calma-tower'); 
+                       window.location.assign('/projects/calma-tower'); 
                      }}
                    >
                      {t('nav.calmaTower')}
@@ -500,7 +499,7 @@ export default function NavBar() {
               onClick={() => { 
                 setDrawerOpen(false); 
                 showSplash(); 
-                navigate(isArabic ? '/ar/news' : '/news'); 
+                window.location.assign(isArabic ? '/ar/news' : '/news'); 
               }}
             >
                {t('nav.news')}
@@ -511,7 +510,7 @@ export default function NavBar() {
                onClick={() => { 
                  setDrawerOpen(false); 
                  showSplash(); 
-                 navigate(isArabic ? '/ar/contact' : '/contact'); 
+                 window.location.assign(isArabic ? '/ar/contact' : '/contact'); 
                }}
              >
                 {t('nav.contact')}

@@ -2101,7 +2101,7 @@ body, main, .site-wrapper, .page { padding-top: 0; }
 .showcase-title {
   font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 300;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin-bottom: 30px;
   font-family: 'Spica Arabic', serif;
   letter-spacing: 2px;
@@ -2513,7 +2513,7 @@ body, main, .site-wrapper, .page { padding-top: 0; }
 }
 
 .kpi-grid .stat-number {
-  font-size: 1.6rem;
+  font-size: clamp(1.2rem, 3.5vw, 1.4rem);
   font-weight: 700;
   color: #071e1f;
   line-height: 1.2;

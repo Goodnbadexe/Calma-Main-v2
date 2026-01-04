@@ -11,8 +11,8 @@ import anime from 'animejs'
 import { useSplash } from '@/components/system/SplashProvider'
 import { useHeroAnimation } from '@/hooks/useHeroAnimation'
 
-import calmaTV from '@/assets/Videos/Calma_TV.mp4'
-import { homeAr } from '@/pages/content/home.ar'
+const calmaTV = '/Videos/Calma_TV.mp4'
+import { homeAr } from '@/content/home.ar'
 import './Home.css'
 
 import FeaturedProjectsCarousel from '@/components/home/FeaturedProjectsCarousel'

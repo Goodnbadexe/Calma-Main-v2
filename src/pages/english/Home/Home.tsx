@@ -11,8 +11,8 @@ import anime from 'animejs'
 import { useSplash } from '@/components/system/SplashProvider'
 import { useHeroAnimation } from '@/hooks/useHeroAnimation'
 
-import calmaTV from '@/assets/Videos/Calma_TV.mp4'
-import { homeEn } from '@/pages/content/home.en'
+const calmaTV = '/Videos/Calma_TV.mp4'
+import { homeEn } from '@/content/home.en'
 import './Home.css'
 
 import FeaturedProjectsCarousel from '@/components/home/FeaturedProjectsCarousel'
@@ -216,8 +216,8 @@ export default function EnglishHome() {
           <motion.div className="dual-split-text" variants={fadeInLeft}>
             <Heading level={2} className="dual-split-title">Redefining Luxury Living</Heading>
             <p className="dual-split-description">
-              We ground bold vision in crafted realism — designing spaces that feel poetic yet purposeful.
-              Every decision balances material truth with human experience.
+              We ground bold vision in crafted realism, designing spaces that feel both poetic and purposeful.
+              Every decision balances material authenticity with human experience.
             </p>
             <div className="cta-row">
               <a className="button-link" href="/projects">

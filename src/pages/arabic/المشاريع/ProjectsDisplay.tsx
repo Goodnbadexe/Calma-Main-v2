@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Search, Grid3x3, Eye } from "lucide-react"
-import { projects, projectOrder } from "./data"
+import { projects, projectOrder } from "@/data/arabic/projects"
 import "@/pages/english/Projects/projects.css"
 
 interface ProjectsPageProps {

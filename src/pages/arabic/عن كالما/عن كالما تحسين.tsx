@@ -1,8 +1,8 @@
 import { useRef, useEffect, useState } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
-import { Button } from '../../../components/ui/button'
+import { Button } from '@/components/ui/button'
 import CeoPortrait from '@/components/about/CeoPortrait'
-import './About-responsive.css'
+import './عن كالما-تفاعلي.css'
 
 // Import images
 import heroImage1 from '@/assets/Images/About/Hero-1.JPG'

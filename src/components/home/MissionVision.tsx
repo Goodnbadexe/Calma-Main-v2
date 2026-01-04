@@ -5,7 +5,7 @@ export default function MissionVision() {
     <section className="section showcase-strips" aria-label="Mission and Vision">
       <div className="section-inner luxury-section-inner">
         <motion.h2 
-          className="section-title"
+          className="section-title luxury-section-title"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -33,7 +33,7 @@ export default function MissionVision() {
           >
             <h3 style={{ fontSize: '1.4rem', color: '#071e1f', marginBottom: 12 }}>Vision</h3>
             <p style={{ fontSize: '1.05rem', color: 'rgba(7,30,31,0.85)', lineHeight: 1.7 }}>
-              To set new benchmarks in modern living across KSA — integrating sustainability, elegant design, and innovation in line with Vision 2030.
+              To set new benchmarks in modern living across KSA, integrating sustainability, elegant design, and innovation in line with Vision 2030.
               Where every development inspires, endures, and elevates daily life.
             </p>
           </motion.div>

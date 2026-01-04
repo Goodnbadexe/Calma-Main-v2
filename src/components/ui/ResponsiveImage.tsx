@@ -1,7 +1,14 @@
 import { resolveResponsiveSources, buildSizes } from '@/utils/image'
 
-type Props = {
+type StaticImageData = {
   src: string
+  height: number
+  width: number
+  blurDataURL?: string
+}
+
+type Props = {
+  src: string | StaticImageData
   alt: string
   ratio?: `${number}/${number}` | string
   sizes?: string
@@ -9,7 +16,8 @@ type Props = {
 }
 
 export default function ResponsiveImage({ src, alt, ratio = '16/9', sizes, sources = [] }: Props) {
-  const resolved = resolveResponsiveSources(src, sources)
+  const imageSrc = typeof src === 'string' ? src : src.src
+  const resolved = resolveResponsiveSources(imageSrc, sources)
   const [w, h] = (() => {
     const parts = `${ratio}`.split('/')
     const a = Number(parts[0])
@@ -24,7 +32,7 @@ export default function ResponsiveImage({ src, alt, ratio = '16/9', sizes, sourc
           <source key={`${s.type}-${s.srcset}`} type={s.type} srcSet={s.srcset} sizes={sizes || buildSizes()} />
         ))}
         <img
-          src={src}
+          src={imageSrc}
           alt={alt}
           loading="lazy"
           decoding="async"

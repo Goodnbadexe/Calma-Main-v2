@@ -1,6 +1,6 @@
 import { Suspense } from "react"
-import { Navigation } from "./Navigation"
-import { Footer } from "./Footer"
+import { Navigation } from "@/components/arabic/Navigation"
+import { Footer } from "@/components/arabic/Footer"
 
 export default function ProjectsLayout({
   children,

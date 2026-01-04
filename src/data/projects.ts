@@ -143,7 +143,7 @@ export const projects: Record<ProjectSlug, Project> = {
     features: [
       { icon: '/src/assets/Icons/Vector-3.png', title: 'Skyline Presence', description: 'Commanding architecture and views.' },
       { icon: '/src/assets/Icons/Vector-2.png', title: 'Elevated Luxury', description: 'Premium amenities and finishes.' },
-      { icon: '/src/assets/Icons/Asset-12-1.svg', title: 'Precision Craft', description: 'Detail‑led workmanship.' }
+      { icon: '/src/assets/Icons/Asset-12-1.svg', title: 'Precision Craft', description: 'Detail led workmanship.' }
     ],
     highlights: ['Panoramic city views', 'Premium amenity stack', 'Timeless material palette'],
     ctaText: 'Explore ONE Tower details'
@@ -183,7 +183,7 @@ export const projects: Record<ProjectSlug, Project> = {
       { icon: '/src/assets/Icons/Vector-2.png', title: 'Prime Districts', description: 'Locations selected for lifestyle and value.' },
       { icon: '/src/assets/Icons/Vector-3.png', title: 'Sustainable Comfort', description: 'Efficient systems with enduring materials.' }
     ],
-    highlights: ['Family‑friendly cores', 'Amenity rich', 'Prime Riyadh'],
+    highlights: ['Family friendly cores', 'Amenity rich', 'Prime Riyadh'],
     ctaText: 'Request NR100 details'
   },
   ys200: {
@@ -202,7 +202,7 @@ export const projects: Record<ProjectSlug, Project> = {
       { icon: '/src/assets/Icons/Rectangle-34.png', title: 'Elegant Circulation', description: 'Clear movement and wayfinding.' },
       { icon: '/src/assets/Icons/Rectangle-35.png', title: 'Refined Materials', description: 'Enduring surfaces and details.' }
     ],
-    highlights: ['Balanced proportions', 'Daylight‑first planning', 'Durable specification'],
+    highlights: ['Balanced proportions', 'Daylight first planning', 'Durable specification'],
     ctaText: 'Request YS200 details'
   },
   'retail-plaza': {

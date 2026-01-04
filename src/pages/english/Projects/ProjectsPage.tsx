@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { Card } from "@/components/ui/card"
 import { Search, Grid3x3, Eye } from "lucide-react"
-import { projects, projectOrder } from "./data"
+import { projects, projectOrder } from "@/data/english/projects"
 import "./projects.css"
 
 interface ProjectsPageProps {

@@ -81,9 +81,9 @@ export default function SEOHead({
       "availableLanguage": ["Arabic", "English"]
     },
     "sameAs": [
-      "https://twitter.com/calma_sa",
-      "https://linkedin.com/company/calma-sa",
-      "https://instagram.com/calma_sa"
+      "https://twitter.com/calmasa",
+      "https://linkedin.com/company/calmasa",
+      "https://instagram.com/calmasa"
     ]
   }
 

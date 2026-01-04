@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { useRouter } from 'next/router'
 import NavBar from '@/components/ui/NavBar'
 import { useEffect, useState } from 'react'
 import { runPreflight } from '@/utils/preflight'
@@ -9,12 +9,13 @@ import { Helmet } from 'react-helmet-async'
 import { getAlternateLinks } from '@/utils/i18nPaths'
 import { RegisterOverlayProvider } from '@/components/register/RegisterOverlayProvider'
 
-export default function AppLayout() {
+export default function AppLayout({ children }: { children?: React.ReactNode }) {
   useEffect(() => { runPreflight() }, [])
-  const location = useLocation()
-  const isProjectsPage = location.pathname.startsWith('/projects') || 
-                        location.pathname.startsWith('/ar/projects') || 
-                        location.pathname.startsWith('/ar/المشاريع')
+  const router = useRouter()
+  const pathname = router.asPath
+  const isProjectsPage = pathname.startsWith('/projects') || 
+                        pathname.startsWith('/ar/projects') || 
+                        pathname.startsWith('/ar/المشاريع')
   const [overlayVisible, setOverlayVisible] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
 
@@ -34,18 +35,18 @@ export default function AppLayout() {
     return () => {
       clearTimeout(timer)
     }
-  }, [location.pathname, reduceMotion])
+  }, [pathname, reduceMotion])
 
   useEffect(() => {
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
     window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'auto' })
-  }, [location.pathname])
+  }, [pathname])
 
   return (
     <RegisterOverlayProvider>
     <div className="page">
       <Helmet>
-        {getAlternateLinks(location.pathname).map(link => (
+        {getAlternateLinks(pathname).map(link => (
           <link key={link.hrefLang} rel="alternate" hrefLang={link.hrefLang} href={link.path} />
         ))}
         <link rel="preload" as="font" href="/src/assets/fonts/BluteauArabicSans-Regular.otf" type="font/otf" crossOrigin="anonymous" />
@@ -77,7 +78,7 @@ export default function AppLayout() {
       <div style={{ position: 'relative' }}>
         <AnimatePresence mode="wait">
           <motion.div
-            key={location.pathname}
+            key={pathname}
             initial={reduceMotion ? false : { opacity: 0 }}
             animate={reduceMotion ? {} : { opacity: 1 }}
             exit={reduceMotion ? {} : { opacity: 0 }}
@@ -85,7 +86,7 @@ export default function AppLayout() {
           >
             <Suspense fallback={<div className="page-loading" aria-busy="true" aria-live="polite" />}>
               <div id="main">
-                <Outlet />
+                {children}
               </div>
             </Suspense>
           </motion.div>
@@ -94,7 +95,7 @@ export default function AppLayout() {
         <AnimatePresence>
           {overlayVisible && (
             <motion.div
-              key={`overlay-${location.pathname}`}
+              key={`overlay-${pathname}`}
               initial={reduceMotion ? false : { opacity: 0 }}
               animate={reduceMotion ? {} : { opacity: 0.25 }}
               exit={reduceMotion ? {} : { opacity: 0 }}

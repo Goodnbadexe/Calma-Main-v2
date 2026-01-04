@@ -4,8 +4,8 @@ import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Calendar, Heart, MessageCircle, Share2, Linkedin } from 'lucide-react';
 import './الأخبار.css';
-import type { شركةخبر } from '@/pages/content/../../data/news.ar'
-import { الاخبارAR as newsAr } from '@/pages/content/../../data/news.ar'
+import type { شركةخبر } from '@/data/news.ar'
+import { الاخبارAR as newsAr } from '@/data/news.ar'
 import { apiClient } from '@/utils/apiClient'
 import { useTelemetry } from '@/utils/telemetry'
 

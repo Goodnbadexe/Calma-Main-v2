@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import ProjectsLayout from './layout'
-import { projects } from './data'
+import { projects } from "@/data/english/projects"
 
 export default function ProjectPage() {
   const { slug } = useParams()

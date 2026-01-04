@@ -2,11 +2,14 @@ import { useEffect, useMemo, useState } from 'react'
 import SmoothCarousel from '@/components/carousel/SmoothCarousel'
 import ProjectCard, { type Project } from '@/components/home/ProjectCard'
 import { projectsData } from '@/data/projects.data'
+import { getProjectAssets } from '@/utils/assetResolver'
 
-const pickPreviewLoader = (glob: string): (() => Promise<any>) | undefined => {
-  const mods = import.meta.glob('/src/assets/Images/Projects/**/*.{png,jpg,jpeg,webp}', { eager: false }) as Record<string, () => Promise<any>>
+const pickPreviewUrl = (glob: string): string | undefined => {
+  const assets = getProjectAssets()
+  // glob is something like '/src/assets/Images/Projects/...'
+  // The key in assetModules matches this exact format
   const keyPart = glob.split('/src/assets/Images/Projects/')[1] || ''
-  const match = Object.entries(mods).find(([k]) => k.includes(keyPart))
+  const match = Object.entries(assets).find(([k]) => k.includes(keyPart))
   return match?.[1]
 }
 
@@ -30,17 +33,12 @@ const slides: Project[] = projectsData.map((p) => ({
 export default function FeaturedProjects() {
   const [imagesMap, setImagesMap] = useState<Record<string, string>>({})
   useEffect(() => {
-    let mounted = true
-    const loaders = projectsData.map((p) => [p.id, pickPreviewLoader(p.assets.imagesGlob)] as const)
-    loaders.forEach(([id, loader]) => {
-      if (!loader) return
-      loader().then((mod) => {
-        if (!mounted) return
-        const url = (typeof mod === 'string' ? mod : mod?.default) as string
-        if (url) setImagesMap((m) => ({ ...m, [id]: url }))
-      }).catch(() => {})
+    const map: Record<string, string> = {}
+    projectsData.forEach((p) => {
+        const url = pickPreviewUrl(p.assets.imagesGlob)
+        if (url) map[p.id] = url
     })
-    return () => { mounted = false }
+    setImagesMap(map)
   }, [])
   const config = useMemo(
     () => ({

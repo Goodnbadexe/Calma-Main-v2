@@ -692,11 +692,11 @@
   opacity: 1;
 }
 
-/* Green styling for "Discover Our Projects" button */
+/* Beige styling for "Discover Our Projects" button using palette variables */
 .button-link .luxury-button {
-  background: var(--color-sage);
-  color: var(--color-neutral-100);
-  border: 2px solid var(--color-sage);
+  background: var(--color-accent);
+  color: var(--color-text-on-accent);
+  border: 2px solid var(--color-accent);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -704,11 +704,11 @@
 }
 
 .button-link .luxury-button:hover {
-  background: var(--color-sage-dark);
-  border-color: var(--color-sage-dark);
-  color: var(--color-neutral-100);
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+  color: var(--color-text-on-accent);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(172, 181, 179, 0.4);
+  box-shadow: 0 8px 25px rgba(var(--color-neutral-400-rgb), 0.4);
 }
 
 .showcase-images {

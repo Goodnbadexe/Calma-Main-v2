@@ -124,10 +124,12 @@ class TelemetryManager {
   }
 
   private generatePageId(): string {
+    if (typeof window === 'undefined') return 'server-side';
     return `page_${window.location.pathname.replace(/\//g, '_')}_${Date.now()}`;
   }
 
   private getViewport() {
+    if (typeof window === 'undefined') return { w: 0, h: 0 };
     return {
       w: window.innerWidth,
       h: window.innerHeight
@@ -157,7 +159,7 @@ class TelemetryManager {
       timestamp: new Date().toISOString(),
       session_id: this.sessionId,
       page_id: this.pageId,
-      user_agent: navigator.userAgent,
+      user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : 'server',
       viewport: this.getViewport()
     };
   }
@@ -320,11 +322,14 @@ class TelemetryManager {
         body: JSON.stringify({ events }),
       })
       if (!res.ok) {
-        const stored = JSON.parse(localStorage.getItem('telemetry_events') || '[]');
-        stored.push(...events);
-        localStorage.setItem('telemetry_events', JSON.stringify(stored.slice(-1000)));
+        if (typeof window !== 'undefined' && window.localStorage) if (!res.ok) {
+        if (typeof window !== 'undefined' && window.localStorage) {
+          const stored = JSON.parse(localStorage.getItem('telemetry_events') || '[]');
+          stored.push(...events);
+          localStorage.setItem('telemetry_events', JSON.stringify(stored.slice(-1000)));
+        }
         throw new Error(`Telemetry transport failed: ${res.status}`)
-      }
+      }   }
     } catch (error) {
       this.eventQueue.unshift(...events);
     }
@@ -339,6 +344,8 @@ class TelemetryManager {
 
   // Initialize event listeners
   private initializeEventListeners(): void {
+    if (typeof window === 'undefined') return;
+
     // Click tracking
     document.addEventListener('click', (e) => this.trackClick(e), { passive: true });
 

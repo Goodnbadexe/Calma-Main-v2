@@ -32,15 +32,13 @@ export function SplashProvider({ children }: { children: React.ReactNode }) {
 
   // Collect all video URLs from assets at build time
   const allMedia = useMemo(() => {
-    const videos = import.meta.glob('/src/assets/Videos/*.{mp4,webm}', { eager: true }) as Record<string, any>
-    const images = import.meta.glob('/src/assets/Images/*.{png,jpg,jpeg,webp,gif,svg}', { eager: true }) as Record<string, any>
-    const splash = import.meta.glob('/src/assets/Splash/*.{mp4,webm,png,jpg,jpeg,webp,gif,svg}', { eager: true }) as Record<string, any>
-    const extract = (mods: Record<string, any>) => Object.values(mods).map((m) => (typeof m === 'string' ? m : m?.default)).filter(Boolean) as string[]
-    const splashUrls = extract(splash)
-    // Prefer images to minimize load; fall back to videos
-    const fallback = [...extract(images), ...extract(videos)]
-    const urls = splashUrls.length ? splashUrls : fallback
-    return urls
+    // Use public assets instead of glob imports for better compatibility
+    const splashUrls = [
+      '/Splash/Calma_Resources_3D Pattern_1.mp4',
+      '/Splash/Calma_Resources_3D Pattern_2.mp4',
+      '/Splash/Calma_Resources_3D Pattern_3.mp4'
+    ]
+    return splashUrls
   }, [])
 
   const showSplash = useCallback((_text?: string) => {

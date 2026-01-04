@@ -29,6 +29,12 @@ import ys200Image1 from '@/assets/Images/About/YS200--KALMA-2-1-1.JPG'
 import ys200Image2 from '@/assets/Images/About/YS200--KALMA-2-1-3.JPG'
 import ys200Image3 from '@/assets/Images/About/Asset-1.JPG'
 
+// Helper to handle both string paths and StaticImageData objects
+const getImgSrc = (image: string | { src: string }): string => {
+  if (!image) return ''
+  return typeof image === 'string' ? image : image.src
+}
+
 export default function AboutImproved() {
   // Refs for scroll animations
   const heroRef = useRef<HTMLDivElement>(null)
@@ -149,7 +155,7 @@ export default function AboutImproved() {
                 className="hero-gallery-item"
               >
                 <img 
-                  src={image} 
+                  src={getImgSrc(image)} 
                   alt={`Calma Project ${index + 1}`}
                   className="hero-gallery-image"
                   loading="lazy"
@@ -348,7 +354,7 @@ export default function AboutImproved() {
             <div className="dual-split-grid">
               <div className="dual-split-image">
                 <img 
-                  src={visionBgImage} 
+                  src={getImgSrc(visionBgImage)} 
                   alt="Future-focused urban context" 
                   className="dual-image" 
                   loading="lazy" 

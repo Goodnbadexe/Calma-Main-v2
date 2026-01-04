@@ -84,7 +84,7 @@
   position: relative;
 }
 
-.glass-nav.nav-transparent .logo { color: #ffffff; }
+.glass-nav.nav-transparent .logo { color: var(--color-text-inverse); }
 
 .glass-nav .logo img {
   width: 18px;
@@ -140,7 +140,9 @@
   transform: translateX(-50%);
 }
 
-.glass-nav.nav-transparent .nav-link { color: #ffffff; }
+.glass-nav.nav-transparent .nav-link { color: var(--color-text-inverse); }
+/* Ensure solid state retains white text for clarity */
+.glass-nav.nav-solid .nav-link { color: var(--color-text-inverse); }
 
 .glass-nav .nav-link:hover {
   color: #1A1A1A;
@@ -183,7 +185,7 @@
 .glass-nav .nav-actions .icon {
   width: 20px;
   height: 20px;
-  color: #1A1A1A;
+  color: var(--color-text-inverse);
 }
 
 /* Enhanced Mobile menu styles */

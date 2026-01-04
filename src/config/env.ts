@@ -59,8 +59,8 @@ export function getServerEnv(): ServerEnv {
 
 export function getClientEnv(): ClientEnv {
   return {
-    VITE_API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
-    VITE_TELEMETRY_ENABLED: toBool(import.meta.env.VITE_TELEMETRY_ENABLED, false),
+    VITE_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    VITE_TELEMETRY_ENABLED: toBool(process.env.NEXT_PUBLIC_TELEMETRY_ENABLED, false),
   }
 }
 
