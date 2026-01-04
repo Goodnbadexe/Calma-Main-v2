@@ -43,9 +43,9 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      { source: '/', destination: '/ar/الرئيسية', permanent: false },
+      { source: '/', destination: '/ar/home', permanent: false },
       { source: '/english', destination: '/en/home', permanent: false },
-      { source: '/arabic', destination: '/ar/الرئيسية', permanent: false },
+      { source: '/arabic', destination: '/ar/home', permanent: false },
     ]
   },
 }

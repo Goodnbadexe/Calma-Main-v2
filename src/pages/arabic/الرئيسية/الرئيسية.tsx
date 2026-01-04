@@ -14,6 +14,7 @@ import { useHeroAnimation } from '@/hooks/useHeroAnimation'
 const calmaTV = '/Videos/Calma_TV.mp4'
 import { homeAr } from '@/content/home.ar'
 import './Home.css'
+import Image from 'next/image'
 
 import FeaturedProjectsCarousel from '@/components/home/FeaturedProjectsCarousel'
 import TrustStrip from '@/components/home/TrustStrip'
@@ -157,7 +158,7 @@ export default function EnglishHome() {
             muted
             playsInline
             preload="metadata"
-            poster={aboutHeaderImage}
+            poster={typeof aboutHeaderImage === 'string' ? aboutHeaderImage : (aboutHeaderImage as any)?.src}
             aria-label="Calma TV hero video"
             onLoadedData={() => {
               try { heroVideoRef.current?.play() } catch {}
@@ -236,10 +237,7 @@ export default function EnglishHome() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <picture>
-              <source srcSet={homeImpactImage} type="image/jpeg" />
-              <img src={homeImpactImage} alt="Calma impact" className="dual-image" loading="lazy" decoding="async" width={1600} height={1200} style={{ transform: 'scaleX(-1)' }} />
-            </picture>
+            <Image src={homeImpactImage} alt="Calma impact" className="dual-image" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 1200px" style={{ transform: 'scaleX(-1)' }} />
           </motion.div>
         </div>
         {showMicroContent && (

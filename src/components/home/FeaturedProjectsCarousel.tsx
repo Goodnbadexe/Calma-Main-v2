@@ -4,6 +4,10 @@ import type { EmblaOptionsType } from 'embla-carousel'
 import ProjectCard, { type Project } from '@/components/home/ProjectCard'
 import { projectsData } from '@/data/projects.data'
 import { pickPreviewImage } from '@/utils/assetResolver'
+export const keyToDirection = (k: string) =>
+  k === 'ArrowRight' || k === 'd' || k === 'D' ? 'next' :
+  k === 'ArrowLeft'  || k === 'a' || k === 'A' ? 'prev' :
+  null
 
 const unitLabel: Record<string, string> = {
   villa: 'Residential',
@@ -27,7 +31,7 @@ export default function FeaturedProjectsCarousel() {
     () => ({
       dragFree: false,
       align: 'start',
-      loop: false,
+      loop: true,
       slidesToScroll: 1,
     }),
     []
@@ -56,13 +60,11 @@ export default function FeaturedProjectsCarousel() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (!emblaApi) return
-      if (e.key === 'ArrowRight') {
-        e.preventDefault()
-        emblaApi.scrollNext()
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault()
-        emblaApi.scrollPrev()
-      }
+      const dir = keyToDirection(e.key)
+      if (!dir) return
+      e.preventDefault()
+      if (dir === 'next') emblaApi.scrollNext()
+      else emblaApi.scrollPrev()
     }
     // emblaRef is a callback ref in recent versions, not a RefObject with .current
     // But embla-carousel-react returns [EmblaViewportRefType, EmblaCarouselType]
@@ -77,7 +79,11 @@ export default function FeaturedProjectsCarousel() {
     if (!emblaApi) return
 
     const root = emblaApi.rootNode()
-    if (root) root.addEventListener('keydown', onKey)
+    if (root) {
+      // Ensure focusable to receive key events
+      root.setAttribute('tabindex', '0')
+      root.addEventListener('keydown', onKey)
+    }
     
     return () => {
       if (root) root.removeEventListener('keydown', onKey)
@@ -89,7 +95,7 @@ export default function FeaturedProjectsCarousel() {
     toPreload.forEach((s) => {
       if (s.image) {
         const img = new Image()
-        img.src = s.image
+        img.src = typeof s.image === 'string' ? s.image : (s.image as any)?.src
       }
     })
   }, [])
@@ -155,4 +161,3 @@ export default function FeaturedProjectsCarousel() {
     </section>
   )
 }
-

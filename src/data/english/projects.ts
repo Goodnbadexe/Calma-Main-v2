@@ -4,19 +4,25 @@ export interface Project {
   description: string
   location: string
   price: string
-  image: string
+  image: string | { src: string }
   category: string
 }
 
-export const projects: Project[] = Array.from({ length: 50 }, (_, i) => ({
-  id: i + 1,
-  name: `Project ${i + 1}`,
-  description: `Premium real estate development in prime location`,
-  location: `District ${Math.floor(i / 5) + 1}`,
-  price: `$${(Math.random() * 5 + 2).toFixed(1)}M`,
-  image: `/placeholder.svg?height=400&width=600&query=modern real estate building project ${i + 1}`,
-  category: ['Villa', 'Floor', 'TownHouse', 'Office'][Math.floor(Math.random() * 4)]
-}))
+export const projects: Project[] = Array.from({ length: 50 }, (_, i) => {
+  const priceBase = 2 + ((i % 50) / 50) * 3
+  const price = `$${priceBase.toFixed(1)}M`
+  const categories = ['Villa', 'Floor', 'TownHouse', 'Office'] as const
+  const category = categories[i % categories.length]
+  return {
+    id: i + 1,
+    name: `Project ${i + 1}`,
+    description: `Premium real estate development in prime location`,
+    location: `District ${Math.floor(i / 5) + 1}`,
+    price,
+    image: `/placeholder.svg?height=400&width=600&query=modern real estate building project ${i + 1}`,
+    category,
+  }
+})
 
 export const projectOrder = [
   // Part 1

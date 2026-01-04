@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import NavBar from '@/components/ui/NavBar'
 import { useEffect, useState } from 'react'
 import { runPreflight } from '@/utils/preflight'
@@ -12,8 +12,7 @@ import { motionVariantDuration } from '@/config/uiTimings'
 
 export default function AppLayout({ children }: { children?: React.ReactNode }) {
   useEffect(() => { runPreflight() }, [])
-  const router = useRouter()
-  const pathname = router.asPath
+  const pathname = usePathname() || '/'
   // Projects pages now render the global NavBar and Footer; keep pathname for transitions only
   const [overlayVisible, setOverlayVisible] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
@@ -48,8 +47,6 @@ export default function AppLayout({ children }: { children?: React.ReactNode }) 
         {getAlternateLinks(pathname).map(link => (
           <link key={link.hrefLang} rel="alternate" hrefLang={link.hrefLang} href={link.path} />
         ))}
-        <link rel="preload" as="font" href="/src/assets/fonts/BluteauArabicSans-Regular.otf" type="font/otf" crossOrigin="anonymous" />
-        <link rel="preload" as="font" href="/src/assets/fonts/SpicaArabic-Book.otf" type="font/otf" crossOrigin="anonymous" />
       </Helmet>
       <a
         href="#main"

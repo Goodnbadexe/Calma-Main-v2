@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import logoC from '@/assets/Logos/BRANDMARK_01-p-2000.png'
+import { getImgSrc } from '@/utils/getImgSrc'
 import { Button } from './button'
 import { useRegisterOverlay } from '@/components/register/RegisterOverlayProvider'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -9,6 +10,8 @@ import { useSplash } from '@/components/system/SplashProvider'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { createMagneticEffect } from '@/utils/helpers'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 
 export default function NavBar() {
   const { showSplash } = useSplash()
@@ -19,6 +22,8 @@ export default function NavBar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   // Keep navbar always visible to avoid layout glitches
   const [isHidden] = useState(false)
+  const router = useRouter()
+  const pathname = usePathname() || '/en/home'
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
   // Use native details/summary based dropdown for robust focus/keyboard behavior
@@ -37,6 +42,12 @@ export default function NavBar() {
     const computeTransparency = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
+          // Force transparent header on projects pages (dark background)
+          if (pathname.includes('/projects')) {
+            setIsTransparent(true)
+            ticking = false
+            return
+          }
           const firstSection = document.getElementById('panorama') || document.querySelector('.hero') as HTMLElement | null
           const header = document.querySelector('header.glass-nav') as HTMLElement | null
           
@@ -69,7 +80,7 @@ export default function NavBar() {
       window.removeEventListener('scroll', computeTransparency)
       window.removeEventListener('resize', computeTransparency)
     }
-  }, [])
+  }, [pathname])
 
   // Initialize magnetic effects
   useEffect(() => {
@@ -142,7 +153,7 @@ export default function NavBar() {
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
     window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' })
     showSplash()
-    window.location.assign(path)
+    router.push(path)
   }
 
   // Translation fallback: if key returns itself, use provided EN/AR text
@@ -169,19 +180,14 @@ export default function NavBar() {
         }}
       >
         {/* Left-aligned: Logo */}
-        <a
-          ref={logoRef as any}
-          href={isArabic ? '/ar' : '/'}
-          className="logo"
-          aria-label="Calma Home"
-        >
+        <Link ref={logoRef as any} href={isArabic ? '/ar/home' : '/en/home'} className="logo" aria-label="Calma Home">
           <img
-            src={logoC}
+            src={getImgSrc(logoC)}
             alt={isArabic ? 'كالما شعار' : 'Calma Logo'}
             className="logo-image"
           />
           <span className="logo-text">{isArabic ? 'كالما' : 'Calma'}</span>
-        </a>
+        </Link>
 
         {/* Center: Navigation Links */}
         <nav ref={linksRef} className="nav-links" aria-label={tr('common.menu', 'Primary navigation', 'التنقل الرئيسي')} style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'nowrap' }}>
@@ -190,7 +196,7 @@ export default function NavBar() {
             onClick={() => { 
               window.scrollTo({ top: 0, behavior: 'smooth' }); 
               showSplash(); 
-              window.location.assign(isArabic ? '/ar' : '/'); 
+              router.push(isArabic ? '/ar/home' : '/en/home'); 
             }}
           >
             {tr('nav.home', 'Home', 'الرئيسية')}
@@ -201,7 +207,7 @@ export default function NavBar() {
             onClick={() => { 
               window.scrollTo({ top: 0, behavior: 'smooth' }); 
               showSplash(); 
-              window.location.assign(isArabic ? '/ar/about' : '/about'); 
+              router.push(isArabic ? '/ar/about' : '/en/about'); 
             }}
           >
             {tr('nav.about', 'About', 'عن كالما')}
@@ -228,7 +234,7 @@ export default function NavBar() {
                 <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                   <li>
                     <DropdownMenuItem>
-                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects' : '/projects')}>
+                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects' : '/en/projects')}>
                         {tr('nav.allProjects', 'All Projects', 'كل المشاريع')}
                       </button>
                     </DropdownMenuItem>
@@ -238,28 +244,28 @@ export default function NavBar() {
                   </li>
                   <li>
                     <DropdownMenuItem>
-                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/villa' : '/projects/villa')}>
+                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/villa' : '/en/projects/villa')}>
                         {isArabic ? 'فلل' : 'Villa'}
                       </button>
                     </DropdownMenuItem>
                   </li>
                   <li>
                     <DropdownMenuItem>
-                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/floor' : '/projects/floor')}>
+                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/floor' : '/en/projects/floor')}>
                         {isArabic ? 'أدوار' : 'Floor'}
                       </button>
                     </DropdownMenuItem>
                   </li>
                   <li>
                     <DropdownMenuItem>
-                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/townhouse' : '/projects/townhouse')}>
+                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/townhouse' : '/en/projects/townhouse')}>
                         {isArabic ? 'تاون هاوس' : 'Town House'}
                       </button>
                     </DropdownMenuItem>
                   </li>
                   <li>
                     <DropdownMenuItem>
-                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/office' : '/projects/office')}>
+                      <button type="button" className="dropdown-item" onClick={() => handleDropdownNavigation(isArabic ? '/ar/projects/office' : '/en/projects/office')}>
                         {isArabic ? 'مكتبي' : 'Office'}
                       </button>
                     </DropdownMenuItem>
@@ -274,7 +280,7 @@ export default function NavBar() {
             onClick={() => { 
               window.scrollTo({ top: 0, behavior: 'smooth' }); 
               showSplash(); 
-              window.location.assign(isArabic ? '/ar/news' : '/news'); 
+              router.push(isArabic ? '/ar/news' : '/en/news'); 
             }}
           >
             {tr('nav.news', 'News', 'الأخبار')}
@@ -286,7 +292,7 @@ export default function NavBar() {
             onClick={() => { 
               window.scrollTo({ top: 0, behavior: 'smooth' }); 
               showSplash(); 
-              window.location.assign(isArabic ? '/ar/contact' : '/contact'); 
+              router.push(isArabic ? '/ar/contact' : '/en/contact'); 
             }}
           >
             {tr('nav.contact', 'Contact', 'تواصل')}
@@ -407,7 +413,7 @@ export default function NavBar() {
           {/* Header */}
           <div className="panel-header">
             <div className="logo">
-              <img src={logoC} alt="Calma" className="logo-image" />
+              <img src={getImgSrc(logoC)} alt="Calma" className="logo-image" />
               <span className="logo-text">{isArabic ? 'كالما' : 'Calma'}</span>
             </div>
             <Button 
@@ -428,7 +434,7 @@ export default function NavBar() {
               onClick={() => { 
                 setDrawerOpen(false); 
                 showSplash(); 
-                window.location.assign(isArabic ? '/ar' : '/'); 
+                router.push(isArabic ? '/ar/home' : '/en/home'); 
               }}
             >
               {t('nav.home')}
@@ -439,7 +445,7 @@ export default function NavBar() {
               onClick={() => { 
                 setDrawerOpen(false); 
                 showSplash(); 
-                window.location.assign(isArabic ? '/ar/about' : '/about'); 
+                router.push(isArabic ? '/ar/about' : '/en/about'); 
               }}
             >
               {t('nav.about')}
@@ -452,7 +458,7 @@ export default function NavBar() {
                 onClick={() => { 
                   setDrawerOpen(false); 
                   showSplash(); 
-                  window.location.assign(isArabic ? '/ar/projects' : '/projects'); 
+                  router.push(isArabic ? '/ar/projects' : '/en/projects'); 
                 }}
               >
                 {t('nav.allProjects')}
@@ -464,7 +470,7 @@ export default function NavBar() {
                      onClick={() => { 
                        setDrawerOpen(false); 
                        showSplash(); 
-                       window.location.assign('/projects/commercials'); 
+                       router.push('/en/projects/commercials'); 
                      }}
                    >
                      {t('nav.commercials')}
@@ -474,7 +480,7 @@ export default function NavBar() {
                      onClick={() => { 
                        setDrawerOpen(false); 
                        showSplash(); 
-                       window.location.assign('/projects/residential'); 
+                       router.push('/en/projects/residential'); 
                      }}
                    >
                      {t('nav.residential')}
@@ -484,7 +490,7 @@ export default function NavBar() {
                      onClick={() => { 
                        setDrawerOpen(false); 
                        showSplash(); 
-                       window.location.assign('/projects/calma-tower'); 
+                       router.push('/en/projects/calma-tower'); 
                      }}
                    >
                      {t('nav.calmaTower')}
@@ -498,7 +504,7 @@ export default function NavBar() {
               onClick={() => { 
                 setDrawerOpen(false); 
                 showSplash(); 
-                window.location.assign(isArabic ? '/ar/news' : '/news'); 
+                router.push(isArabic ? '/ar/news' : '/en/news'); 
               }}
             >
                {t('nav.news')}
@@ -509,7 +515,7 @@ export default function NavBar() {
                onClick={() => { 
                  setDrawerOpen(false); 
                  showSplash(); 
-                 window.location.assign(isArabic ? '/ar/contact' : '/contact'); 
+                 router.push(isArabic ? '/ar/contact' : '/en/contact'); 
                }}
              >
                 {t('nav.contact')}

@@ -4,6 +4,7 @@ import statsImage1 from '@/assets/Images/About/Stats-77097-sqm.JPG'
 import statsImage2 from '@/assets/Images/About/Stats130000-sqm.JPG'
 import { shuffle } from '@/utils/shuffle'
 import { Button } from '@/components/ui/button'
+import Image from 'next/image'
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: -60 },
@@ -71,18 +72,22 @@ export default function Excellence() {
           </motion.div>
           <motion.div className="showcase-images" variants={fadeInRight}>
             <div className="image-grid">
-              {shuffled.map((img, i) => (
-                <motion.img
+              {shuffled.map((img) => (
+                <motion.div
                   key={img.alt}
-                  src={img.src}
-                  alt={img.alt}
                   className={`grid-image ${img.cls}`}
-                  loading="lazy"
-                  decoding="async"
                   initial={{ opacity: 0, scale: 1.1 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 1.2, ease: 'easeOut', delay: img.delay }}
-                />
+                >
+                  <Image
+                    src={typeof img.src === 'string' ? img.src : (img.src as any)?.src}
+                    alt={img.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                    style={{ objectFit: 'cover' }}
+                  />
+                </motion.div>
               ))}
             </div>
           </motion.div>

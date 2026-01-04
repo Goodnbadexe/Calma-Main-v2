@@ -14,6 +14,8 @@ import { useHeroAnimation } from '@/hooks/useHeroAnimation'
 const calmaTV = '/Videos/Calma_TV.mp4'
 import { homeEn } from '@/content/home.en'
 import './Home.css'
+import Link from 'next/link'
+import Image from 'next/image'
 
 import FeaturedProjectsCarousel from '@/components/home/FeaturedProjectsCarousel'
 import TrustStrip from '@/components/home/TrustStrip'
@@ -181,22 +183,12 @@ export default function EnglishHome() {
             {homeEn.heroSubtitle}
           </p>
           <div className="hero-actions">
-            <motion.a 
-              href="/projects"
-              className="button-link"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-            >
+            <Link href="/en/projects" className="button-link">
               <span className="hero-button luxury-button">Explore Our Projects</span>
-            </motion.a>
-            <motion.a 
-              href="/brochure"
-              className="button-link"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-            >
+            </Link>
+            <Link href="/en/brochure" className="button-link">
               <span className="hero-button-secondary">Get Brochure</span>
-            </motion.a>
+            </Link>
           </div>
         </motion.div>
         <div className="scroll-cue" aria-hidden="true">
@@ -220,11 +212,11 @@ export default function EnglishHome() {
               Every decision balances material authenticity with human experience.
             </p>
             <div className="cta-row">
-              <a className="button-link" href="/projects">
+              <Link className="button-link" href="/en/projects">
                 <Button variant="secondary" className="luxury-button">
                   Explore Our Projects
                 </Button>
-              </a>
+              </Link>
             </div>
           </motion.div>
           <motion.div 
@@ -234,10 +226,7 @@ export default function EnglishHome() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <picture>
-              <source srcSet={homeImpactImage} type="image/jpeg" />
-              <img src={homeImpactImage} alt="Calma impact" className="dual-image" loading="lazy" decoding="async" width={1600} height={1200} style={{ transform: 'scaleX(-1)' }} />
-            </picture>
+            <Image src={homeImpactImage} alt="Calma impact" className="dual-image" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 1200px" style={{ transform: 'scaleX(-1)' }} />
           </motion.div>
         </div>
         {showMicroContent && (

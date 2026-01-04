@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 import { toLanguagePath } from '@/utils/i18nPaths'
 
 export type Language = 'en' | 'ar';
@@ -149,14 +149,12 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({
 }) => {
   const [language, setLanguageState] = useState<Language>(defaultLanguage);
   const router = useRouter();
+  const pathname = usePathname() || '/en/home';
 
   // Initialize language from URL or localStorage
   useEffect(() => {
-    if (!router.isReady) return;
-
     const savedLanguage = localStorage.getItem('calma-language') as Language;
-    const isArabicRoute = router.pathname.startsWith('/ar');
-    
+    const isArabicRoute = pathname.startsWith('/ar');
     if (isArabicRoute && language !== 'ar') {
       setLanguageState('ar');
     } else if (!isArabicRoute && language !== 'en') {
@@ -164,7 +162,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({
     } else if (savedLanguage && savedLanguage !== language) {
       setLanguageState(savedLanguage);
     }
-  }, [router.pathname, router.isReady]);
+  }, [pathname]);
 
   // Update document direction and language
   useEffect(() => {
@@ -175,7 +173,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({
   }, [language]);
 
   const setLanguage = (newLanguage: Language) => {
-    const currentPath = router.pathname;
+    const currentPath = pathname;
     const newPath = toLanguagePath(newLanguage, currentPath)
 
     setLanguageState(newLanguage);

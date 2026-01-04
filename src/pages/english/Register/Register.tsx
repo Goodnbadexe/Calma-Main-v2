@@ -5,7 +5,7 @@ import { submitLead } from '@/services/api'
 import { isValidEmail } from '@/utils/validation-english'
 import SEOHead from '@/components/seo/SEOHead'
 import { Check, Loader2, ArrowRight, Building2, Star } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import HeroImage from '@/assets/Images/Home/Asset-1.JPG'
 
 // Standardized form options
@@ -219,7 +219,7 @@ export default function Register() {
         </div>
 
         <div className="relative z-10 w-full h-full flex flex-col justify-between p-12 xl:p-16">
-          <Link to="/" className="text-white text-3xl font-serif tracking-widest font-bold">CALMA</Link>
+          <Link href="/en/home" className="text-white text-3xl font-serif tracking-widest font-bold">CALMA</Link>
           
           <div className="space-y-8">
             <div className="space-y-2">
@@ -255,7 +255,7 @@ export default function Register() {
             className="w-full h-full object-cover opacity-70"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
-             <Link to="/" className="text-white text-2xl font-serif tracking-widest font-bold">CALMA</Link>
+             <Link href="/en/home" className="text-white text-2xl font-serif tracking-widest font-bold">CALMA</Link>
           </div>
         </div>
 
@@ -361,7 +361,7 @@ export default function Register() {
                     </div>
                     <div className="flex flex-col">
                       <span className="text-sm text-neutral-600 group-hover:text-neutral-900 transition-colors">
-                        I agree to the <Link to="/privacy" className="font-medium underline underline-offset-2 decoration-neutral-300 hover:decoration-neutral-900 text-neutral-900">Privacy Policy</Link> and <Link to="/terms" className="font-medium underline underline-offset-2 decoration-neutral-300 hover:decoration-neutral-900 text-neutral-900">Terms of Service</Link>
+                        I agree to the <Link href="/en/privacy" className="font-medium underline underline-offset-2 decoration-neutral-300 hover:decoration-neutral-900 text-neutral-900">Privacy Policy</Link> and <Link href="/en/terms" className="font-medium underline underline-offset-2 decoration-neutral-300 hover:decoration-neutral-900 text-neutral-900">Terms of Service</Link>
                       </span>
                       {errors.agreeToTerms && <p className="text-xs text-red-500 font-medium mt-1">{errors.agreeToTerms}</p>}
                     </div>

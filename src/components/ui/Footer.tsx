@@ -1,4 +1,6 @@
 import logoC from '@/assets/Logos/BRANDMARK_01-p-2000.png'
+import { getImgSrc } from '@/utils/getImgSrc'
+import Link from 'next/link'
 import { Facebook, Instagram, Linkedin, Twitter, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useRegisterOverlay } from '@/components/register/RegisterOverlayProvider'
@@ -13,11 +15,11 @@ export default function Footer() {
   const getPath = (path: string) => {
     if (language === 'ar') {
       const map: Record<string, string> = {
-        '/': '/ar/الرئيسية',
-        '/about': '/ar/عن كالما',
-        '/projects': '/ar/المشاريع',
-        '/news': '/ar/الأخبار',
-        '/register': '/ar/تواصل معنا',
+        '/': '/ar/home',
+        '/about': '/ar/about',
+        '/projects': '/ar/projects',
+        '/news': '/ar/news',
+        '/register': '/ar/register',
       }
       return map[path] ?? path
     }
@@ -36,7 +38,7 @@ export default function Footer() {
       <div className="footer-inner">
         <div className="footer-col">
           <div className="footer-brand">
-            <img src={(logoC as any)?.src ?? (typeof logoC === 'string' ? logoC : '/logo.png')} alt="Calma" className="footer-logo" />
+            <img src={getImgSrc(logoC)} alt="Calma" className="footer-logo" />
             <div>
               <div className="footer-title">Calma</div>
               <div className="footer-subtitle">{t('footer.vision')}</div>
@@ -50,11 +52,11 @@ export default function Footer() {
         <nav className="footer-col" aria-label="Footer navigation">
           <div className="footer-heading">{t('footer.explore')}</div>
           <ul className="footer-links">
-            <li><a href={getPath('/')}>{t('nav.home')}</a></li>
-            <li><a href={getPath('/about')}>{t('nav.about')}</a></li>
-            <li><a href={getPath('/projects')}>{t('nav.projects')}</a></li>
-            <li><a href={getPath('/news')}>{t('nav.news')}</a></li>
-            <li><a href={getPath('/register')}>{t('nav.contact')}</a></li>
+            <li><Link href={getPath('/')}>{t('nav.home')}</Link></li>
+            <li><Link href={getPath('/about')}>{t('nav.about')}</Link></li>
+            <li><Link href={getPath('/projects')}>{t('nav.projects')}</Link></li>
+            <li><Link href={getPath('/news')}>{t('nav.news')}</Link></li>
+            <li><Link href={getPath('/register')}>{t('nav.contact')}</Link></li>
           </ul>
         </nav>
 
@@ -116,20 +118,14 @@ export default function Footer() {
         </div>
       </div>
       
-      <div className="footer-cta">
-        <div className="footer-heading">{t('footer.readyToTalk')}</div>
-        <p className="footer-text">{t('footer.readyToTalkDesc')}</p>
-        <button className="newsletter-button" onClick={() => overlay.open()}>
-          {t('actions.register')}
-        </button>
-      </div>
+      
       
       <div className="footer-bottom">
         <div className="footer-note">© {new Date().getFullYear()} {t('footer.rights')}</div>
         <div className="footer-legal">
-          <a href={getPath('/privacy')}>{t('footer.privacy')}</a>
-          <a href={getPath('/terms')}>{t('footer.terms')}</a>
-          <a href={getPath('/cookies')}>{t('footer.cookies')}</a>
+          <Link href={getPath('/privacy')}>{t('footer.privacy')}</Link>
+          <Link href={getPath('/terms')}>{t('footer.terms')}</Link>
+          <Link href={getPath('/cookies')}>{t('footer.cookies')}</Link>
         </div>
       </div>
     </footer>

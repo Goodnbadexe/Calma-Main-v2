@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import { Card } from "@/components/ui/card"
 import { Search, Grid3x3, Eye } from "lucide-react"
 import { projects, projectOrder } from "@/data/english/projects"
@@ -904,9 +905,11 @@ export default function ProjectsPage({ category }: ProjectsPageProps) {
             <Card className="fixed bottom-32 left-1/2 -translate-x-1/2 z-40 w-[90%] max-w-md bg-[#0a2021]/95 backdrop-blur-sm border-[#d4cfbc]/30 p-6 text-[#d4cfbc]">
               <div className="flex items-center gap-4 mb-4">
                 <img
-                  src={displayProject.image || "/placeholder.svg"}
+                  src={typeof displayProject.image === 'string' ? displayProject.image : (displayProject.image as any)?.src || "/placeholder.svg"}
                   alt={displayProject.name}
                   className="w-20 h-20 object-cover rounded-lg flex-shrink-0"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-[#e8d4b8]">{displayProject.name}</h3>
@@ -940,9 +943,10 @@ export default function ProjectsPage({ category }: ProjectsPageProps) {
       {viewMode === "grid" && (
         <div className="min-h-screen bg-[#081e1f] pt-24 pb-20">
           <Section>
+            <div className="mt-10">
             <Container>
             {/* Stats Overview */}
-            <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="mt-10 md:mt-12 mb-8 grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-[#0a2021] border border-[#d4cfbc]/20 rounded-lg p-4 text-center">
                 <div className="text-3xl font-bold text-[#d4cfbc]">{filteredProjects.length}</div>
                 <div className="text-sm text-[#d4cfbc]/60 mt-1">Total Projects</div>
@@ -977,7 +981,7 @@ export default function ProjectsPage({ category }: ProjectsPageProps) {
             </div>
 
             {/* Projects Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProjects.map((project) => (
                 <Card
                   key={project.id}
@@ -997,11 +1001,13 @@ export default function ProjectsPage({ category }: ProjectsPageProps) {
                   }}
                 >
                   {/* Project Image */}
-                  <div className="aspect-video overflow-hidden bg-[#081e1f]">
-                    <img
-                      src={project.image || "/placeholder.svg"}
+                  <div className="aspect-video overflow-hidden bg-[#081e1f] relative">
+                    <Image
+                      src={typeof project.image === 'string' ? project.image : (project.image as any)?.src || "/placeholder.svg"}
                       alt={project.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1440px) 50vw, 33vw"
                     />
                   </div>
 
@@ -1034,6 +1040,7 @@ export default function ProjectsPage({ category }: ProjectsPageProps) {
               </div>
             )}
             </Container>
+            </div>
           </Section>
         </div>
       )}

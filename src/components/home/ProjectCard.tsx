@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export type Project = {
   id: string
@@ -21,26 +23,16 @@ export default function ProjectCard({ project, active }: Props) {
   const imageSrc = typeof project.image === 'string' ? project.image : project.image.src
   
   return (
-    <a href={project.href} className="project-showcase-card" aria-label={project.title}>
+    <Link href={project.href} className="project-showcase-card" aria-label={project.title}>
       <div className="project-image">
-        <img
+        <Image
           src={imageSrc}
           alt={project.title}
           width={1600}
           height={1000}
           loading="lazy"
-          decoding="async"
-          srcSet={`${imageSrc} 1x, ${imageSrc} 2x`}
           sizes="(max-width: 768px) 100vw, (max-width: 1440px) 50vw, 33vw"
-          onLoad={() => setImgLoaded(true)}
-          onError={(e) => {
-            const t = e.currentTarget
-            if (t.src !== '/placeholder.svg') {
-              if (process.env.NODE_ENV !== 'production') console.warn('Image failed to load, using placeholder:', t.src)
-              t.src = '/placeholder.svg'
-              t.srcset = '/placeholder.svg 1x, /placeholder.svg 2x'
-            }
-          }}
+          onLoad={() => setImgLoaded(true as any)}
         />
         {!imgLoaded && <div className="skeleton-overlay" aria-hidden="true" />}
         <div className="project-overlay">
@@ -62,6 +54,6 @@ export default function ProjectCard({ project, active }: Props) {
           <span className="hero-button luxury-button">View Project</span>
         </div>
       </motion.div>
-    </a>
+    </Link>
   )
 }
