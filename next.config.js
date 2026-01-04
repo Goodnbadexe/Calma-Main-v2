@@ -19,6 +19,13 @@ const nextConfig = {
     }
     return config
   },
+  async redirects() {
+    return [
+      { source: '/', destination: '/english/Home/Home', permanent: false },
+      { source: '/english', destination: '/english/Home/Home', permanent: false },
+      { source: '/ar', destination: '/arabic/الرئيسية/الرئيسية', permanent: false },
+    ]
+  },
 }
 
 module.exports = nextConfig
