@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { splashFallbackMs, overlayFadeMs } from '@/config/uiTimings'
 
 type SplashContextValue = {
   showSplash: (text?: string) => Promise<void>
@@ -23,7 +24,7 @@ export function SplashProvider({ children }: { children: React.ReactNode }) {
   const [clipUrl, setClipUrl] = useState<string | null>(null)
   const imgRef = useRef<HTMLImageElement | null>(null)
 
-  const fadeMs = 1000
+  const fadeMs = overlayFadeMs
   const resolveRef = useRef<(() => void) | null>(null)
   const lastClipUrlRef = useRef<string | null>(null)
 
@@ -71,8 +72,7 @@ export function SplashProvider({ children }: { children: React.ReactNode }) {
       resolveRef.current = resolve
       // Fallback close if destination never signals readiness
       if (timerRef.current) { window.clearTimeout(timerRef.current) }
-      // Increased fallback to 30s to allow for long loading times (looping)
-      timerRef.current = window.setTimeout(() => startClosing(), 30000)
+      timerRef.current = window.setTimeout(() => startClosing(), splashFallbackMs)
     })
   }, [allMedia, clipUrl])
 

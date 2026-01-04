@@ -8,14 +8,13 @@ import { Suspense } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { getAlternateLinks } from '@/utils/i18nPaths'
 import { RegisterOverlayProvider } from '@/components/register/RegisterOverlayProvider'
+import { motionVariantDuration } from '@/config/uiTimings'
 
 export default function AppLayout({ children }: { children?: React.ReactNode }) {
   useEffect(() => { runPreflight() }, [])
   const router = useRouter()
   const pathname = router.asPath
-  const isProjectsPage = pathname.startsWith('/projects') || 
-                        pathname.startsWith('/ar/projects') || 
-                        pathname.startsWith('/ar/المشاريع')
+  // Projects pages now render the global NavBar and Footer; keep pathname for transitions only
   const [overlayVisible, setOverlayVisible] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
 
@@ -74,7 +73,7 @@ export default function AppLayout({ children }: { children?: React.ReactNode }) 
       >
         Skip to content
       </a>
-      {!isProjectsPage && <NavBar />}
+      <NavBar />
       <div style={{ position: 'relative' }}>
         <AnimatePresence mode="wait">
           <motion.div
@@ -82,7 +81,7 @@ export default function AppLayout({ children }: { children?: React.ReactNode }) 
             initial={reduceMotion ? false : { opacity: 0 }}
             animate={reduceMotion ? {} : { opacity: 1 }}
             exit={reduceMotion ? {} : { opacity: 0 }}
-            transition={reduceMotion ? { duration: 0 } : { duration: 0.26, ease: 'easeInOut' }}
+            transition={reduceMotion ? { duration: 0 } : { duration: motionVariantDuration, ease: 'easeInOut' }}
           >
             <Suspense fallback={<div className="page-loading" aria-busy="true" aria-live="polite" />}>
               <div id="main">
@@ -99,7 +98,7 @@ export default function AppLayout({ children }: { children?: React.ReactNode }) 
               initial={reduceMotion ? false : { opacity: 0 }}
               animate={reduceMotion ? {} : { opacity: 0.25 }}
               exit={reduceMotion ? {} : { opacity: 0 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.26, ease: 'easeInOut' }}
+              transition={reduceMotion ? { duration: 0 } : { duration: motionVariantDuration, ease: 'easeInOut' }}
               style={{
                 position: 'fixed',
                 inset: 0,
@@ -111,7 +110,7 @@ export default function AppLayout({ children }: { children?: React.ReactNode }) 
           )}
         </AnimatePresence>
       </div>
-      {!isProjectsPage && <Footer />}
+      <Footer />
     </div>
     </RegisterOverlayProvider>
   )

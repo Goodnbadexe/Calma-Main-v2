@@ -33,3 +33,5 @@ out/
 # Misc caches
 .cache/
 coverage/
+.vercel
+.env*.local

@@ -1,5 +1,5 @@
 export function runPreflight() {
-  if (import.meta.env.PROD) return
+  if (process.env.NODE_ENV === 'production') return
   const required = [
     'src/pages/arabic/الأخبار/الأخبار.css',
     'src/pages/arabic/التسجيل/التسجيل.css',
@@ -29,7 +29,9 @@ export function runPreflight() {
     console.info('[Preflight] CSS presence OK')
   }
   const envMissing: string[] = []
-  if (!import.meta.env.VITE_LEADS_API_URL) envMissing.push('VITE_LEADS_API_URL')
+  const leadsApi =
+    process.env.NEXT_PUBLIC_LEADS_API_URL || process.env.VITE_LEADS_API_URL
+  if (!leadsApi) envMissing.push('NEXT_PUBLIC_LEADS_API_URL')
   if (envMissing.length) {
     // eslint-disable-next-line no-console
     console.warn('[Preflight] Missing environment variables:', envMissing)

@@ -1,1 +1,16 @@
-{"projectId":"prj_GJTCqaio5XY5n7a6Fl6kSG7kRD76","orgId":"team_gkQ8nslZ9nckurNsJOUChGT7","projectName":"trae_vfi3ix8k","neverMindDeployCard":true}
+{
+  "projectId": "prj_HSYZAiUFNwSJwJSREXuLWOqBx9tI",
+  "orgId": "team_gkQ8nslZ9nckurNsJOUChGT7",
+  "projectName": "calma-main-v2",
+  "settings": {
+    "createdAt": 1766426170049,
+    "framework": "vite",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": "npm ci --legacy-peer-deps && npm run build",
+    "outputDirectory": "dist",
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "24.x"
+  }
+}

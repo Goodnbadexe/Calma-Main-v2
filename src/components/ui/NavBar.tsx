@@ -1,4 +1,3 @@
-// Using native anchors to avoid SSR router context issues
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import logoC from '@/assets/Logos/BRANDMARK_01-p-2000.png'

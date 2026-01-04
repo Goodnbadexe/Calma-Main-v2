@@ -1,13 +1,14 @@
 import { motion, circOut } from 'framer-motion'
+import { motionVariantDuration } from '@/config/uiTimings'
 import aboutHeaderImage from '@/assets/Images/About/About-Header.jpg'
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: -60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: circOut } },
+  visible: { opacity: 1, x: 0, transition: { duration: motionVariantDuration, ease: circOut } },
 }
 const fadeInRight = {
   hidden: { opacity: 0, x: 60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: circOut } },
+  visible: { opacity: 1, x: 0, transition: { duration: motionVariantDuration, ease: circOut } },
 }
 const staggerContainer = {
   hidden: { opacity: 0 },

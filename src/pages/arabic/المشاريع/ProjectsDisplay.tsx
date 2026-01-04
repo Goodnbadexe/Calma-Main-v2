@@ -3,6 +3,8 @@ import { Card } from "@/components/ui/card"
 import { Search, Grid3x3, Eye } from "lucide-react"
 import { projects, projectOrder } from "@/data/arabic/projects"
 import "@/pages/english/Projects/projects.css"
+import Container from "@/components/ui/Container"
+import Section from "@/components/ui/Section"
 
 interface ProjectsPageProps {
   category?: string
@@ -12,7 +14,7 @@ export default function ArabicProjects({ category }: ProjectsPageProps) {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
-  const [viewMode, setViewMode] = useState<"preview" | "grid">("preview")
+  const [viewMode, setViewMode] = useState<"preview" | "grid">("grid")
   const [searchQuery, setSearchQuery] = useState("")
   const containerRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
@@ -50,7 +52,6 @@ export default function ArabicProjects({ category }: ProjectsPageProps) {
     }
   }, [viewMode])
 
-  const translateZ = scrollProgress * 3000
   const scale = 1 + scrollProgress * 0.8
   const opacity = 1 - scrollProgress * 0.3
   
@@ -131,9 +132,9 @@ export default function ArabicProjects({ category }: ProjectsPageProps) {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#081e1f] text-[#d4cfbc]" dir="rtl">
-      {/* Header - Always visible */}
-      <div className="fixed top-20 left-0 right-0 z-50 bg-[#081e1f]/80 backdrop-blur-sm border-b border-[#d4cfbc]/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+      <div className="sticky top-16 left-0 right-0 z-50 bg-[#081e1f]/80 backdrop-blur-sm border-b border-[#d4cfbc]/20">
+        <Container>
+          <div className="py-4 flex items-center justify-between gap-4">
           {/* Search Input */}
           <div className="flex-1 max-w-md relative">
             <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#d4cfbc]/60" />
@@ -171,7 +172,8 @@ export default function ArabicProjects({ category }: ProjectsPageProps) {
               <span className="hidden sm:inline">شبكة</span>
             </button>
           </div>
-        </div>
+          </div>
+        </Container>
       </div>
 
       {viewMode === "preview" && (
@@ -309,9 +311,9 @@ export default function ArabicProjects({ category }: ProjectsPageProps) {
       )}
 
       {viewMode === "grid" && (
-        <div className="min-h-screen bg-[#081e1f] py-20 pt-40">
-          {/* Grid Content */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8">
+        <div className="min-h-screen bg-[#081e1f] pt-24 pb-20">
+          <Section>
+            <Container>
             {/* Stats Overview */}
             <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-[#0a2021] border border-[#d4cfbc]/20 rounded-lg p-4 text-center">
@@ -372,7 +374,8 @@ export default function ArabicProjects({ category }: ProjectsPageProps) {
                 </Card>
               ))}
             </div>
-          </div>
+            </Container>
+          </Section>
         </div>
       )}
     </div>

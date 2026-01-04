@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async'
+import brandmark from '@/assets/Logos/BRANDMARK_01-p-2000.png'
 
 interface SEOHeadProps {
   title?: string
@@ -22,7 +23,7 @@ interface SEOHeadProps {
 const defaultSEO = {
   siteName: 'CALMA',
   author: 'CALMA Real Estate',
-  image: '/og-image.jpg',
+  image: brandmark,
   type: 'website' as const,
   locale: 'en' as const
 }
@@ -68,7 +69,7 @@ export default function SEOHead({
     "@type": "Organization",
     "name": siteName,
     "url": url || (typeof window !== 'undefined' ? window.location.origin : ''),
-    "logo": `${typeof window !== 'undefined' ? window.location.origin : ''}/logo.png`,
+    "logo": `${typeof window !== 'undefined' ? window.location.origin : ''}${brandmark}`,
     "description": finalDescription,
     "address": {
       "@type": "PostalAddress",

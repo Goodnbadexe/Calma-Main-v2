@@ -21,7 +21,7 @@ export default function UnicornEffect({ src, lazy = true, onReady }: Props) {
         onReady?.()
       }
       script.onerror = () => {
-        if (import.meta.env.DEV) console.warn('Failed to load Unicorn script:', src)
+        if (process.env.NODE_ENV !== 'production') console.warn('Failed to load Unicorn script:', src)
       }
       containerRef.current.appendChild(script)
     }
@@ -45,4 +45,3 @@ export default function UnicornEffect({ src, lazy = true, onReady }: Props) {
 
   return <div ref={containerRef} className="unicorn-host reveal-block" aria-label="Interactive Unicorn effect" />
 }
-

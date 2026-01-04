@@ -15,7 +15,7 @@ const maxToClass = {
 export default function Section({ className, children, max = 'xl', ...props }: Props) {
   return (
     <section
-      className={clsx('px-4 md:px-6', className)}
+      className={clsx('px-4 md:px-6 py-12 md:py-16', className)}
       {...props}
     >
       <div className={clsx('mx-auto', maxToClass[max])}>{children}</div>

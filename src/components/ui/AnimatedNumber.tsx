@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import { counterDurationMs, motionVariantDuration } from '@/config/uiTimings'
 
 interface AnimatedNumberProps {
   value: number | string
@@ -15,7 +16,7 @@ interface AnimatedNumberProps {
 const AnimatedNumber: React.FC<AnimatedNumberProps> = ({
   value,
   className = '',
-  duration = 2000,
+  duration = counterDurationMs,
   delay = 0,
   suffix = '',
   prefix = '',
@@ -98,7 +99,7 @@ const AnimatedNumber: React.FC<AnimatedNumberProps> = ({
       className={`animated-number ${className}`}
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6, delay: delay / 1000 }}
+      transition={{ duration: motionVariantDuration, delay: delay / 1000 }}
     >
       {prefix}
       {formatValue(displayValue)}

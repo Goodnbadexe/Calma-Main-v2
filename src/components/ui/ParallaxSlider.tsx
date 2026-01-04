@@ -29,8 +29,8 @@ interface ParallaxSliderProps {
 
 const ParallaxSlider: React.FC<ParallaxSliderProps> = ({
   slides,
-  autoPlay = true,
-  autoPlayDelay = 5000,
+  autoPlay = false,
+  autoPlayDelay = 4000,
   infinite = true,
   showControls = true,
   showDots = true,
@@ -45,6 +45,10 @@ const ParallaxSlider: React.FC<ParallaxSliderProps> = ({
   const parallaxY = useTransform(x, [-100, 100], [-20, 20])
 
   useEffect(() => {
+    const mq = window.matchMedia?.('(prefers-reduced-motion: reduce)')
+    if (mq?.matches) {
+      setIsPlaying(false)
+    }
     let interval: ReturnType<typeof setInterval> | undefined
     if (isPlaying && autoPlay) {
       interval = setInterval(() => {

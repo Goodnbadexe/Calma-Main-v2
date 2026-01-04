@@ -1,16 +1,34 @@
-// Use native anchors to ensure SSR compatibility
 import logoC from '@/assets/Logos/BRANDMARK_01-p-2000.png'
 import { Facebook, Instagram, Linkedin, Twitter, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useRegisterOverlay } from '@/components/register/RegisterOverlayProvider'
+import { useState } from 'react'
 
 export default function Footer() {
   const { t, language } = useLanguage()
+  const overlay = useRegisterOverlay()
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
   
   const getPath = (path: string) => {
     if (language === 'ar') {
-      return path === '/' ? '/ar' : `/ar${path}`
+      const map: Record<string, string> = {
+        '/': '/ar/الرئيسية',
+        '/about': '/ar/عن كالما',
+        '/projects': '/ar/المشاريع',
+        '/news': '/ar/الأخبار',
+        '/register': '/ar/تواصل معنا',
+      }
+      return map[path] ?? path
     }
-    return path
+    const map: Record<string, string> = {
+      '/': '/en/home',
+      '/about': '/en/about',
+      '/projects': '/en/projects',
+      '/news': '/en/news',
+      '/register': '/en/register',
+    }
+    return map[path] ?? path
   }
 
   return (
@@ -18,7 +36,7 @@ export default function Footer() {
       <div className="footer-inner">
         <div className="footer-col">
           <div className="footer-brand">
-            <img src={logoC} alt="Calma" className="footer-logo" />
+            <img src={(logoC as any)?.src ?? (typeof logoC === 'string' ? logoC : '/logo.png')} alt="Calma" className="footer-logo" />
             <div>
               <div className="footer-title">Calma</div>
               <div className="footer-subtitle">{t('footer.vision')}</div>
@@ -64,19 +82,46 @@ export default function Footer() {
             <p className="footer-text" style={{ fontSize: '14px', marginBottom: '8px' }}>
               {t('footer.subscribeDesc')}
             </p>
-            <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="newsletter-form"
+              onSubmit={(e) => {
+                e.preventDefault()
+                const valid = /\S+@\S+\.\S+/.test(email)
+                if (!valid) {
+                  setStatus('error')
+                  return
+                }
+                setStatus('success')
+              }}
+            >
               <input 
                 type="email" 
                 placeholder={t('footer.emailPlaceholder')}
                 className="newsletter-input" 
                 aria-label="Email for newsletter"
+                value={email}
+                onChange={(e) => { setEmail(e.target.value); if (status !== 'idle') setStatus('idle') }}
               />
               <button type="submit" className="newsletter-button" aria-label="Subscribe">
                 {language === 'ar' ? <ArrowRight size={18} className="rotate-180" /> : <ArrowRight size={18} />}
               </button>
             </form>
+            {status === 'success' && (
+              <div className="footer-text" style={{ fontSize: 12, marginTop: 8 }}>{t('footer.subscribeSuccess')}</div>
+            )}
+            {status === 'error' && (
+              <div className="footer-text" style={{ fontSize: 12, marginTop: 8 }}>{t('footer.subscribeInvalid')}</div>
+            )}
           </div>
         </div>
+      </div>
+      
+      <div className="footer-cta">
+        <div className="footer-heading">{t('footer.readyToTalk')}</div>
+        <p className="footer-text">{t('footer.readyToTalkDesc')}</p>
+        <button className="newsletter-button" onClick={() => overlay.open()}>
+          {t('actions.register')}
+        </button>
       </div>
       
       <div className="footer-bottom">

@@ -1,5 +1,5 @@
 export async function submitLead(payload: Record<string, unknown>) {
-  const url = import.meta.env.VITE_LEADS_API_URL
+  const url = process.env.NEXT_PUBLIC_LEADS_API_URL
   if (!url) {
     throw new Error('LEADS_API_URL_MISSING')
   }

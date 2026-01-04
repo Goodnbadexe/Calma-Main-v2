@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react"
-import { Link } from "react-router-dom"
 import { Card } from "@/components/ui/card"
 import { Search, Grid3x3, Eye } from "lucide-react"
 import { projects, projectOrder } from "@/data/english/projects"
 import "./projects.css"
+import Container from "@/components/ui/Container"
+import Section from "@/components/ui/Section"
 
 interface ProjectsPageProps {
   category?: string
@@ -13,7 +14,7 @@ export default function ProjectsPage({ category }: ProjectsPageProps) {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
-  const [viewMode, setViewMode] = useState<"preview" | "grid">("preview")
+  const [viewMode, setViewMode] = useState<"preview" | "grid">("grid")
   const [searchQuery, setSearchQuery] = useState("")
   const containerRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
@@ -102,9 +103,9 @@ export default function ProjectsPage({ category }: ProjectsPageProps) {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#081e1f] text-[#d4cfbc] dark">
-      {/* Header - Always visible */}
-      <div className="fixed top-20 left-0 right-0 z-50 bg-[#081e1f]/80 backdrop-blur-sm border-b border-[#d4cfbc]/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+      <div className="sticky top-16 left-0 right-0 z-50 bg-[#081e1f]/80 backdrop-blur-sm border-b border-[#d4cfbc]/20">
+        <Container>
+          <div className="py-4 flex items-center justify-between gap-4">
           {/* Search Input */}
           <div className="flex-1 max-w-md relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#d4cfbc]/60" />
@@ -142,7 +143,8 @@ export default function ProjectsPage({ category }: ProjectsPageProps) {
               <span className="hidden sm:inline">Grid</span>
             </button>
           </div>
-        </div>
+          </div>
+        </Container>
       </div>
 
       {viewMode === "preview" && (
@@ -936,9 +938,9 @@ export default function ProjectsPage({ category }: ProjectsPageProps) {
       )}
 
       {viewMode === "grid" && (
-        <div className="min-h-screen bg-[#081e1f] pt-40 pb-20">
-          {/* Grid Content */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8">
+        <div className="min-h-screen bg-[#081e1f] pt-24 pb-20">
+          <Section>
+            <Container>
             {/* Stats Overview */}
             <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-[#0a2021] border border-[#d4cfbc]/20 rounded-lg p-4 text-center">
@@ -1031,7 +1033,8 @@ export default function ProjectsPage({ category }: ProjectsPageProps) {
                 <p className="text-[#d4cfbc]/60">Try adjusting your search criteria</p>
               </div>
             )}
-          </div>
+            </Container>
+          </Section>
         </div>
       )}
     </div>

@@ -1,4 +1,5 @@
 import { resolveResponsiveSources, buildSizes } from '@/utils/image'
+import { useState } from 'react'
 
 type StaticImageData = {
   src: string
@@ -18,6 +19,7 @@ type Props = {
 export default function ResponsiveImage({ src, alt, ratio = '16/9', sizes, sources = [] }: Props) {
   const imageSrc = typeof src === 'string' ? src : src.src
   const resolved = resolveResponsiveSources(imageSrc, sources)
+  const [actualSrc, setActualSrc] = useState(imageSrc as string)
   const [w, h] = (() => {
     const parts = `${ratio}`.split('/')
     const a = Number(parts[0])
@@ -32,13 +34,16 @@ export default function ResponsiveImage({ src, alt, ratio = '16/9', sizes, sourc
           <source key={`${s.type}-${s.srcset}`} type={s.type} srcSet={s.srcset} sizes={sizes || buildSizes()} />
         ))}
         <img
-          src={imageSrc}
+          src={actualSrc}
           alt={alt}
           loading="lazy"
           decoding="async"
           width={w}
           height={h}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          onError={() => {
+            if (actualSrc !== '/placeholder.svg') setActualSrc('/placeholder.svg')
+          }}
         />
       </picture>
     </div>
